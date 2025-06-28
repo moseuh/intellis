@@ -16,8 +16,7 @@ pytesseract
 # For PDF text extraction
 PyPDF2
 # For sending emails
-smtplib
-# For HTML email composition
+
 email
 # For phone input validation (frontend only, not needed in requirements.txt)
 # intl-tel-input (JS/CSS library, not Python)

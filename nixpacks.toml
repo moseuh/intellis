@@ -1,0 +1,8 @@
+[phases.setup]
+aptPkgs = ["python3", "gcc", "tesseract-ocr"]  # Added tesseract-ocr for pytesseract
+
+[phases.install]
+cmd = "python -m venv --copies /opt/venv && . /opt/venv/bin/activate && pip install -r requirements.txt"
+
+[start]
+cmd = "gunicorn app:app --bind 0.0.0.0:$PORT"  # Adjust app:app to your app’s module and instance
