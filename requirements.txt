@@ -17,6 +17,6 @@ pytesseract
 PyPDF2
 # For sending emails
 
-email
+
 # For phone input validation (frontend only, not needed in requirements.txt)
 # intl-tel-input (JS/CSS library, not Python)
