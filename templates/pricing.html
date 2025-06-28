@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from readdy.link/share/926dd3b91ad7a9b00084fe0335fcd92d by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 28 May 2025 03:52:12 GMT -->
+<head><script src="https://static.readdy.ai/static/e.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IntelliLease - Pricing Plans</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#9333ea',secondary:'#0ea5e9'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+}
+.tooltip {
+position: relative;
+display: inline-block;
+}
+.tooltip .tooltip-text {
+visibility: hidden;
+width: 240px;
+background-color: #fff;
+color: #1f2937;
+text-align: left;
+border-radius: 8px;
+padding: 10px;
+position: absolute;
+z-index: 1;
+bottom: 125%;
+left: 50%;
+margin-left: -120px;
+opacity: 0;
+transition: opacity 0.3s;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+font-size: 0.875rem;
+line-height: 1.25rem;
+font-weight: 400;
+}
+.tooltip:hover .tooltip-text {
+visibility: visible;
+opacity: 1;
+}
+.pricing-card {
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.pricing-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+.toggle-checkbox:checked {
+right: 0;
+border-color: #9333ea;
+}
+.toggle-checkbox:checked + .toggle-label {
+background-color: #9333ea;
+}
+input:focus, button:focus {
+outline: none;
+box-shadow: 0 0 0 2px rgba(147, 51, 234, 0.2);
+}
+.feature-row:nth-child(odd) {
+background-color: rgba(243, 244, 246, 0.5);
+}
+.modal {
+display: none;
+position: fixed;
+z-index: 50;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+overflow: auto;
+background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-content {
+background-color: #fefefe;
+margin: 10% auto;
+border-radius: 8px;
+box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+max-width: 500px;
+width: 90%;
+}
+.close {
+color: #aaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+.close:hover,
+.close:focus {
+color: black;
+text-decoration: none;
+cursor: pointer;
+}
+.sidebar {
+background-color: #f9fafb;
+width: 250px;
+height: 100vh;
+position: fixed;
+top: 0;
+left: 0;
+padding: 20px;
+box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+.sidebar h2 {
+color: #9333ea;
+font-size: 1.5rem;
+font-weight: 600;
+margin-bottom: 20px;
+}
+.sidebar ul {
+list-style: none;
+padding: 0;
+}
+.sidebar ul li {
+margin-bottom: 10px;
+}
+.sidebar ul li a {
+display: flex;
+align-items: center;
+color: #374151;
+text-decoration: none;
+padding: 8px 12px;
+border-radius: 6px;
+transition: background-color 0.3s;
+}
+.sidebar ul li a:hover {
+background-color: #e5e7eb;
+color: #9333ea;
+}
+.sidebar ul li a i {
+margin-right: 10px;
+font-size: 1.2rem;
+}
+</style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+<!-- Sidebar -->
+<aside class="sidebar">
+    <h2>IntelliLease</h2>
+    <ul>
+        <li><a href="/dashboard"><i class="ri-dashboard-line"></i> Dashboard</a></li>
+        <li><a href="/account"><i class="ri-settings-2-line"></i> Account Settings</a></li>
+        <li><a href="/properties"><i class="ri-home-2-line"></i> Properties</a></li>
+        <li><a href="/upload"><i class="ri-file-text-line"></i> Analyse Leasehold</a></li>
+        <li><a href="/compare"><i class="ri-file-copy-line"></i> Compare Leaseholds</a></li>
+        <li><a href="/analyse"><i class="ri-money-pound-circle-line"></i> Analyse Service Charges</a></li>
+        <li><a href="/help"><i class="ri-question-line"></i> Help</a></li>
+        <li><a href="/chat"><i class="ri-chat-1-line"></i> Chat</a></li>
+    </ul>
+</aside>
+
+<!-- Main Content with Adjusted Margin -->
+<div class="ml-64 p-4">
+<header class="bg-white shadow-sm">
+<div class="container mx-auto px-4 py-4 flex justify-between items-center">
+
+<nav class="hidden md:flex space-x-8">
+<a href="/" class="text-gray-700 hover:text-primary font-medium">Home</a>
+<a href="#" class="text-gray-700 hover:text-primary font-medium">Features</a>
+<a href="/pricing" class="text-gray-700 hover:text-primary font-medium">Pricing</a>
+<a href="/about" class="text-gray-700 hover:text-primary font-medium">About Us</a>
+<a href="/contact" class="text-gray-700 hover:text-primary font-medium">Contact</a>
+</nav>
+<div class="flex items-center space-x-4">
+<a href="#" class="text-gray-600 hover:text-primary transition-colors">Sign in</a>
+<button class="bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap hover:bg-primary/90 transition-colors">Get Started</button>
+</div>
+</div>
+</header>
+<main class="container mx-auto px-4 py-12">
+<section id="pricing" class="text-center max-w-4xl mx-auto mb-16">
+<h1 class="text-4xl md:text-5xl font-bold mb-4">Simple, Transparent Pricing</h1>
+<p class="text-xl text-gray-600 mb-8">Choose the right plan for your leasehold management needs</p>
+<div class="flex justify-center items-center mb-12">
+<span class="mr-3 text-gray-700 font-medium">Monthly</span>
+<div class="relative inline-block w-16 h-8 align-middle select-none transition duration-200 ease-in">
+<input type="checkbox" name="billing-toggle" id="billing-toggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer top-1 left-1"/>
+<label for="billing-toggle" class="toggle-label block overflow-hidden h-8 rounded-full bg-gray-300 cursor-pointer"></label>
+</div>
+<span class="ml-3 text-gray-700 font-medium">Annual</span>
+<span class="ml-2 bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Save 20%</span>
+</div>
+<div class="grid md:grid-cols-3 gap-8">
+<!-- Basic Plan -->
+<div class="pricing-card bg-white/90 rounded-lg shadow-lg overflow-hidden border border-gray-100">
+<div class="p-6 border-b border-gray-100">
+<h3 class="text-2xl font-bold mb-2">Basic</h3>
+<div class="flex items-baseline justify-center mb-4">
+<span class="text-4xl font-extrabold">£9</span>
+<span class="text-gray-500 ml-1">/document</span>
+</div>
+<p class="text-gray-500 text-sm">Pay only for what you use</p>
+</div>
+<div class="p-6">
+<ul class="mb-8 space-y-4">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2">
+<i class="ri-check-line ri-lg"></i>
+</div>
+<span>Lease document review</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2">
+<i class="ri-check-line ri-lg"></i>
+</div>
+<span>Service charge analysis</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2">
+<i class="ri-check-line ri-lg"></i>
+</div>
+<span>5 documents per month</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400 mr-2">
+<i class="ri-close-line ri-lg"></i>
+</div>
+<span class="text-gray-500">Document comparison</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400 mr-2">
+<i class="ri-close-line ri-lg"></i>
+</div>
+<span class="text-gray-500">Priority support</span>
+</li>
+</ul>
+<button class="w-full bg-white border border-primary text-primary font-medium py-3 !rounded-button whitespace-nowrap hover:bg-primary/5 transition-colors cursor-pointer plan-select-btn" data-plan="Basic" data-price="9">Choose Basic</button>
+</div>
+</div>
+<!-- Standard Plan -->
+<div class="pricing-card bg-white/90 rounded-lg shadow-xl overflow-hidden border-2 border-primary relative transform scale-105">
+<div class="absolute top-0 right-0">
+<div class="bg-primary text-white text-xs font-bold px-3 py-1 rounded-bl-lg">MOST POPULAR</div>
+</div>
+<div class="p-6 border-b border-gray-100 bg-primary/5">
+<h3 class="text-2xl font-bold mb-2">Standard</h3>
+<div class="flex items-baseline justify-center mb-4">
+<span class="text-4xl font-extrabold">£29</span>
+<span class="text-gray-500 ml-1">/month</span>
+</div>
+<p class="text-gray-500 text-sm">Billed monthly or £279/year</p>
+</div>
+<div class="p-6">
+<ul class="mb-8 space-y-4">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2">
+<i class="ri-check-line ri-lg"></i>
+</div>
+<span>Lease document review</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2">
+<i class="ri-check-line ri-lg"></i>
+</div>
+<span>Service charge analysis</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2">
+<i class="ri-check-line ri-lg"></i>
+</div>
+<span>15 documents per month</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2">
+<i class="ri-check-line ri-lg"></i>
+</div>
+<span>Document comparison</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400 mr-2">
+<i class="ri-close-line ri-lg"></i>
+</div>
+<span class="text-gray-500">Priority support</span>
+</li>
+</ul>
+<button class="w-full bg-primary text-white font-medium py-3 !rounded-button whitespace-nowrap hover:bg-primary/90 transition-colors cursor-pointer plan-select-btn" data-plan="Standard" data-price="29">Choose Standard</button>
+</div>
+</div>
+<!-- Premium Plan -->
+<div class="pricing-card bg-white/90 rounded-lg shadow-lg overflow-hidden border border-gray-100">
+<div class="p-6 border-b border-gray-100">
+<h3 class="text-2xl font-bold mb-2">Premium</h3>
+<div class="flex items-baseline justify-center mb-4">
+<span class="text-4xl font-extrabold">£79</span>
+<span class="text-gray-500 ml-1">/month</span>
+</div>
+<p class="text-gray-500 text-sm">Billed monthly or £759/year</p>
+</div>
+<div class="p-6">
+<ul class="mb-8 space-y-4">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2">
+<i class="ri-check-line ri-lg"></i>
+</div>
+<span>Unlimited lease document reviews</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2">
+<i class="ri-check-line ri-lg"></i>
+</div>
+<span>Advanced service charge analysis</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2">
+<i class="ri-check-line ri-lg"></i>
+</div>
+<span>Unlimited documents</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2">
+<i class="ri-check-line ri-lg"></i>
+</div>
+<span>Advanced document comparison</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2">
+<i class="ri-check-line ri-lg"></i>
+</div>
+<span>Priority support</span>
+</li>
+</ul>
+<button class="w-full bg-white border border-primary text-primary font-medium py-3 !rounded-button whitespace-nowrap hover:bg-primary/5 transition-colors cursor-pointer plan-select-btn" data-plan="Premium" data-price="79">Choose Premium</button>
+</div>
+</div>
+</div>
+</section>
+<section id="features" class="max-w-5xl mx-auto mb-16">
+<h2 class="text-3xl font-bold text-center mb-8">Compare Features</h2>
+<div class="overflow-x-auto bg-white/90 rounded-lg shadow">
+<table class="min-w-full">
+<thead>
+<tr class="bg-gray-50 border-b border-gray-200">
+<th class="px-6 py-4 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Feature</th>
+<th class="px-6 py-4 text-center text-sm font-medium text-gray-500 uppercase tracking-wider">Basic</th>
+<th class="px-6 py-4 text-center text-sm font-medium text-primary uppercase tracking-wider">Standard</th>
+<th class="px-6 py-4 text-center text-sm font-medium text-gray-500 uppercase tracking-wider">Premium</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-200">
+<tr class="feature-row">
+<td class="px-6 py-4 text-sm font-medium text-gray-900 flex items-center">
+Lease Document Review
+<div class="tooltip ml-1">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-information-line ri-sm"></i>
+</div>
+<span class="tooltip-text">Comprehensive analysis of your lease document to identify key terms, obligations, and potential issues.</span>
+</div>
+</td>
+<td class="px-6 py-4 text-center text-sm text-gray-700">Pay-per-use</td>
+<td class="px-6 py-4 text-center text-sm text-gray-700">Included</td>
+<td class="px-6 py-4 text-center text-sm text-gray-700">Unlimited</td>
+</tr>
+<tr class="feature-row">
+<td class="px-6 py-4 text-sm font-medium text-gray-900 flex items-center">
+Leasehold Extension Document Comparison
+<div class="tooltip ml-1">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-information-line ri-sm"></i>
+</div>
+<span class="tooltip-text">Side-by-side comparison of original lease and extension documents with highlighted differences and expert analysis.</span>
+</div>
+</td>
+<td class="px-6 py-4 text-center text-sm text-gray-700">
+<div class="w-5 h-5 mx-auto flex items-center justify-center text-gray-400">
+<i class="ri-close-line ri-lg"></i>
+</div>
+</td>
+<td class="px-6 py-4 text-center text-sm text-gray-700">2 per month</td>
+<td class="px-6 py-4 text-center text-sm text-gray-700">Unlimited</td>
+</tr>
+<tr class="feature-row">
+<td class="px-6 py-4 text-sm font-medium text-gray-900 flex items-center">
+Service Charge Analysis
+<div class="tooltip ml-1">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-information-line ri-sm"></i>
+</div>
+<span class="tooltip-text">Detailed breakdown and verification of service charges to identify potential overcharging or discrepancies.</span>
+</div>
+</td>
+<td class="px-6 py-4 text-center text-sm text-gray-700">Basic</td>
+<td class="px-6 py-4 text-center text-sm text-gray-700">Standard</td>
+<td class="px-6 py-4 text-center text-sm text-gray-700">Advanced</td>
+</tr>
+<tr class="feature-row">
+<td class="px-6 py-4 text-sm font-medium text-gray-900 flex items-center">
+Budget & Year-end Document Analysis
+<div class="tooltip ml-1">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-information-line ri-sm"></i>
+</div>
+<span class="tooltip-text">Comprehensive review of budget and year-end financial documents with trend analysis and anomaly detection.</span>
+</div>
+</td>
+<td class="px-6 py-4 text-center text-sm text-gray-700">
+<div class="w-5 h-5 mx-auto flex items-center justify-center text-gray-400">
+<i class="ri-close-line ri-lg"></i>
+</div>
+</td>
+<td class="px-6 py-4 text-center text-sm text-gray-700">2 per year</td>
+<td class="px-6 py-4 text-center text-sm text-gray-700">Unlimited</td>
+</tr>
+<tr class="feature-row">
+<td class="px-6 py-4 text-sm font-medium text-gray-900">Monthly Document Limit</td>
+<td class="px-6 py-4 text-center text-sm text-gray-700">5</td>
+<td class="px-6 py-4 text-center text-sm text-gray-700">15</td>
+<td class="px-6 py-4 text-center text-sm text-gray-700">Unlimited</td>
+</tr>
+<tr class="feature-row">
+<td class="px-6 py-4 text-sm font-medium text-gray-900">Document Storage</td>
+<td class="px-6 py-4 text-center text-sm text-gray-700">30 days</td>
+<td class="px-6 py-4 text-center text-sm text-gray-700">1 year</td>
+<td class="px-6 py-4 text-center text-sm text-gray-700">Unlimited</td>
+</tr>
+<tr class="feature-row">
+<td class="px-6 py-4 text-sm font-medium text-gray-900">Support</td>
+<td class="px-6 py-4 text-center text-sm text-gray-700">Email</td>
+<td class="px-6 py-4 text-center text-sm text-gray-700">Email & Chat</td>
+<td class="px-6 py-4 text-center text-sm text-gray-700">Priority Support</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="faq" class="max-w-4xl mx-auto mb-16">
+<h2 class="text-3xl font-bold text-center mb-8">Frequently Asked Questions</h2>
+<div class="space-y-6">
+<div class="bg-white/90 rounded-lg shadow p-6">
+<h3 class="text-lg font-medium mb-2">How often can I use the service charge analysis feature?</h3>
+<p class="text-gray-600">Service charge analysis is typically needed twice a year when you receive your service charge statements. Our Standard and Premium plans include this bi-annual analysis, while Basic plan users can purchase this service as needed.</p>
+</div>
+<div class="bg-white/90 rounded-lg shadow p-6">
+<h3 class="text-lg font-medium mb-2">What is the difference between basic and advanced service charge analysis?</h3>
+<p class="text-gray-600">Basic analysis provides a simple review of charges and identifies obvious discrepancies. Advanced analysis includes historical trend comparison, detailed line-item verification, and expert recommendations for potential challenges to unreasonable charges.</p>
+</div>
+<div class="bg-white/90 rounded-lg shadow p-6">
+<h3 class="text-lg font-medium mb-2">Can I upgrade or downgrade my plan?</h3>
+<p class="text-gray-600">Yes, you can change your plan at any time. When upgrading, you'll be charged the prorated difference for the remainder of your billing cycle. When downgrading, the new rate will apply at the start of your next billing cycle.</p>
+</div>
+<div class="bg-white/90 rounded-lg shadow p-6">
+<h3 class="text-lg font-medium mb-2">Is there a limit to the size of documents I can upload?</h3>
+<p class="text-gray-600">Basic and Standard plans have a 20MB per document limit. Premium plans allow documents up to 50MB. If you have larger documents, please contact our support team for assistance.</p>
+</div>
+</div>
+</section>
+<section id="custom" class="bg-primary/10 rounded-2xl p-8 md:p-12 max-w-5xl mx-auto mb-16">
+<div class="text-center mb-8">
+<h2 class="text-3xl font-bold mb-4">Need a custom solution?</h2>
+<p class="text-xl text-gray-600 max-w-2xl mx-auto">We offer tailored solutions for property management companies and housing associations.</p>
+</div>
+<div class="flex flex-col md:flex-row items-center justify-center gap-4">
+<button id="contactSalesBtn" class="bg-primary text-white px-6 py-3 !rounded-button whitespace-nowrap hover:bg-primary/90 transition-colors font-medium cursor-pointer">Contact Sales</button>
+<button id="demoBtn" class="bg-white border border-gray-300 text-gray-700 px-6 py-3 !rounded-button whitespace-nowrap hover:bg-gray-50 transition-colors font-medium cursor-pointer">See Demo</button>
+</div>
+</section>
+</main>
+</div>
+
+<!-- Demo Modal -->
+<div id="demoModal" class="modal">
+<div class="modal-content max-w-4xl">
+<div class="p-6">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-2xl font-bold">Product Demo</h2>
+<span class="close cursor-pointer" id="closeDemoModal">×</span>
+</div>
+<div class="aspect-video bg-gray-100 rounded-lg mb-6 overflow-hidden">
+<div class="w-full h-full flex items-center justify-center">
+<div class="text-center">
+<div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center text-primary">
+<i class="ri-video-line ri-3x"></i>
+</div>
+<p class="text-gray-500">Demo video player placeholder</p>
+</div>
+</div>
+</div>
+<div class="grid md:grid-cols-3 gap-6 mb-8">
+<div class="bg-gray-50 p-4 rounded-lg">
+<div class="w-10 h-10 flex items-center justify-center text-primary bg-primary/10 rounded-lg mb-3">
+<i class="ri-file-search-line ri-lg"></i>
+</div>
+<h3 class="font-medium mb-2">Document Review</h3>
+<p class="text-sm text-gray-600">AI-powered lease document analysis and key term extraction</p>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg">
+<div class="w-10 h-10 flex items-center justify-center text-primary bg-primary/10 rounded-lg mb-3">
+<i class="ri-money-pound-circle-line ri-lg"></i>
+</div>
+<h3 class="font-medium mb-2">Service Charge Analysis</h3>
+<p class="text-sm text-gray-600">Detailed breakdown and verification of service charges</p>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg">
+<div class="w-10 h-10 flex items-center justify-center text-primary bg-primary/10 rounded-lg mb-3">
+<i class="ri-file-copy-line ri-lg"></i>
+</div>
+<h3 class="font-medium mb-2">Document Comparison</h3>
+<p class="text-sm text-gray-600">Side-by-side comparison with change highlighting</p>
+</div>
+</div>
+<div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-6 border-t border-gray-200">
+<p class="text-gray-600">Want to see IntelliLease in action with your own documents?</p>
+<button id="scheduleDemoBtn" class="bg-primary text-white px-6 py-3 !rounded-button whitespace-nowrap hover:bg-primary/90 transition-colors font-medium">Schedule Live Demo</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Contact Sales Modal -->
+<div id="contactSalesModal" class="modal">
+<div class="modal-content max-w-xl">
+<div class="p-6">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-2xl font-bold">Contact Sales Team</h2>
+<span class="close cursor-pointer" id="closeContactModal">×</span>
+</div>
+<p class="text-gray-600 mb-6">Tell us about your requirements and our team will get back to you within 24 hours.</p>
+<form id="contactSalesForm">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+<div>
+<label for="contactName" class="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
+<input type="text" id="contactName" name="name" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="John Smith">
+</div>
+<div>
+<label for="contactCompany" class="block text-sm font-medium text-gray-700 mb-1">Company Name *</label>
+<input type="text" id="contactCompany" name="company" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="Property Management Ltd">
+</div>
+<div>
+<label for="contactEmail" class="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
+<input type="email" id="contactEmail" name="email" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="john@company.com">
+</div>
+<div>
+<label for="contactPhone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+<input type="tel" id="contactPhone" name="phone" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="+44 7700 900000">
+</div>
+</div>
+<div class="mb-4">
+<label for="propertyCount" class="block text-sm font-medium text-gray-700 mb-1">Number of Properties Managed *</label>
+<select id="propertyCount" name="propertyCount" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary pr-8">
+<option value="">Select range</option>
+<option value="1-10">1-10 properties</option>
+<option value="11-50">11-50 properties</option>
+<option value="51-200">51-200 properties</option>
+<option value="201-500">201-500 properties</option>
+<option value="500+">500+ properties</option>
+</select>
+</div>
+<div class="mb-6">
+<label for="contactMessage" class="block text-sm font-medium text-gray-700 mb-1">Message *</label>
+<textarea id="contactMessage" name="message" required rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="Please describe your specific requirements..."></textarea>
+</div>
+<div class="mb-6">
+<label class="flex items-start">
+<input type="checkbox" required class="mt-1 mr-2">
+<span class="text-sm text-gray-600">I agree to receive communications from IntelliLease. You can unsubscribe at any time. View our <a href="#" class="text-primary hover:underline">Privacy Policy</a>.</span>
+</label>
+</div>
+<button type="submit" class="w-full bg-primary text-white font-medium py-3 !rounded-button whitespace-nowrap hover:bg-primary/90 transition-colors cursor-pointer">Submit Request</button>
+</form>
+</div>
+</div>
+</div>
+<!-- Contact Success Modal -->
+<div id="contactSuccessModal" class="modal">
+<div class="modal-content max-w-md">
+<div class="p-6 text-center">
+<div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+<div class="w-8 h-8 flex items-center justify-center text-green-500">
+<i class="ri-check-line ri-2x"></i>
+</div>
+</div>
+<h2 class="text-2xl font-bold mb-2">Request Sent Successfully!</h2>
+<p class="text-gray-600 mb-6">Thank you for your interest. Our sales team will contact you within 24 hours.</p>
+<button id="closeContactSuccessBtn" class="w-full bg-primary text-white font-medium py-3 !rounded-button whitespace-nowrap hover:bg-primary/90 transition-colors cursor-pointer">Close</button>
+</div>
+</div>
+</div>
+<footer class="bg-gray-900 text-white py-12">
+<div class="container mx-auto px-4">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+<div>
+<h3 class="text-xl font-semibold mb-4">IntelliLease</h3>
+<p class="text-gray-400 mb-4">Simplifying leasehold management for UK property owners since 2020.</p>
+<div class="flex space-x-4">
+<a href="#" class="text-gray-400 hover:text-white transition-colors">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-twitter-x-line ri-lg"></i>
+</div>
+</a>
+<a href="#" class="text-gray-400 hover:text-white transition-colors">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-facebook-line ri-lg"></i>
+</div>
+</a>
+<a href="#" class="text-gray-400 hover:text-white transition-colors">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-linkedin-line ri-lg"></i>
+</div>
+</a>
+</div>
+</div>
+<div>
+<h4 class="text-lg font-medium mb-4">Product</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Features</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Case Studies</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Reviews</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-medium mb-4">Resources</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Help Centre</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Leasehold Guides</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Service Charge FAQ</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-medium mb-4">Company</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Careers</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+</ul>
+</div>
+</div>
+<div class="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+<p class="text-gray-400 mb-4 md:mb-0">© 2025 IntelliLease. All rights reserved.</p>
+<div class="flex items-center space-x-4">
+<div class="w-8 h-8 flex items-center justify-center text-gray-400">
+<i class="ri-visa-line ri-lg"></i>
+</div>
+<div class="w-8 h-8 flex items-center justify-center text-gray-400">
+<i class="ri-mastercard-line ri-lg"></i>
+</div>
+<div class="w-8 h-8 flex items-center justify-center text-gray-400">
+<i class="ri-paypal-line ri-lg"></i>
+</div>
+<div class="w-8 h-8 flex items-center justify-center text-gray-400">
+<i class="ri-apple-line ri-lg"></i>
+</div>
+</div>
+</div>
+</div>
+</footer>
+<!-- Payment Modal -->
+<div id="paymentModal" class="modal">
+<div class="modal-content">
+<div class="p-6">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-2xl font-bold">Complete Your Purchase</h2>
+<span class="close cursor-pointer">×</span>
+</div>
+<div class="mb-6">
+<div class="flex justify-between items-center mb-2">
+<span class="font-medium">Selected Plan:</span>
+<span id="selectedPlan" class="font-semibold">Standard</span>
+</div>
+<div class="flex justify-between items-center mb-4">
+<span class="font-medium">Price:</span>
+<span id="selectedPrice" class="font-semibold">£29/month</span>
+</div>
+<div class="h-px bg-gray-200 my-4"></div>
+</div>
+<form id="paymentForm">
+<div class="mb-6">
+<h3 class="text-lg font-medium mb-4">Payment Method</h3>
+<div class="flex flex-wrap gap-4 mb-4">
+<button type="button" class="payment-method-btn flex items-center justify-center border border-gray-300 rounded-lg p-3 hover:border-primary cursor-pointer" data-method="card">
+<div class="w-6 h-6 flex items-center justify-center mr-2">
+<i class="ri-bank-card-line ri-lg"></i>
+</div>
+<span>Credit Card</span>
+</button>
+<button type="button" class="payment-method-btn flex items-center justify-center border border-gray-300 rounded-lg p-3 hover:border-primary cursor-pointer" data-method="apple">
+<div class="w-6 h-6 flex items-center justify-center mr-2">
+<i class="ri-apple-fill ri-lg"></i>
+</div>
+<span>Apple Pay</span>
+</button>
+<button type="button" class="payment-method-btn flex items-center justify-center border border-gray-300 rounded-lg p-3 hover:border-primary cursor-pointer" data-method="paypal">
+<div class="w-6 h-6 flex items-center justify-center mr-2">
+<i class="ri-paypal-fill ri-lg"></i>
+</div>
+<span>PayPal</span>
+</button>
+</div>
+</div>
+<div id="cardPaymentFields" class="mb-6">
+<div class="mb-4">
+<label for="cardName" class="block text-sm font-medium text-gray-700 mb-1">Name on Card</label>
+<input type="text" id="cardName" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="John Smith">
+</div>
+<div class="mb-4">
+<label for="cardNumber" class="block text-sm font-medium text-gray-700 mb-1">Card Number</label>
+<div class="relative">
+<input type="text" id="cardNumber" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary pl-10" placeholder="1234 5678 9012 3456">
+<div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-bank-card-line"></i>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="mb-4">
+<label for="expiryDate" class="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
+<input type="text" id="expiryDate" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="MM/YY">
+</div>
+<div class="mb-4">
+<label for="cvv" class="block text-sm font-medium text-gray-700 mb-1">CVV</label>
+<input type="text" id="cvv" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="123">
+</div>
+</div>
+</div>
+<div id="applePayButton" class="mb-6 hidden">
+<button type="button" class="w-full bg-black text-white font-medium py-3 rounded-lg flex items-center justify-center cursor-pointer">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-apple-fill ri-lg"></i>
+</div>
+<span>Pay with Apple Pay</span>
+</button>
+</div>
+<div id="paypalButton" class="mb-6 hidden">
+<button type="button" class="w-full bg-[#0070ba] text-white font-medium py-3 rounded-lg flex items-center justify-center cursor-pointer">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-paypal-fill ri-lg"></i>
+</div>
+<span>Pay with PayPal</span>
+</button>
+</div>
+<div class="mb-4">
+<label class="flex items-start">
+<input type="checkbox" class="mt-1 mr-2">
+<span class="text-sm text-gray-600">I agree to the <a href="#" class="text-primary hover:underline">Terms of Service</a> and <a href="#" class="text-primary hover:underline">Privacy Policy</a></span>
+</label>
+</div>
+<button type="submit" id="completePaymentBtn" class="w-full bg-primary text-white font-medium py-3 !rounded-button whitespace-nowrap hover:bg-primary/90 transition-colors cursor-pointer">Complete Payment</button>
+</form>
+</div>
+</div>
+</div>
+<!-- Success Modal -->
+<div id="successModal" class="modal">
+<div class="modal-content max-w-md">
+<div class="p-6 text-center">
+<div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+<div class="w-8 h-8 flex items-center justify-center text-green-500">
+<i class="ri-check-line ri-2x"></i>
+</div>
+</div>
+<h2 class="text-2xl font-bold mb-2">Payment Successful!</h2>
+<p class="text-gray-600 mb-6">Thank you for your purchase. Your subscription has been activated.</p>
+<div class="bg-gray-50 rounded-lg p-4 mb-6">
+<div class="flex justify-between items-center mb-2">
+<span class="text-gray-600">Plan:</span>
+<span id="confirmPlan" class="font-medium">Standard</span>
+</div>
+<div class="flex justify-between items-center mb-2">
+<span class="text-gray-600">Amount:</span>
+<span id="confirmAmount" class="font-medium">£29.00</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-gray-600">Date:</span>
+<span id="confirmDate" class="font-medium">June 06, 2025</span>
+</div>
+</div>
+<button id="closeSuccessBtn" class="w-full bg-primary text-white font-medium py-3 !rounded-button whitespace-nowrap hover:bg-primary/90 transition-colors cursor-pointer">Continue to Dashboard</button>
+</div>
+</div>
+</div>
+<script id="pricing-toggle">
+document.addEventListener('DOMContentLoaded', function() {
+const billingToggle = document.getElementById('billing-toggle');
+const monthlyPrices = ['£9', '£29', '£79'];
+const annualPrices = ['£7', '£23', '£63'];
+const priceElements = document.querySelectorAll('.pricing-card .text-4xl');
+billingToggle.addEventListener('change', function() {
+const isAnnual = this.checked;
+priceElements.forEach((element, index) => {
+element.textContent = isAnnual ? annualPrices[index] : monthlyPrices[index];
+});
+const billingTexts = document.querySelectorAll('.pricing-card p.text-gray-500.text-sm');
+if (isAnnual) {
+if (billingTexts[1]) billingTexts[1].textContent = 'Billed annually (£279/year)';
+if (billingTexts[2]) billingTexts[2].textContent = 'Billed annually (£759/year)';
+} else {
+if (billingTexts[1]) billingTexts[1].textContent = 'Billed monthly or £279/year';
+if (billingTexts[2]) billingTexts[2].textContent = 'Billed monthly or £759/year';
+}
+});
+});
+</script>
+<script id="tooltip-handler">
+document.addEventListener('DOMContentLoaded', function() {
+const tooltips = document.querySelectorAll('.tooltip');
+tooltips.forEach(tooltip => {
+tooltip.addEventListener('mouseenter', function() {
+const tooltipText = this.querySelector('.tooltip-text');
+const rect = this.getBoundingClientRect();
+const windowHeight = window.innerHeight;
+if (rect.top < 150) {
+tooltipText.style.bottom = 'auto';
+tooltipText.style.top = '125%';
+} else {
+tooltipText.style.top = 'auto';
+tooltipText.style.bottom = '125%';
+}
+});
+});
+});
+</script>
+<script id="payment-modal-handler">
+document.addEventListener('DOMContentLoaded', function() {
+const modal = document.getElementById('paymentModal');
+const successModal = document.getElementById('successModal');
+const planButtons = document.querySelectorAll('.plan-select-btn');
+const closeBtn = document.querySelector('.close');
+const selectedPlanElement = document.getElementById('selectedPlan');
+const selectedPriceElement = document.getElementById('selectedPrice');
+const paymentMethodButtons = document.querySelectorAll('.payment-method-btn');
+const cardPaymentFields = document.getElementById('cardPaymentFields');
+const applePayButton = document.getElementById('applePayButton');
+const paypalButton = document.getElementById('paypalButton');
+const paymentForm = document.getElementById('paymentForm');
+const closeSuccessBtn = document.getElementById('closeSuccessBtn');
+const confirmPlan = document.getElementById('confirmPlan');
+const confirmAmount = document.getElementById('confirmAmount');
+const confirmDate = document.getElementById('confirmDate');
+const billingToggle = document.getElementById('billing-toggle');
+// Set current date
+const today = new Date();
+const options = { year: 'numeric', month: 'long', day: 'numeric' };
+confirmDate.textContent = today.toLocaleDateString('en-GB', options);
+// Open modal when a plan is selected
+planButtons.forEach(button => {
+button.addEventListener('click', function() {
+const plan = this.getAttribute('data-plan');
+let price = this.getAttribute('data-price');
+const isAnnual = billingToggle.checked;
+if (plan === 'Basic') {
+selectedPlanElement.textContent = plan;
+selectedPriceElement.textContent = `£${isAnnual ? '7' : '9'}/document`;
+confirmPlan.textContent = plan;
+confirmAmount.textContent = `£${isAnnual ? '7.00' : '9.00'}`;
+} else {
+selectedPlanElement.textContent = plan;
+if (isAnnual) {
+if (plan === 'Standard') {
+selectedPriceElement.textContent = '£23/month (billed annually)';
+confirmAmount.textContent = '£279.00/year';
+} else {
+selectedPriceElement.textContent = '£63/month (billed annually)';
+confirmAmount.textContent = '£759.00/year';
+}
+} else {
+selectedPriceElement.textContent = `£${price}/month`;
+confirmAmount.textContent = `£${price}.00`;
+}
+confirmPlan.textContent = plan;
+}
+modal.style.display = 'block';
+});
+});
+// Close modal when clicking the close button
+closeBtn.addEventListener('click', function() {
+modal.style.display = 'none';
+resetPaymentForm();
+});
+// Close modal when clicking outside the modal content
+window.addEventListener('click', function(event) {
+if (event.target === modal) {
+modal.style.display = 'none';
+resetPaymentForm();
+}
+if (event.target === successModal) {
+successModal.style.display = 'none';
+}
+});
+// Handle payment method selection
+paymentMethodButtons.forEach(button => {
+button.addEventListener('click', function() {
+const method = this.getAttribute('data-method');
+// Reset all buttons to default state
+paymentMethodButtons.forEach(btn => {
+btn.classList.remove('border-primary', 'bg-primary/5');
+});
+// Highlight selected button
+this.classList.add('border-primary', 'bg-primary/5');
+// Show/hide appropriate payment fields
+if (method === 'card') {
+cardPaymentFields.classList.remove('hidden');
+applePayButton.classList.add('hidden');
+paypalButton.classList.add('hidden');
+} else if (method === 'apple') {
+cardPaymentFields.classList.add('hidden');
+applePayButton.classList.remove('hidden');
+paypalButton.classList.add('hidden');
+} else if (method === 'paypal') {
+cardPaymentFields.classList.add('hidden');
+applePayButton.classList.add('hidden');
+paypalButton.classList.remove('hidden');
+}
+});
+});
+// Select credit card by default
+paymentMethodButtons[0].click();
+// Handle form submission
+paymentForm.addEventListener('submit', function(event) {
+event.preventDefault();
+modal.style.display = 'none';
+successModal.style.display = 'block';
+resetPaymentForm();
+});
+// Close success modal
+closeSuccessBtn.addEventListener('click', function() {
+successModal.style.display = 'none';
+});
+// Reset payment form
+function resetPaymentForm() {
+paymentForm.reset();
+paymentMethodButtons[0].click();
+}
+});
+</script>
+<script id="contact-modal-handler">
+document.addEventListener('DOMContentLoaded', function() {
+const contactModal = document.getElementById('contactSalesModal');
+const contactSuccessModal = document.getElementById('contactSuccessModal');
+const contactSalesBtn = document.getElementById('contactSalesBtn');
+const closeContactBtn = document.getElementById('closeContactModal');
+const closeContactSuccessBtn = document.getElementById('closeContactSuccessBtn');
+const contactForm = document.getElementById('contactSalesForm');
+contactSalesBtn.addEventListener('click', function() {
+contactModal.style.display = 'block';
+});
+closeContactBtn.addEventListener('click', function() {
+contactModal.style.display = 'none';
+contactForm.reset();
+});
+closeContactSuccessBtn.addEventListener('click', function() {
+contactSuccessModal.style.display = 'none';
+});
+window.addEventListener('click', function(event) {
+if (event.target === contactModal) {
+contactModal.style.display = 'none';
+contactForm.reset();
+}
+if (event.target === contactSuccessModal) {
+contactSuccessModal.style.display = 'none';
+}
+});
+contactForm.addEventListener('submit', function(event) {
+event.preventDefault();
+contactModal.style.display = 'none';
+contactSuccessModal.style.display = 'block';
+contactForm.reset();
+});
+});
+</script>
+<script id="demo-modal-handler">
+document.addEventListener('DOMContentLoaded', function() {
+const demoModal = document.getElementById('demoModal');
+const demoBtn = document.getElementById('demoBtn');
+const closeDemoModal = document.getElementById('closeDemoModal');
+const scheduleDemoBtn = document.getElementById('scheduleDemoBtn');
+const contactModal = document.getElementById('contactSalesModal');
+demoBtn.addEventListener('click', function() {
+demoModal.style.display = 'block';
+});
+closeDemoModal.addEventListener('click', function() {
+demoModal.style.display = 'none';
+});
+window.addEventListener('click', function(event) {
+if (event.target === demoModal) {
+demoModal.style.display = 'none';
+}
+});
+scheduleDemoBtn.addEventListener('click', function() {
+demoModal.style.display = 'none';
+contactModal.style.display = 'block';
+});
+});
+</script>
+<script>
+!function (t, e) { var o, n, p, r; e.__SV || (window.posthog = e, e._i = [], e.init = function (i, s, a) { function g(t, e) { var o = e.split("."); 2 == o.length && (t = t[o[0]], e = o[1]), t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } } (p = t.createElement("script")).type = "text/javascript", p.crossOrigin = "anonymous", p.async = !0, p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js", (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r); var u = e; for (void 0 !== a ? u = e[a] = [] : a = "posthog", u.people = u.people || [], u.toString = function (t) { var e = "posthog"; return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e }, u.people.toString = function () { return u.toString(1) + ".people (stub)" }, o = "init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "), n = 0; n < o.length; n++)g(u, o[n]); e._i.push([i, s, a]) }, e.__SV = 1) }(document, window.posthog || []);
+posthog.init('phc_t9tkQZJiyi2ps9zUYm8TDsL6qXo4YmZx0Ot5rBlAlEd', {
+api_host: 'https://us.i.posthog.com',
+autocapture: false,
+capture_pageview: false,
+capture_pageleave: false,
+capture_performance: {
+web_vitals: false,
+},
+rageclick: false,
+})
+window.shareKey = 'qo5Z9AvJnRuXh9LZI3T-Mw';
+window.host = 'readdy.ai';
+</script>
+<script src="https://static.readdy.ai/static/share.js"></script>
+</body>
+
+<!-- Mirrored from readdy.link/share/926dd3b91ad7a9b00084fe0335fcd92d by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 28 May 2025 03:52:15 GMT -->
+</html>

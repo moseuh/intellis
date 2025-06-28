@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Analyze your leasehold document with AI-powered technology. Get instant insights on ground rent, lease terms, and modern provisions.">
+    <meta name="keywords" content="leasehold analysis, lease extension, ground rent, property law, lease document review">
+    <meta name="author" content="Intellilease">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="My Current Leasehold Document Analysis | Intellilease">
+    <meta property="og:description" content="Analyze your leasehold document with AI-powered technology. Get instant insights on ground rent, lease terms, and modern provisions.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://intellilease.com/analysis">
+    <meta property="og:image" content="https://intellilease.com/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="My Current Leasehold Document Analysis | Intellilease">
+    <meta name="twitter:description" content="AI-powered leasehold document analysis for modern property management.">
+    <title>Leasehold Document Analysis | IntelliLease</title>
+    <link rel="canonical" href="https://intellilease.com/analysis">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#64748b'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
+        .sidebar {
+            width: 280px;
+            transition: all 0.3s ease;
+        }
+        .main-content {
+            width: calc(100% - 280px);
+            transition: all 0.3s ease;
+        }
+        .upload-area {
+            border: 2px dashed #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        .upload-area:hover {
+            border-color: #3b82f6;
+        }
+        .blur-section {
+            filter: blur(4px);
+            pointer-events: none;
+            user-select: none;
+        }
+        .progress-bar {
+            height: 4px;
+            background-color: #e2e8f0;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #3b82f6;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 80px;
+            }
+            .main-content {
+                width: calc(100% - 80px);
+            }
+            .sidebar-text {
+                display: none;
+            }
+            .sidebar-logo span {
+                display: none;
+            }
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 50;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .custom-checkbox {
+            position: relative;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        .custom-checkbox.checked {
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+        .custom-checkbox.checked::after {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 6px;
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .risk-progress {
+            height: 4px;
+            background: linear-gradient(to right, #f97316, #f97316) no-repeat, #e5e7eb;
+            border-radius: 2px;
+        }
+        .upgrade-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            text-align: center;
+            pointer-events: auto;
+            opacity: 0;
+            animation: fadeInScale 0.5s ease-out 0.3s forwards;
+        }
+        .compliance-card {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            opacity: 0;
+            transform: translateY(20px);
+            will-change: transform, opacity;
+        }
+        .compliance-card:nth-child(1) { animation: slideInUp 0.5s ease-out 0.1s forwards; }
+        .compliance-card:nth-child(2) { animation: slideInUp 0.5s ease-out 0.2s forwards; }
+        .compliance-card:nth-child(3) { animation: slideInUp 0.5s ease-out 0.3s forwards; }
+        .compliance-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -40%) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -45%) scale(1);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="sidebar bg-white shadow-lg flex flex-col h-full z-10">
+            <div class="p-6 flex items-center sidebar-logo">
+                <span class="font-sans text-primary text-2xl font-bold tracking-tight">IntelliLease</span>
+            </div>
+            <nav class="flex-1 px-4 py-6 overflow-y-auto">
+                <ul class="space-y-6">
+                    <li class="space-y-2">
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="/dashboard" class="flex items-center px-4 py-2.5 text-gray-600 hover:bg-gray-100 rounded-lg transition-all">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-dashboard-line"></i>
+                                    </div>
+                                    <span class="ml-3 sidebar-text">Dashboard</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="space-y-2">
+                        <div class="flex items-center px-4 py-2 text-xs font-medium text-gray-400 uppercase tracking-wider">
+                            <span class="sidebar-text">Products</span>
+                        </div>
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="/upload" class="flex items-center px-4 py-2.5 text-primary bg-blue-50 rounded-lg transition-all">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-file-text-line"></i>
+                                    </div>
+                                    <span class="ml-3 sidebar-text">Analyse Leasehold</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/analyse" class="flex items-center px-4 py-2.5 text-gray-600 hover:bg-gray-100 rounded-lg transition-all">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-file-chart-line"></i>
+                                    </div>
+                                    <span class="ml-3 sidebar-text">Service Charge Audit</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/compare" class="flex items-center px-4 py-2.5 text-gray-600 hover:bg-gray-100 rounded-lg transition-all">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-file-copy-line"></i>
+                                    </div>
+                                    <span class="ml-3 sidebar-text">Compare Leaseholds</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="space-y-2">
+                        <div class="flex items-center px-4 py-2 text-xs font-medium text-gray-400 uppercase tracking-wider">
+                            <span class="sidebar-text">Tools</span>
+                        </div>
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="/properties" class="flex items-center px-4 py-2.5 text-gray-600 hover:bg-gray-100 rounded-lg transition-all">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-home-2-line"></i>
+                                    </div>
+                                    <span class="ml-3 sidebar-text">Properties</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="space-y-2">
+                        <div class="flex items-center px-4 py-2 text-xs font-medium text-gray-400 uppercase tracking-wider">
+                            <span class="sidebar-text">Support</span>
+                        </div>
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="/help" class="flex items-center px-4 py-2.5 text-gray-600 hover:bg-gray-100 rounded-lg transition-all">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-question-line"></i>
+                                    </div>
+                                    <span class="ml-3 sidebar-text">Help Center</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/chat" class="flex items-center px-4 py-2.5 text-gray-600 hover:bg-gray-100 rounded-lg transition-all">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-chat-1-line"></i>
+                                    </div>
+                                    <span class="ml-3 sidebar-text">Live Chat</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="space-y-2">
+                        <div class="flex items-center px-4 py-2 text-xs font-medium text-gray-400 uppercase tracking-wider">
+                            <span class="sidebar-text">Account</span>
+                        </div>
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="/account" class="flex items-center px-4 py-2.5 text-gray-600 hover:bg-gray-100 rounded-lg transition-all">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-user-settings-line"></i>
+                                    </div>
+                                    <span class="ml-3 sidebar-text">Settings</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="p-4 border-t border-gray-200">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                        <div class="w-6 h-6 flex items-center justify-center">
+                            <i class="ri-user-line text-primary"></i>
+                        </div>
+                    </div>
+                    <div class="ml-3 sidebar-text">
+                        <p class="text-sm font-medium">Emily Richardson</p>
+                        <p class="text-xs text-gray-500">Premium Member</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <!-- Main Content -->
+        <main class="main-content bg-gray-50 overflow-y-auto">
+            <div class="p-8">
+                <!-- OCR Confirmation Popup -->
+                <div id="ocrModal" class="modal">
+                    <div class="modal-content">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-lg font-semibold text-gray-800">Scanned Document Detected</h2>
+                            <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
+                                <i class="ri-close-line text-xl"></i>
+                            </button>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4">The uploaded document appears to be a scanned image or a PDF without selectable text. We can process it using OCR (Optical Character Recognition) to extract the text for analysis. Alternatively, you can edit the document to ensure accuracy.</p>
+                        <div class="flex justify-end space-x-3">
+                            <button onclick="editDocument()" class="bg-gray-200 text-gray-800 py-2 px-4 rounded hover:bg-gray-300">
+                                Edit Document
+                            </button>
+                            <button onclick="continueWithOCR()" class="bg-primary text-white py-2 px-4 rounded hover:bg-primary/90">
+                                Continue with OCR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Header -->
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold text-gray-900">My Current Leasehold Document Analysis</h1>
+                    <p class="mt-2 text-gray-600">Upload your lease document to analyze clauses and prepare for negotiation.</p>
+                </div>
+                <!-- Progress Steps -->
+                <div class="mb-10">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-medium" id="upload-step">1</div>
+                            <span class="ml-2 text-sm font-medium" id="upload-text">Upload</span>
+                        </div>
+                        <div class="w-16 h-1 bg-gray-200">
+                            <div class="h-full bg-primary w-0" id="upload-progress"></div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-medium" id="processing-step">2</div>
+                            <span class="ml-2 text-sm font-medium text-gray-600" id="processing-text">Processing</span>
+                        </div>
+                        <div class="w-16 h-1 bg-gray-200">
+                            <div class="h-full bg-primary w-0" id="processing-progress"></div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-medium" id="analyzing-step">3</div>
+                            <span class="ml-2 text-sm font-medium text-gray-600" id="analyzing-text">Analyzing</span>
+                        </div>
+                        <div class="w-16 h-1 bg-gray-200">
+                            <div class="h-full bg-primary w-0" id="analyzing-progress"></div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-medium" id="complete-step">4</div>
+                            <span class="ml-2 text-sm font-medium text-gray-600" id="complete-text">Complete</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Main Content Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Upload Section -->
+                    <div class="upload-section lg:col-span-1 bg-white p-6 rounded-lg shadow-sm" id="upload-section">
+                        <h2 class="text-xl font-semibold mb-4">Upload Lease Document</h2>
+                        <div class="upload-area p-6 rounded-lg flex flex-col items-center justify-center cursor-pointer mb-4" id="dropArea">
+                            <div class="w-16 h-16 flex items-center justify-center bg-blue-50 rounded-full mb-3">
+                                <i class="ri-upload-cloud-line text-primary text-2xl"></i>
+                            </div>
+                            <p class="text-sm text-center mb-2">Drag and drop your lease document here or click to browse</p>
+                            <p class="text-xs text-gray-500 text-center">Supported formats: PDF, JPG, PNG (Max 20MB)</p>
+                            <label for="file-upload" class="mt-4 bg-primary text-white px-4 py-2 rounded-button whitespace-nowrap">Browse Files</label>
+                            <input type="file" id="file-upload" accept=".pdf,.png,.jpg,.jpeg" class="hidden">
+                        </div>
+                        <div class="mt-6" id="property-details">
+                            <h3 class="text-sm font-medium mb-2">Property Details</h3>
+                            <div class="mb-3">
+                                <label class="block text-xs text-gray-500 mb-1">Property Address</label>
+                                <p class="text-sm text-gray-600" id="property-address">Not yet uploaded</p>
+                            </div>
+                            <div class="mb-3">
+                                <label class="block text-xs text-gray-500 mb-1">Lease Reference</label>
+                                <p class="text-sm text-gray-600" id="lease-reference">Not yet uploaded</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Processing Section -->
+                    <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-sm hidden" id="processing-section">
+                        <div class="flex flex-col items-center">
+                            <svg class="animate-spin h-10 w-10 text-primary mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Analyzing your lease document</h3>
+                            <p class="text-gray-500 mb-6">This may take a few moments...</p>
+                            <div class="w-full max-w-md bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-primary h-2.5 rounded-full progress-processing" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Results Section -->
+                    <div class="lg:col-span-2 space-y-6 hidden" id="results-section">
+                        <!-- Document Summary -->
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-xl font-semibold">Document Summary</h2>
+                                <div class="flex items-center gap-2">
+                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-full" onclick="zoomSummary()">
+                                        <i class="ri-zoom-in-line text-primary"></i>
+                                    </button>
+                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-full" onclick="downloadReport()">
+                                        <i class="ri-download-line text-primary"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="space-y-6" id="summary-clauses"></div>
+                            <div class="flex justify-center mt-4">
+                                <button class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 mr-2 disabled:opacity-50" id="prev-page" onclick="changePage(-1)">
+                                    <i class="ri-arrow-left-s-line"></i>
+                                </button>
+                                <span class="text-sm text-gray-600 mx-4" id="summary-page-nav"></span>
+                                <button class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50" id="next-page" onclick="changePage(1)">
+                                    <i class="ri-arrow-right-s-line"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Priority Action Items -->
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <h2 class="text-xl font-semibold mb-4">Priority Action Items</h2>
+                            <div class="space-y-2" id="priority-action-items"></div>
+                        </div>
+                        <!-- Lease Information -->
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <h2 class="text-xl font-semibold mb-4">Lease Information</h2>
+                            <div id="lease-information"></div>
+                        </div>
+                        <!-- Risk Assessment -->
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <h2 class="text-xl font-semibold mb-4">Risk Assessment</h2>
+                            <div id="risk-assessment"></div>
+                        </div>
+                        <!-- Analysis Results -->
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <h2 class="text-xl font-semibold mb-4">Analysis Results</h2>
+                            <div id="analysis-results"></div>
+                        </div>
+                        <!-- Lease Extension Strategy -->
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <h2 class="text-xl font-semibold mb-4">Lease Extension Strategy Summary</h2>
+                            <div id="lease-extension-strategy"></div>
+                        </div>
+                        <!-- Compliance Checks -->
+                        <div class="bg-white p-6 rounded-lg shadow-sm relative">
+                            <div class="blur-section">
+                                <h2 class="text-xl font-semibold mb-4">Compliance Checks</h2>
+                                <div class="space-y-4">
+                                    <div class="compliance-card flex items-start">
+                                        <div class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-full mt-1">
+                                            <i class="ri-shield-check-line text-primary"></i>
+                                        </div>
+                                        <div class="ml-3">
+                                            <h3 class="text-sm font-medium">Regulatory Compliance</h3>
+                                            <p class="text-sm text-gray-600 mt-1">Ensures lease terms align with current property regulations.</p>
+                                        </div>
+                                    </div>
+                                    <div class="compliance-card flex items-start">
+                                        <div class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-full mt-1">
+                                            <i class="ri-file-list-3-line text-primary"></i>
+                                        </div>
+                                        <div class="ml-3">
+                                            <h3 class="text-sm font-medium">Legal Standards</h3>
+                                            <p class="text-sm text-gray-600 mt-1">Checks for adherence to modern leasehold standards.</p>
+                                        </div>
+                                    </div>
+                                    <div class="compliance-card flex items-start">
+                                        <div class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-full mt-1">
+                                            <i class="ri-error-warning-line text-primary"></i>
+                                        </div>
+                                        <div class="ml-3">
+                                            <h3 class="text-sm font-medium">Potential Violations</h3>
+                                            <p class="text-sm text-gray-600 mt-1">Identifies clauses that may breach legal requirements.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="upgrade-overlay">
+                                <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
+                                    Unlock Leasehold Extension Toolkit
+Access other critical provisions to modernize your lease
+Based on latest legislation and best practices
+                                    
+                                    <button onclick="upgradeSubscription()" class="bg-primary text-white px-4 py-2 rounded-button font-medium hover:bg-primary/90">
+                                        Upgrade Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap gap-4 mt-6 hidden" id="action-buttons">
+                    <button class="flex-1 bg-white border border-gray-200 text-gray-800 px-4 py-3 rounded-button font-medium flex items-center justify-center whitespace-nowrap" onclick="downloadReport()">
+                        <div class="w-5 h-5 flex items-center justify-center mr-2">
+                            <i class="ri-download-line"></i>
+                        </div>
+                        Download Report
+                    </button>
+                    <button class="flex-1 bg-white border border-gray-200 text-gray-800 px-4 py-3 rounded-button font-medium flex items-center justify-center whitespace-nowrap">
+                        <div class="w-5 h-5 flex items-center justify-center mr-2">
+                            <i class="ri-share-line"></i>
+                        </div>
+                        Share Report
+                    </button>
+                    <button class="flex-1 bg-primary text-white px-4 py-3 rounded-button font-medium flex items-center justify-center whitespace-nowrap group relative">
+                        <div class="w-5 h-5 flex items-center justify-center mr-2">
+                            <i class="ri-calendar-check-line"></i>
+                        </div>
+                        Schedule Legal Consultation
+                        <div class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-normal w-48 text-center">
+                            Book a consultation with a legal expert to discuss your lease analysis
+                        </div>
+                    </button>
+                </div>
+            </div>
+            <!-- Disclaimer -->
+            <div class="bg-gray-50 border-t border-gray-200 py-6">
+                <div class="container mx-auto px-8">
+                    <div class="text-xs text-gray-500 leading-relaxed">
+                        <h4 class="font-medium mb-2">Disclaimer</h4>
+                        <p class="mb-2">The information provided in this analysis is for general guidance only and does not constitute legal advice. While we strive to provide accurate and up-to-date information, every lease situation is unique and requires professional legal expertise. This tool is designed to help you better understand your lease and prepare for negotiations, but should not be used as a substitute for professional legal counsel.</p>
+                        <p>We strongly recommend sharing this analysis with your legal representative, who can provide tailored advice based on your specific circumstances. Your lawyer's expertise, combined with the insights from this analysis, will help you achieve the best possible outcome in your lease extension negotiations with the freeholder.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        // Define toggleSection globally
+        function toggleSection(sectionId) {
+            const content = document.getElementById(`${sectionId}-content`);
+            const icon = document.getElementById(`${sectionId}-icon`);
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.remove('ri-arrow-down-s-line');
+                icon.classList.add('ri-arrow-up-s-line');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('ri-arrow-up-s-line');
+                icon.classList.add('ri-arrow-down-s-line');
+            }
+        }
+
+        // Upgrade button redirect
+        function upgradeSubscription() {
+            window.location.href = '/pricing';
+        }
+
+        let currentPage = 1;
+        let clausesPerPage = 2;
+        let ocrExtractedText = '';
+
+        // Popup functions
+        function showModal() {
+            document.getElementById('ocrModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('ocrModal').style.display = 'none';
+        }
+
+        function editDocument() {
+            closeModal();
+            alert('Edit document functionality not implemented (placeholder).');
+        }
+
+        function continueWithOCR() {
+            closeModal();
+            fetch('/analyze_with_ocr', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ extracted_text: ocrExtractedText })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                updateProgress('complete');
+                setTimeout(() => {
+                    document.getElementById('processing-section').classList.add('hidden');
+                    document.getElementById('results-section').classList.remove('hidden');
+                    document.getElementById('action-buttons').classList.remove('hidden');
+                    displayResults(data);
+                }, 500);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('processing-section').classList.add('hidden');
+                document.getElementById('upload-section').classList.remove('hidden');
+                alert('Error processing OCR analysis: ' + error.message);
+            });
+        }
+
+        function updateProgress(step) {
+            const steps = ['upload', 'processing', 'analyzing', 'complete'];
+            const progressBars = ['upload-progress', 'processing-progress', 'analyzing-progress'];
+            steps.forEach((s, i) => {
+                const stepElement = document.getElementById(`${s}-step`);
+                const textElement = document.getElementById(`${s}-text`);
+                if (s === step) {
+                    stepElement.classList.remove('bg-gray-200', 'text-gray-600');
+                    stepElement.classList.add('bg-primary', 'text-white');
+                    textElement.classList.remove('text-gray-600');
+                    textElement.classList.add('text-primary');
+                    if (i < progressBars.length) {
+                        document.getElementById(progressBars[i]).style.width = '100%';
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropArea = document.getElementById('dropArea');
+            const fileUpload = document.getElementById('file-upload');
+            const uploadSection = document.querySelector('.upload-section');
+            const processingSection = document.getElementById('processing-section');
+            const resultsSection = document.getElementById('results-section');
+            const progressProcessing = document.querySelector('.progress-processing');
+            const summaryPageNav = document.getElementById('summary-page-nav');
+            const summaryClauses = document.getElementById('summary-clauses');
+            const prevPage = document.getElementById('prev-page');
+            const nextPage = document.getElementById('next-page');
+            const priorityActionItems = document.getElementById('priority-action-items');
+            const leaseInformation = document.getElementById('lease-information');
+            const riskAssessment = document.getElementById('risk-assessment');
+            const analysisResults = document.getElementById('analysis-results');
+            const leaseExtensionStrategy = document.getElementById('lease-extension-strategy');
+            const propertyAddress = document.getElementById('property-address');
+            const leaseReference = document.getElementById('lease-reference');
+
+            // Drag and drop events
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+            });
+            ['dragover', 'dragenter'].forEach(eventName => {
+                dropArea.addEventListener(eventName, () => dropArea.classList.add('border-primary'), false);
+            });
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, () => dropArea.classList.remove('border-primary'), false);
+            });
+            dropArea.addEventListener('drop', handleDrop, false);
+            fileUpload.addEventListener('change', handleFiles, false);
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            function handleDrop(e) {
+                const files = e.dataTransfer.files;
+                handleFiles({ target: { files } });
+            }
+
+            function handleFiles(e) {
+                const file = e.target.files[0];
+                if (!file) {
+                    alert('Please select a file');
+                    return;
+                }
+                const validTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/jpg'];
+                if (!validTypes.includes(file.type)) {
+                    alert('Please upload a PDF or image file (PNG, JPG, JPEG)');
+                    return;
+                }
+
+                uploadSection.classList.add('hidden');
+                processingSection.classList.remove('hidden');
+
+                let processingProgress = 0;
+                const processingInterval = setInterval(() => {
+                    processingProgress += 5;
+                    progressProcessing.style.width = `${processingProgress}%`;
+                    if (processingProgress >= 100) {
+                        clearInterval(processingInterval);
+                    }
+                }, 100);
+
+                updateProgress('processing');
+                setTimeout(() => {
+                    updateProgress('analyzing');
+                }, 1000);
+
+                const formData = new FormData();
+                formData.append('file', file);
+                fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        throw new Error(data.error);
+                    }
+
+                    // Update Property Details with backend data
+                    if (data.lease_information && data.lease_information.property_address) {
+                        propertyAddress.textContent = data.lease_information.property_address;
+                    } else {
+                        propertyAddress.textContent = 'Address not available';
+                    }
+                    // Generate or use lease reference if available
+                    leaseReference.textContent = data.lease_information && data.lease_information.reference 
+                        ? data.lease_information.reference 
+                        : `REF-${new Date().toISOString().slice(0,10)}-${Math.floor(Math.random() * 1000)}`;
+
+                    if (data.is_scanned) {
+                        ocrExtractedText = data.extracted_text;
+                        showModal();
+                    } else {
+                        updateProgress('complete');
+                        setTimeout(() => {
+                            document.getElementById('processing-section').classList.add('hidden');
+                            document.getElementById('results-section').classList.remove('hidden');
+                            document.getElementById('action-buttons').classList.remove('hidden');
+                            displayResults(data);
+                        }, 500);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    processingSection.classList.add('hidden');
+                    uploadSection.classList.remove('hidden');
+                    alert('Error processing file: ' + error.message);
+                    // Reset property details on error
+                    propertyAddress.textContent = 'Not yet uploaded';
+                    leaseReference.textContent = 'Not yet uploaded';
+                });
+            }
+
+            function displayResults(data) {
+                // Display Document Summary
+                const summary = data.document_summary || {};
+                const clauses = summary.clauses || [];
+                let totalPages = Math.ceil(clauses.length / clausesPerPage);
+                if (totalPages === 0) totalPages = 1;
+                summaryPageNav.textContent = `Page ${currentPage} of ${totalPages}`;
+
+                function renderClauses(page) {
+                    const startIndex = (page - 1) * clausesPerPage;
+                    const endIndex = startIndex + clausesPerPage;
+                    const clausesToShow = clauses.slice(startIndex, endIndex);
+
+                    let clausesHtml = '';
+                    clausesToShow.forEach(clause => {
+                        let iconColor = 'bg-blue-50';
+                        let iconClass = 'ri-check-line text-primary';
+                        if (clause.category === 'Positive') {
+                            iconColor = 'bg-green-50';
+                            iconClass = 'ri-check-line text-green-600';
+                        } else if (clause.category === 'Concerning') {
+                            iconColor = 'bg-red-50';
+                            iconClass = 'ri-error-warning-line text-red-600';
+                        } else if (clause.category === 'Remove') {
+                            iconColor = 'bg-orange-50';
+                            iconClass = 'ri-delete-bin-line text-orange-600';
+                        } else if (clause.category === 'Renegotiate') {
+                            iconColor = 'bg-yellow-50';
+                            iconClass = 'ri-refresh-line text-yellow-600';
+                        }
+                        clausesHtml += `
+                            <div class="flex items-start mb-4">
+                                <div class="w-8 h-8 flex items-center justify-center ${iconColor} rounded-full mt-1">
+                                    <i class="${iconClass}"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm text-gray-600">${clause.text}</p>
+                                    <p class="text-xs text-gray-500">${clause.reference || ''}</p>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    if (clausesHtml === '') {
+                        clausesHtml = '<p class="text-sm text-gray-600">No clauses found.</p>';
+                    }
+                    summaryClauses.innerHTML = clausesHtml;
+                    prevPage.disabled = currentPage === 1;
+                    nextPage.disabled = currentPage === totalPages;
+                }
+
+                renderClauses(currentPage);
+
+                window.changePage = function(delta) {
+                    currentPage += delta;
+                    if (currentPage < 1) currentPage = 1;
+                    if (currentPage > totalPages) currentPage = totalPages;
+                    summaryPageNav.textContent = `Page ${currentPage} of ${totalPages}`;
+                    renderClauses(currentPage);
+                };
+
+                window.zoomSummary = function() {
+                    alert('Zoom functionality not implemented.');
+                };
+
+                window.downloadReport = function() {
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF();
+                    let yOffset = 10;
+
+                    // Add title
+                    doc.setFontSize(20);
+                    doc.text('Leasehold Document Analysis Report', 10, yOffset);
+                    yOffset += 10;
+
+                    // Add Document Summary
+                    doc.setFontSize(16);
+                    doc.text('Document Summary', 10, yOffset);
+                    yOffset += 10;
+                    doc.setFontSize(12);
+                    clauses.forEach(clause => {
+                        let bgColor = [255, 255, 255];
+                        if (clause.category === 'Positive') bgColor = [144, 238, 144];
+                        else if (clause.category === 'Concerning') bgColor = [255, 182, 193];
+                        else if (clause.category === 'Remove') bgColor = [255, 165, 0];
+                        else if (clause.category === 'Renegotiate') bgColor = [255, 255, 0];
+                        doc.setFillColor(bgColor[0], bgColor[1], bgColor[2]);
+                        doc.rect(10, yOffset, 190, 10, 'F');
+                        doc.setTextColor(0, 0, 0);
+                        doc.text(clause.text, 15, yOffset + 7);
+                        if (clause.reference) doc.text(`Ref: ${clause.reference}`, 15, yOffset + 12);
+                        yOffset += 15;
+                        if (yOffset > 280) {
+                            doc.addPage();
+                            yOffset = 10;
+                        }
+                    });
+                    yOffset += 10;
+
+                    // Add Priority Action Items
+                    if (summary.priority_action_items && summary.priority_action_items.length) {
+                        doc.setFontSize(16);
+                        doc.text('Priority Action Items', 10, yOffset);
+                        yOffset += 10;
+                        doc.setFontSize(12);
+                        summary.priority_action_items.forEach(item => {
+                            doc.text(`- ${item}`, 15, yOffset);
+                            yOffset += 7;
+                            if (yOffset > 280) {
+                                doc.addPage();
+                                yOffset = 10;
+                            }
+                        });
+                        yOffset += 10;
+                    }
+
+                    // Add Lease Information
+                    const leaseInfoData = data.lease_information || {};
+                    if (Object.keys(leaseInfoData).length) {
+                        doc.setFontSize(16);
+                        doc.text('Lease Information', 10, yOffset);
+                        yOffset += 10;
+                        doc.setFontSize(12);
+                        if (leaseInfoData.lease_term) {
+                            doc.text(`Lease Term: ${leaseInfoData.lease_term}`, 15, yOffset);
+                            yOffset += 7;
+                        }
+                        if (leaseInfoData.parties_involved) {
+                            doc.text(`Parties Involved: ${leaseInfoData.parties_involved}`, 15, yOffset);
+                            yOffset += 7;
+                        }
+                        if (leaseInfoData.ground_rent) {
+                            doc.text(`Ground Rent: ${leaseInfoData.ground_rent}`, 15, yOffset);
+                            yOffset += 7;
+                        }
+                        if (leaseInfoData.property_address) {
+                            doc.text(`Address: ${leaseInfoData.property_address}`, 15, yOffset);
+                            yOffset += 7;
+                        }
+                        if (leaseInfoData.commencement_date) {
+                            doc.text(`Commencement Date: ${leaseInfoData.commencement_date}`, 15, yOffset);
+                            yOffset += 7;
+                        }
+                        yOffset += 10;
+                    }
+
+                    // Add Risk Assessment
+                    const riskAssessmentData = data.risk_assessment || {};
+                    if (riskAssessmentData.risk_percentage !== undefined) {
+                        doc.setFontSize(16);
+                        doc.text('Risk Assessment', 10, yOffset);
+                        yOffset += 10;
+                        doc.setFontSize(12);
+                        doc.text(`Risk: ${riskAssessmentData.risk_percentage}%`, 15, yOffset);
+                        yOffset += 7;
+                        if (riskAssessmentData.description) {
+                            doc.text(riskAssessmentData.description, 15, yOffset);
+                            yOffset += 7;
+                        }
+                        if (riskAssessmentData.risk_items && riskAssessmentData.risk_items.length) {
+                            riskAssessmentData.risk_items.forEach(item => {
+                                doc.text(`- ${item.title}: ${item.description}`, 15, yOffset);
+                                yOffset += 7;
+                                if (yOffset > 280) {
+                                    doc.addPage();
+                                    yOffset = 10;
+                                }
+                            });
+                        }
+                        yOffset += 10;
+                    }
+
+                    // Add Analysis Results
+                    const sections = [
+                        { key: 'positive_elements', title: 'Positive Elements', color: 'green', bg: 'green', text: 'green' },
+                        { key: 'concerning_clauses', title: 'Concerning Clauses', color: 'red', bg: 'red', text: 'red' },
+                        { key: 'recommended_removals', title: 'Recommended Removals', color: 'orange', bg: 'orange', text: 'orange' },
+                        { key: 'renegotiation_points', title: 'Lease Extension Opportunities', color: 'yellow', bg: 'yellow', text: 'yellow' },
+                        { key: 'missing_elements', title: 'Missing Elements', color: 'gray', bg: 'gray', text: 'gray' },
+                        { key: 'modern_standards', title: 'Modern Leasehold Standards', color: 'blue', bg: 'blue', text: 'blue' }
+                    ];
+                    if (data.analysis) {
+                        sections.forEach(section => {
+                            if (data.analysis[section.key] && data.analysis[section.key].length) {
+                                doc.setFontSize(16);
+                                doc.text(section.title, 10, yOffset);
+                                yOffset += 10;
+                                doc.setFontSize(12);
+                                data.analysis[section.key].forEach(item => {
+                                    doc.text(`- ${item.title}: ${item.description}`, 15, yOffset);
+                                    yOffset += 7;
+                                    if (yOffset > 280) {
+                                        doc.addPage();
+                                        yOffset = 10;
+                                    }
+                                });
+                                yOffset += 10;
+                            }
+                        });
+                    }
+
+                    // Add Lease Extension Strategy Summary
+                    doc.setFontSize(16);
+                    doc.text('Lease Extension Strategy Summary', 10, yOffset);
+                    yOffset += 10;
+                    if (data.analysis && data.analysis.positive_elements && data.analysis.positive_elements.length) {
+                        doc.setFontSize(14);
+                        doc.text('Maintain Positive Elements', 10, yOffset);
+                        yOffset += 7;
+                        doc.setFontSize(12);
+                        doc.text(data.analysis.positive_elements[0].description || 'The identified positive elements should be preserved in your lease extension, as they align with modern leasehold standards and protect your interests.', 15, yOffset);
+                        yOffset += 10;
+                    }
+                    if (data.analysis && (data.analysis.concerning_clauses.length || data.analysis.recommended_removals.length || data.analysis.renegotiation_points.length)) {
+                        doc.setFontSize(14);
+                        doc.text('Negotiation Strategy', 10, yOffset);
+                        yOffset += 7;
+                        doc.setFontSize(12);
+                        doc.text('All items identified in the Concerning Clauses, Recommended Removals, and Lease Extension Opportunities sections should be included in your lease extension negotiations. This comprehensive approach will help modernize your lease terms and address potential issues before they arise.', 15, yOffset, 180);
+                        yOffset += 15;
+                        if (data.analysis.recommended_removals.length) {
+                            doc.text('- Remove outdated provisions that no longer serve a practical purpose.', 15, yOffset);
+                            yOffset += 7;
+                        }
+                        if (data.analysis.missing_elements && data.analysis.missing_elements.length) {
+                            doc.text('- Incorporate modern standards and future-proof provisions.', 15, yOffset);
+                            yOffset += 7;
+                        }
+                        yOffset += 10;
+                    }
+
+                    // Add Disclaimer
+                    doc.setFontSize(16);
+                    doc.text('Disclaimer', 10, yOffset);
+                    yOffset += 10;
+                    doc.setFontSize(12);
+                    doc.text('The information provided in this analysis is for general guidance only and does not constitute legal advice. While we strive to provide accurate and up-to-date information, every lease situation is unique and requires professional legal expertise.', 10, yOffset, 190);
+                    yOffset += 15;
+                    doc.text('We strongly recommend sharing this analysis with your legal representative, who can provide tailored advice based on your specific circumstances. Your lawyer\'s expertise, combined with the insights from this analysis, will help you achieve the best possible outcome in your lease extension negotiations with the freeholder.', 10, yOffset, 190);
+                    yOffset += 15;
+
+                    // Save the PDF
+                    doc.save('Leasehold_AnalysisReport.pdf');
+                };
+
+                // Display Priority Action Items
+                let actionItemsHtml = '';
+                if (summary.priority_action_items && summary.priority_action_items.length) {
+                    summary.priority_action_items.forEach(item => {
+                        actionItemsHtml += `
+                            <div class="flex items-center mb-2">
+                                <div class="custom-checkbox"></div>
+                                <span class="ml-2 text-sm text-gray-600">${item}</span>
+                            </div>
+                        `;
+                    });
+                } else {
+                    actionItemsHtml = '<p class="text-sm text-gray-600">No priority action items identified.</p>';
+                }
+                priorityActionItems.innerHTML = actionItemsHtml;
+
+                // Display Lease Information
+                const leaseInfo = data.lease_information || {};
+                let leaseInfoHtml = '<div class="grid grid-cols-1 md:grid-cols-2 gap-3">';
+                if (leaseInfo.lease_term) {
+                    leaseInfoHtml += `
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-full mt-1">
+                                <i class="ri-calendar-line text-primary"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-base font-medium">Lease Term</h3>
+                                <p class="text-sm text-gray-600 mt-1">${leaseInfo.lease_term}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+                if (leaseInfo.parties_involved) {
+                    leaseInfoHtml += `
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-full mt-1">
+                                <i class="ri-user-line text-primary"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-base font-medium">Parties Involved</h3>
+                                <p class="text-sm text-gray-600 mt-1">${leaseInfo.parties_involved}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+                if (leaseInfo.ground_rent) {
+                    leaseInfoHtml += `
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-full mt-1">
+                                <i class="ri-money-pound-circle-line text-primary"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-base font-medium">Ground Rent</h3>
+                                <p class="text-sm text-gray-600 mt-1">${leaseInfo.ground_rent}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+                if (leaseInfo.property_address) {
+                    leaseInfoHtml += `
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-full mt-1">
+                                <i class="ri-home-line text-primary"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-base font-medium">Property Address</h3>
+                                <p class="text-sm text-gray-600 mt-1">${leaseInfo.property_address}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+                if (leaseInfo.commencement_date) {
+                    leaseInfoHtml += `
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-full mt-1">
+                                <i class="ri-calendar-check-line text-primary"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-base font-medium">Commencement Date</h3>
+                                <p class="text-sm text-gray-600 mt-1">${leaseInfo.commencement_date}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+                leaseInfoHtml += '</div>';
+                leaseInformation.innerHTML = leaseInfoHtml;
+
+                // Display Risk Assessment
+                const risk = data.risk_assessment || {};
+                let riskHtml = '';
+                if (risk.risk_percentage !== undefined) {
+                    riskHtml += `
+                        <div class="flex items-center mb-4">
+                            <h3 class="text-xl font-semibold text-gray-800 mr-4">Risk Assessment</h3>
+                            <div class="flex-1 bg-gray-200 rounded-full h-4">
+                                <div class="risk-progress h-full rounded-full" style="background-size: ${risk.risk_percentage}% 100%;">
+                            </div>
+                                <span class="ml-2 text-base font-semibold text-orange-500">${risk.risk_percentage}%</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-1 mb-3">${risk.description || 'Your lease contains several concerning clauses that should be addressed before extension.'}</p>
+                        <div class="text-sm grid grid-cols-1 md:grid-cols-2 gap-3">
+                    `;
+                    if (risk.risk_items && risk.risk_items.length) {
+                        risk.risk_items.forEach(item => {
+                            let iconColor = item.severity === 'High' ? 'bg-red-50' : 'bg-yellow-50';
+                            let iconClass = item.severity === 'High' ? 'ri-alert-line text-red-600' : 'ri-error-warning-line text-yellow-600';
+                            riskHtml += `
+                                <div class="flex items-start">
+                                    <div class="w-8 h-8 flex items-center justify-center ${iconColor} rounded-full mt-1">
+                                        <i class="${iconClass}"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        <h3 class="text-sm font-medium">${item.title}</h3>
+                                        <p class="text-sm text-gray-600 mt-1">${item.description}</p>
+                                        <p class="text-xs text-gray-500 mt-0.5">${item.reference || ''}</p>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                    }
+                    riskHtml += '</div>';
+                } else {
+                    riskHtml += '<p class="text-sm text-gray-600">No risk assessment available.</p>';
+                }
+                riskAssessment.innerHTML = riskHtml;
+
+                // Display Analysis Results
+                let analysisHtml = '';
+                const sections = [
+                    { key: 'positive_elements', title: 'Positive Elements', color: 'green', bg: 'green', text: 'green' },
+                    { key: 'concerning_clauses', title: 'Concerning Clauses', color: 'red', bg: 'red', text: 'red' },
+                    { key: 'recommended_removals', title: 'Recommended Removals', color: 'orange', bg: 'orange', text: 'orange' },
+                    { key: 'renegotiation_points', title: 'Lease Extension Opportunities', color: 'yellow', bg: 'yellow', text: 'yellow' },
+                    { key: 'missing_elements', title: 'Missing Elements', color: 'gray', bg: 'gray', text: 'gray' },
+                    { key: 'modern_standards', title: 'Modern Leasehold Standards', color: 'blue', bg: 'blue', text: 'blue' }
+                ];
+
+                sections.forEach(section => {
+                    if (data.analysis && data.analysis[section.key] && data.analysis[section.key].length) {
+                        analysisHtml += `
+                            <div class="border border-gray-200 rounded-lg mb-4 overflow-hidden">
+                                <div class="p-4 bg-${section.color}-50 flex justify-between items-center cursor-pointer" onclick="toggleSection('${section.key}')">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 flex items-center justify-center rounded-full bg-${section.bg}-100 text-${section.text}-600">
+                                            <i class="ri-check-line"></i>
+                                        </div>
+                                        <h3 class="ml-2 font-medium text-base">${section.title}</h3>
+                                    </div>
+                                    <i class="ri-arrow-down-s-line text-gray-600" id="${section.key}-icon"></i>
+                                </div>
+                                <div class="p-4 hidden" id="${section.key}-content">
+                                    <ul class="space-y-1">
+                        `;
+                        data.analysis[section.key].forEach(item => {
+                            analysisHtml += `
+                                <li class="flex items-start">
+                                    <div class="w-6 h-6 flex items-center justify-center rounded-full bg-${section.bg}-100 text-${section.text}-600 mt-1">
+                                        <i class="ri-check-line text-sm"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        <h3 class="font-medium text-sm">${item.title}</h3>
+                                        <p class="text-sm text-gray-600 mt-1">${item.description}</p>
+                                        <p class="text-xs text-gray-500 mt-0.5">${item.reference || ''}</p>
+                                        ${section.key === 'concerning_clauses' && item.clause_text ? `<p class="text-xs text-gray-500 mt-0.5 italic">Clause: ${item.clause_text}</p>` : ''}
+                                    </div>
+                                </li>
+                            `;
+                        });
+                        analysisHtml += `
+                                    </ul>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+                analysisResults.innerHTML = analysisHtml;
+
+                // Display Lease Extension Strategy Summary
+                let strategyHtml = '';
+                if (data.analysis && data.analysis.positive_elements && data.analysis.positive_elements.length) {
+                    strategyHtml += `
+                        <div class="bg-green-50 p-4 rounded mb-4">
+                            <div class="flex items-center mb-1">
+                                <div class="w-6 h-6 flex items-center justify-center rounded-full bg-green-200 text-green-600">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <h3 class="ml-2 font-semibold text-sm">Maintain Positive Elements</h3>
+                            </div>
+                            <p class="text-sm text-gray-600">${data.analysis.positive_elements[0].description || 'The identified positive elements should be preserved in your lease extension, as they align with modern leasehold standards and protect your interests.'}</p>
+                        </div>
+                    `;
+                }
+                if (data.analysis && (data.analysis.concerning_clauses.length || data.analysis.recommended_removals.length || data.analysis.renegotiation_points.length)) {
+                    strategyHtml += `
+                        <div class="bg-blue-50 p-4 rounded">
+                            <div class="flex items-center mb-1">
+                                <div class="w-6 h-6 flex items-center justify-center rounded-full bg-blue-200 text-blue-600">
+                                    <i class="ri-file-list-3-line"></i>
+                                </div>
+                                <h3 class="ml-2 font-semibold text-sm">Negotiation Strategy</h3>
+                            </div>
+                            <p class="text-sm text-gray-600">All items identified in the Concerning Clauses, Recommended Removals, and Lease Extension Opportunities sections should be included in your lease extension negotiations. This comprehensive approach will help modernize your lease terms and address potential issues before they arise.</p>
+                            <ul class="list-disc pl-5 mt-1 text-sm text-gray-600">
+                                ${data.analysis.recommended_removals.length ? '<li>Remove outdated provisions that no longer serve a practical purpose.</li>' : ''}
+                                ${data.analysis.missing_elements && data.analysis.missing_elements.length ? '<li>Incorporate modern standards and future-proof provisions.</li>' : ''}
+                            </ul>
+                        </div>
+                    `;
+                }
+                leaseExtensionStrategy.innerHTML = strategyHtml;
+            }
+        });
+    </script>
+    <script id="customControlsInteraction">
+        document.addEventListener('DOMContentLoaded', function() {
+            // Custom Checkbox Functionality
+            const checkboxes = document.querySelectorAll('.custom-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('click', function() {
+                    this.classList.toggle('checked');
+                });
+            });
+
+            // Upload Area Interaction
+            const uploadArea = document.querySelector('.upload-area');
+            uploadArea.addEventListener('click', function() {
+                document.getElementById('file-upload').click();
+            });
+        });
+    </script>
+</body>
+</html>

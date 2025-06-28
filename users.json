@@ -1,0 +1,263 @@
+[
+    {
+        "email": "evalinen757@gmail.com",
+        "username": "admin3",
+        "password": "pbkdf2:sha256:1000000$8SwZjGwGHVlhhphg$5a673e63aabe4350ca615aa27c78c517e4d1ff4bf344c2f883a82ff6542501d4",
+        "phone": "+4434567890546",
+        "subscription": {
+            "plan": null,
+            "status": "inactive",
+            "start_date": null,
+            "expiry_date": null,
+            "stripe_customer_id": null,
+            "stripe_subscription_id": null
+        }
+    },
+    {
+        "email": "ritadaba@gmail.com",
+        "username": "rita",
+        "password": "pbkdf2:sha256:1000000$9zhh1qShtU2paVgV$7f65646bfba7d0c9e547ba0392d59bfcc4b95e97534395030f70686208ff9c74",
+        "phone": "+4434567890547",
+        "subscription": {
+            "plan": null,
+            "status": "inactive",
+            "start_date": null,
+            "expiry_date": null,
+            "stripe_customer_id": null,
+            "stripe_subscription_id": null
+        },
+        "notifications": {
+            "email_notifications": true,
+            "sms_notifications": false,
+            "marketing_notifications": true
+        }
+    },
+    {
+        "email": "ritaadaba@gmail.com",
+        "username": "ritah",
+        "password": "pbkdf2:sha256:1000000$fMZwkT06yyqquFXV$a8b413cacbc228fc073bcb633c00ef4bf477136d5549b0a0e937d8cfbf8105c3",
+        "phone": "+44345678905498",
+        "subscription": {
+            "plan": null,
+            "status": "inactive",
+            "start_date": null,
+            "expiry_date": null,
+            "stripe_customer_id": null,
+            "stripe_subscription_id": null
+        },
+        "notifications": {
+            "email_notifications": true,
+            "sms_notifications": false,
+            "marketing_notifications": true
+        }
+    },
+    {
+        "email": "rita.adaba@thegoodtechcompany.co.uk",
+        "username": "ritah23",
+        "password": "pbkdf2:sha256:1000000$xVJ4uBl1lS4G1T3m$ea2cd57f552063b91218262021872bfb4ffd797fed587ac031f44a9dfd42322d",
+        "phone": "+447787937023",
+        "subscription": {
+            "plan": null,
+            "status": "inactive",
+            "start_date": null,
+            "expiry_date": null,
+            "stripe_customer_id": null,
+            "stripe_subscription_id": null
+        },
+        "notifications": {
+            "email_notifications": true,
+            "sms_notifications": false,
+            "marketing_notifications": true
+        }
+    },
+    {
+        "email": "mosesmaweue46@gmail.com",
+        "username": "admin3e",
+        "password": "pbkdf2:sha256:1000000$CYn91X2kS7btRgsM$a8716c5b36d0303259f2f27d0bd9552816bcf0ec2339c454ba6f95b737abe0b1",
+        "phone": "+443456744545",
+        "subscription": {
+            "plan": null,
+            "status": "inactive",
+            "start_date": null,
+            "expiry_date": null,
+            "stripe_customer_id": null,
+            "stripe_subscription_id": null
+        },
+        "notifications": {
+            "email_notifications": true,
+            "sms_notifications": false,
+            "marketing_notifications": true
+        }
+    },
+    {
+        "email": "mosesmaweu422@gmail.com",
+        "username": "moseuh",
+        "password": "pbkdf2:sha256:1000000$WT3i9ZXteAACBjzH$7a6c5287eeae62c27f66e1b07df495fe759bc6974487e7b388d188774b1b3311",
+        "phone": "+447787937023",
+        "subscription": {
+            "plan": null,
+            "status": "inactive",
+            "start_date": null,
+            "expiry_date": null,
+            "stripe_customer_id": null,
+            "stripe_subscription_id": null
+        },
+        "notifications": {
+            "email_notifications": true,
+            "sms_notifications": false,
+            "marketing_notifications": true
+        }
+    },
+    {
+        "email": "mosesmaweu461@gmail.com",
+        "username": "admn3",
+        "password": "pbkdf2:sha256:1000000$EnWSf3FPsJ7TlqVU$07e275599d03e87ca672497e3f70e47f7d2fdb9b15b70d5176de6a6678bf4eee",
+        "phone": "+4478793573",
+        "subscription": {
+            "plan": null,
+            "status": "inactive",
+            "start_date": null,
+            "expiry_date": null,
+            "stripe_customer_id": null,
+            "stripe_subscription_id": null
+        },
+        "notifications": {
+            "email_notifications": true,
+            "sms_notifications": false,
+            "marketing_notifications": true
+        }
+    },
+    {
+        "email": "mosesmaweu416@gmail.com",
+        "username": "admin3e",
+        "password": "pbkdf2:sha256:1000000$H9EDGLsQLBkdJVGE$0cdc807a147064f57e99f0e5e78be57cee42f2109c7ddc775bbbcb8676e164ea",
+        "phone": "+4443263537",
+        "subscription": {
+            "plan": null,
+            "status": "inactive",
+            "start_date": null,
+            "expiry_date": null,
+            "stripe_customer_id": null,
+            "stripe_subscription_id": null
+        },
+        "notifications": {
+            "email_notifications": true,
+            "sms_notifications": false,
+            "marketing_notifications": true
+        }
+    },
+    {
+        "email": "mz.adaba@gmail.com",
+        "username": "adaba23",
+        "password": "pbkdf2:sha256:1000000$qJNrEsMjMO1r19Pi$c50379fc89e644f58e6f746f0a59beb21c6332ff0cb71beef3ce3865fce1eb07",
+        "phone": "+4489745865",
+        "subscription": {
+            "plan": null,
+            "status": "inactive",
+            "start_date": null,
+            "expiry_date": null,
+            "stripe_customer_id": null,
+            "stripe_subscription_id": null
+        },
+        "notifications": {
+            "email_notifications": true,
+            "sms_notifications": false,
+            "marketing_notifications": true
+        }
+    },
+    {
+        "email": "mosesmaweu436@gmail.com",
+        "username": "jjnhk",
+        "password": "pbkdf2:sha256:1000000$CO6BIjl8jGZypLgB$93eb38dfe3a9c97deb8c5fd2541e58ab59f7a23512554b312455af369f28fb71",
+        "phone": "+443743449433",
+        "subscription": {
+            "plan": null,
+            "status": "inactive",
+            "start_date": null,
+            "expiry_date": null,
+            "stripe_customer_id": null,
+            "stripe_subscription_id": null
+        },
+        "notifications": {
+            "email_notifications": true,
+            "sms_notifications": false,
+            "marketing_notifications": true
+        }
+    },
+    {
+        "email": "wfdfds@gmail.com",
+        "username": "hdhsd",
+        "password": "pbkdf2:sha256:1000000$x8IsiBmTqJRybKSl$c8603b1e4b39d1d322073f9d8f1d9a1d9386214ebbabf03e5c4027d7dea60055",
+        "phone": "+44739854540",
+        "subscription": {
+            "plan": null,
+            "status": "inactive",
+            "start_date": null,
+            "expiry_date": null,
+            "stripe_customer_id": null,
+            "stripe_subscription_id": null
+        },
+        "notifications": {
+            "email_notifications": true,
+            "sms_notifications": false,
+            "marketing_notifications": true
+        }
+    },
+    {
+        "email": "moses233@gmail.com",
+        "username": "moseuhpharo",
+        "password": "pbkdf2:sha256:1000000$GOVP5vgnz6qUOPR4$c6e753f40afce98c668f304cca3f0b9b5f97203b0b27bee1eb79e3d5fc7ee93c",
+        "phone": "+447539857395",
+        "subscription": {
+            "plan": null,
+            "status": "inactive",
+            "start_date": null,
+            "expiry_date": null,
+            "stripe_customer_id": null,
+            "stripe_subscription_id": null
+        },
+        "notifications": {
+            "email_notifications": true,
+            "sms_notifications": false,
+            "marketing_notifications": true
+        }
+    },
+    {
+        "email": "ms.adaba@gmail.com",
+        "username": "empress",
+        "password": "pbkdf2:sha256:1000000$3NiREEMVg2ws1PFO$f1ff9cf70af6de30e8ebe280eb9eb5edafdd2e44770def287e174255313f81f3",
+        "phone": "+447498657023",
+        "subscription": {
+            "plan": null,
+            "status": "inactive",
+            "start_date": null,
+            "expiry_date": null,
+            "stripe_customer_id": null,
+            "stripe_subscription_id": null
+        },
+        "notifications": {
+            "email_notifications": true,
+            "sms_notifications": false,
+            "marketing_notifications": true
+        }
+    },
+    {
+        "email": "mosesmaweu46@gmail.com",
+        "username": "mosesmawe",
+        "password": "pbkdf2:sha256:1000000$Vqh2jQ5nYqVHOBnT$b882978e7109a1c824fa20951ee305b6e33bacd7e950617c598b5080faaad47a",
+        "phone": "+4477829802",
+        "subscription": {
+            "plan": null,
+            "status": "inactive",
+            "start_date": null,
+            "expiry_date": null,
+            "stripe_customer_id": null,
+            "stripe_subscription_id": null
+        },
+        "notifications": {
+            "email_notifications": true,
+            "sms_notifications": false,
+            "marketing_notifications": true
+        }
+    }
+]

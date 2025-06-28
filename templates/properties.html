@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+        .custom-checkbox {
+            position: relative;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .custom-checkbox.checked {
+            background-color: #4f46e5;
+            border-color: #4f46e5;
+        }
+        .custom-checkbox.checked::after {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 2px;
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .custom-radio {
+            position: relative;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 2px solid #d1d5db;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .custom-radio.checked {
+            border-color: #4f46e5;
+        }
+        .custom-radio.checked::after {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 4px;
+            width: 8px;
+            height: 8px;
+            background-color: #4f46e5;
+            border-radius: 50%;
+        }
+        .custom-switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+            background-color: #e5e7eb;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .custom-switch.checked {
+            background-color: #4f46e5;
+        }
+        .custom-switch::after {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 4px;
+            width: 16px;
+            height: 16px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+        .custom-switch.checked::after {
+            transform: translateX(20px);
+        }
+        .form-section {
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            max-height: 2000px;
+            opacity: 1;
+            overflow: hidden;
+        }
+        .form-section.collapsed {
+            max-height: 48px;
+            opacity: 0.8;
+        }
+        .progress-bar {
+            height: 6px;
+            background-color: #e5e7eb;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #4f46e5;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+<div class="min-h-screen flex">
+    <aside class="w-64 bg-white border-r border-gray-200 flex-shrink-0">
+        <div class="h-full flex flex-col">
+            <div class="p-6 border-b border-gray-200">
+                <div class="text-2xl font-bold tracking-tight text-primary">IntelliLease</div>
+            </div>
+            <nav class="flex-1 p-4 space-y-1">
+                <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
+                    <i class="ri-home-line w-5 h-5 mr-3"></i><span>Home</span>
+                </a>
+                <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
+                    <i class="ri-dashboard-line w-5 h-5 mr-3"></i><span>Dashboard</span>
+                </a>
+                <a href="/properties" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
+                    <i class="ri-settings-line w-5 h-5 mr-3"></i><span>Property Details</span>
+                </a>
+                <a href="/account" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
+                    <i class="ri-settings-line w-5 h-5 mr-3"></i><span>Account Settings</span>
+                </a>
+                <div class="py-3">
+                    <div class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">Products</div>
+                    <div class="mt-2 space-y-1">
+                        <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
+                            <i class="ri-file-search-line w-5 h-5 mr-3"></i><span>Analyse Leasehold</span>
+                        </a>
+                        <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
+                            <i class="ri-file-list-3-line w-5 h-5 mr-3"></i><span>Compare Leaseholds</span>
+                        </a>
+                        <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
+                            <i class="ri-money-pound-circle-line w-5 h-5 mr-3"></i><span>Analyse Service Charges</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="py-3">
+                    <div class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">Support</div>
+                    <div class="mt-2 space-y-1">
+                        <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
+                            <i class="ri-questionnaire-line w-5 h-5 mr-3"></i><span>View FAQ</span>
+                        </a>
+                        <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
+                            <i class="ri-customer-service-line w-5 h-5 mr-3"></i><span>Contact Support</span>
+                        </a>
+                        <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
+                            <i class="ri-message-3-line w-5 h-5 mr-3"></i><span>Start Live Chat</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-auto">
+                    <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
+                        <i class="ri-star-line w-5 h-5 mr-3"></i><span>Write a Review</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </aside>
+    <div class="flex-1 flex flex-col">
+        <header class="bg-white shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+                <div class="flex items-center">
+                    <button type="button" class="text-gray-500 hover:text-gray-600 lg:hidden">
+                        <i class="ri-menu-line text-2xl"></i>
+                    </button>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-600">Last saved: 08 June 2025, 14:30</span>
+                    <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+                        <i class="ri-user-line text-gray-600"></i>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="flex-grow py-8">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Property Management Details</h1>
+                    <p class="text-gray-600">Complete this form to capture all information about your leasehold property in the UK for effective management.</p>
+                    <div class="mt-6 mb-8">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-medium text-gray-700">Form completion</span>
+                            <span class="text-sm font-medium text-primary" id="progress-percentage">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-bar-fill" id="progress-bar-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+                <form id="property-form" class="space-y-8" action="/submit-property" method="POST" enctype="multipart/form-data">
+                    <!-- Leasehold Property Information -->
+                    <div class="bg-white shadow rounded-lg overflow-hidden">
+                        <div class="p-6 form-section" id="section-basic">
+                            <div class="flex justify-between items-center mb-6 cursor-pointer" onclick="toggleSection('section-basic')">
+                                <h2 class="text-xl font-semibold text-gray-900 flex items-center">
+                                    <div class="w-8 h-8 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-3">
+                                        <i class="ri-home-line text-primary"></i>
+                                    </div>
+                                    Leasehold Property Information
+                                </h2>
+                                <i class="ri-arrow-up-s-line text-gray-400 section-toggle"></i>
+                            </div>
+                            <div class="section-content">
+                                <div class="flex flex-col md:flex-row gap-6 mb-6">
+                                    <div class="flex-1">
+                                        <div class="space-y-4">
+                                            <div>
+                                                <label for="address1" class="block text-sm font-medium text-gray-700 mb-1">Address Line 1 <span class="text-red-500">*</span></label>
+                                                <input type="text" id="address1" name="address1" value="42 Riverside Apartments" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                                            </div>
+                                            <div>
+                                                <label for="address2" class="block text-sm font-medium text-gray-700 mb-1">Address Line 2</label>
+                                                <input type="text" id="address2" name="address2" value="Thames Embankment" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                            </div>
+                                            <div class="grid grid-cols-2 gap-4">
+                                                <div>
+                                                    <label for="city" class="block text-sm font-medium text-gray-700 mb-1">City/Town <span class="text-red-500">*</span></label>
+                                                    <input type="text" id="city" name="city" value="Greenwich" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                                                </div>
+                                                <div>
+                                                    <label for="county" class="block text-sm font-medium text-gray-700 mb-1">County</label>
+                                                    <input type="text" id="county" name="county" value="Greater London" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label for="postcode" class="block text-sm font-medium text-gray-700 mb-1">Postcode <span class="text-red-500">*</span></label>
+                                                <input type="text" id="postcode" name="postcode" value="SE10 8XY" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="mb-4">
+                                            <label class="block text-sm font-medium text-gray-700 mb-1">Property Image</label>
+                                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                                                <div id="image-preview" class="hidden mb-4">
+                                                    <img id="preview-img" src="#" alt="Property preview" class="mx-auto h-40 object-cover rounded">
+                                                </div>
+                                                <div id="upload-prompt" class="flex flex-col items-center">
+                                                    <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mb-3">
+                                                        <i class="ri-image-add-line text-primary text-xl"></i>
+                                                    </div>
+                                                    <p class="text-sm text-gray-500 mb-2">Drag and drop an image here or</p>
+                                                    <button type="button" id="upload-button" class="px-4 py-2 bg-white border border-gray-300 rounded-button text-sm font-medium text-gray-700 hover:bg-gray-50 whitespace-nowrap">Upload Image</button>
+                                                    <input type="file" id="property-image" name="property-image" accept="image/*" class="hidden">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <div>
+                                                <label for="property-type" class="block text-sm font-medium text-gray-700 mb-1">Property Type <span class="text-red-500">*</span></label>
+                                                <div class="relative">
+                                                    <button type="button" id="property-type-button" class="w-full px-4 py-2 border border-gray-300 rounded text-left focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none flex justify-between items-center">
+                                                        <span id="property-type-text">Flat</span>
+                                                        <i class="ri-arrow-down-s-line"></i>
+                                                    </button>
+                                                    <div id="property-type-dropdown" class="absolute z-10 mt-1 w-full bg-white shadow-lg rounded-md py-1 hidden">
+                                                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer" data-value="Flat">Flat</div>
+                                                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer" data-value="Maisonette">Maisonette</div>
+                                                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer" data-value="House">House</div>
+                                                    </div>
+                                                    <input type="hidden" id="property-type" name="property-type" value="Flat" required>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label for="floor-number" class="block text-sm font-medium text-gray-700 mb-1">Floor Number</label>
+                                                <input type="number" id="floor-number" name="floor-number" value="3" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-3 gap-4 mt-4">
+                                            <div>
+                                                <label for="bedrooms" class="block text-sm font-medium text-gray-700 mb-1">Bedrooms <span class="text-red-500">*</span></label>
+                                                <input type="number" id="bedrooms" name="bedrooms" value="2" min="0" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                                            </div>
+                                            <div>
+                                                <label for="bathrooms" class="block text-sm font-medium text-gray-700 mb-1">Bathrooms <span class="text-red-500">*</span></label>
+                                                <input type="number" id="bathrooms" name="bathrooms" value="2" min="0" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                                            </div>
+                                            <div>
+                                                <label for="square-footage" class="block text-sm font-medium text-gray-700 mb-1">Square Footage</label>
+                                                <input type="number" id="square-footage" name="square-footage" value="850" min="0" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Estate Information -->
+                    <div class="bg-white shadow rounded-lg overflow-hidden">
+                        <div class="p-6 form-section" id="section-estate">
+                            <div class="flex justify-between items-center mb-6 cursor-pointer" onclick="toggleSection('section-estate')">
+                                <h2 class="text-xl font-semibold text-gray-900 flex items-center">
+                                    <div class="w-8 h-8 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-3">
+                                        <i class="ri-building-2-line text-primary"></i>
+                                    </div>
+                                    Estate Information
+                                </h2>
+                                <i class="ri-arrow-up-s-line text-gray-400 section-toggle"></i>
+                            </div>
+                            <div class="section-content space-y-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="estate-name" class="block text-sm font-medium text-gray-700 mb-1">Estate Name</label>
+                                        <input type="text" id="estate-name" name="estate-name" value="Riverside Estate" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                    </div>
+                                    <div>
+                                        <label for="total-properties" class="block text-sm font-medium text-gray-700 mb-1">Number of Properties on Estate</label>
+                                        <input type="number" id="total-properties" name="total-properties" value="120" min="1" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                    </div>
+                                </div>
+                                <div class="mt-6">
+                                    <div class="flex items-center mb-4">
+                                        <div class="custom-switch" id="estate-rtm-switch" onclick="toggleEstateRTM()"></div>
+                                        <input type="hidden" id="estate-has-rtm" name="estate-has-rtm" value="false">
+                                        <label for="estate-rtm-switch" class="ml-2 text-sm font-medium text-gray-700">This estate has Right to Manage (RTM)</label>
+                                    </div>
+                                    <div id="estate-rtm-details" class="bg-gray-50 p-4 rounded-lg hidden">
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div>
+                                                <label for="estate-rtm-company" class="block text-sm font-medium text-gray-700 mb-1">RTM Company Name</label>
+                                                <input type="text" id="estate-rtm-company" name="estate-rtm-company" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                            </div>
+                                            <div>
+                                                <label for="estate-rtm-date" class="block text-sm font-medium text-gray-700 mb-1">RTM Acquisition Date</label>
+                                                <input type="date" id="estate-rtm-date" name="estate-rtm-date" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                            </div>
+                                            <div class="md:col-span-2">
+                                                <label for="estate-rtm-notes" class="block text-sm font-medium text-gray-700 mb-1">Additional Notes</label>
+                                                <textarea id="estate-rtm-notes" name="estate-rtm-notes" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" placeholder="Enter any additional information about the estate RTM"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Ownership Information -->
+                    <div class="bg-white shadow rounded-lg overflow-hidden">
+                        <div class="p-6 form-section" id="section-ownership">
+                            <div class="flex justify-between items-center mb-6 cursor-pointer" onclick="toggleSection('section-ownership')">
+                                <h2 class="text-xl font-semibold text-gray-900 flex items-center">
+                                    <div class="w-8 h-8 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-3">
+                                        <i class="ri-user-star-line text-primary"></i>
+                                    </div>
+                                    Ownership Information
+                                </h2>
+                                <i class="ri-arrow-up-s-line text-gray-400 section-toggle"></i>
+                            </div>
+                            <div class="section-content space-y-6">
+                                <div class="mb-6">
+                                    <div class="flex items-center mb-4">
+                                        <div class="custom-switch" id="rtm-switch" onclick="toggleRTM()"></div>
+                                        <input type="hidden" id="has-rtm" name="has-rtm" value="false">
+                                        <label for="rtm-switch" class="ml-2 text-sm font-medium text-gray-700">This property has Right to Manage (RTM)</label>
+                                    </div>
+                                    <div id="rtm-details" class="bg-gray-50 p-4 rounded-lg hidden"></div>
+                                </div>
+                                <div>
+                                    <h3 class="text-md font-medium text-gray-900 mb-3">Landlord Details</h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div>
+                                            <label for="landlord-name" class="block text-sm font-medium text-gray-700 mb-1">Landlord Name <span class="text-red-500">*</span></label>
+                                            <input type="text" id="landlord-name" name="landlord-name" value="Victoria Estates Limited" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                                        </div>
+                                        <div>
+                                            <label for="landlord-company" class="block text-sm font-medium text-gray-700 mb-1">Company Name (if applicable)</label>
+                                            <input type="text" id="landlord-company" name="landlord-company" value="Victoria Property Holdings Ltd" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                        </div>
+                                        <div>
+                                            <label for="landlord-phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number <span class="text-red-500">*</span></label>
+                                            <input type="tel" id="landlord-phone" name="landlord-phone" value="020 7946 0123" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                                        </div>
+                                        <div>
+                                            <label for="landlord-email" class="block text-sm font-medium text-gray-700 mb-1">Email Address <span class="text-red-500">*</span></label>
+                                            <input type="email" id="landlord-email" name="landlord-email" value="contact@victoriaestates.co.uk" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                                        </div>
+                                        <div class="md:col-span-2">
+                                            <label for="landlord-address" class="block text-sm font-medium text-gray-700 mb-1">Address <span class="text-red-500">*</span></label>
+                                            <textarea id="landlord-address" name="landlord-address" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>1 Victoria Square, Westminster, London, SW1E 5JL</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-8">
+                                    <div class="flex items-center mb-4">
+                                        <div class="custom-switch" id="head-leaseholder-switch" onclick="toggleHeadLeaseholder()"></div>
+                                        <input type="hidden" id="has-head-leaseholder" name="has-head-leaseholder" value="false">
+                                        <label for="head-leaseholder-switch" class="ml-2 text-sm font-medium text-gray-700">This property has a head leaseholder</label>
+                                    </div>
+                                    <div id="head-leaseholder-details" class="bg-gray-50 p-4 rounded-lg hidden">
+                                        <h3 class="text-md font-medium text-gray-900 mb-3">Head Leaseholder Details</h3>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div>
+                                                <label for="head-leaseholder-name" class="block text-sm font-medium text-gray-700 mb-1">Head Leaseholder Name</label>
+                                                <input type="text" id="head-leaseholder-name" name="head-leaseholder-name" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                            </div>
+                                            <div>
+                                                <label for="head-leaseholder-company" class="block text-sm font-medium text-gray-700 mb-1">Company Name (if applicable)</label>
+                                                <input type="text" id="head-leaseholder-company" name="head-leaseholder-company" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                            </div>
+                                            <div>
+                                                <label for="head-leaseholder-phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                                                <input type="tel" id="head-leaseholder-phone" name="head-leaseholder-phone" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                            </div>
+                                            <div>
+                                                <label for="head-leaseholder-email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                                                <input type="email" id="head-leaseholder-email" name="head-leaseholder-email" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                            </div>
+                                            <div class="md:col-span-2">
+                                                <label for="head-leaseholder-address" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                                                <textarea id="head-leaseholder-address" name="head-leaseholder-address" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Leasehold Specific Details -->
+                    <div class="bg-white shadow rounded-lg overflow-hidden">
+                        <div class="p-6 form-section" id="section-leasehold">
+                            <div class="flex justify-between items-center mb-6 cursor-pointer" onclick="toggleSection('section-leasehold')">
+                                <h2 class="text-xl font-semibold text-gray-900 flex items-center">
+                                    <div class="w-8 h-8 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-3">
+                                        <i class="ri-file-list-3-line text-primary"></i>
+                                    </div>
+                                    Leasehold Specific Details
+                                </h2>
+                                <i class="ri-arrow-up-s-line text-gray-400 section-toggle"></i>
+                            </div>
+                            <div class="section-content space-y-6">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    <div>
+                                        <label for="lease-start-date" class="block text-sm font-medium text-gray-700 mb-1">Lease Start Date <span class="text-red-500">*</span></label>
+                                        <input type="date" id="lease-start-date" name="lease-start-date" value="1995-06-15" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                                    </div>
+                                    <div>
+                                        <label for="lease-length" class="block text-sm font-medium text-gray-700 mb-1">Lease Length (years) <span class="text-red-500">*</span></label>
+                                        <input type="number" id="lease-length" name="lease-length" value="125" min="1" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                                    </div>
+                                    <div>
+                                        <label for="years-remaining" class="block text-sm font-medium text-gray-700 mb-1">Years Remaining</label>
+                                        <input type="number" id="years-remaining" name="years-remaining" class="w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded" readonly>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="ground-rent" class="block text-sm font-medium text-gray-700 mb-1">Ground Rent (£) <span class="text-red-500">*</span></label>
+                                        <div class="flex">
+                                            <span class="inline-flex items-center px-3 rounded-l border border-r-0 border-gray-300 bg-gray-50 text-gray-500">£</span>
+                                            <input type="number" id="ground-rent" name="ground-rent" value="250" min="0" step="0.01" class="flex-1 px-4 py-2 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                                            <div class="relative">
+                                                <button type="button" id="ground-rent-frequency-button" class="px-4 py-2 border border-l-0 border-gray-300 rounded-r text-left focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none flex items-center whitespace-nowrap">
+                                                    <span id="ground-rent-frequency-text">Annually</span>
+                                                    <i class="ri-arrow-down-s-line ml-2"></i>
+                                                </button>
+                                                <div id="ground-rent-frequency-dropdown" class="absolute z-10 right-0 mt-1 w-40 bg-white shadow-lg rounded-md py-1 hidden">
+                                                    <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer" data-value="Monthly">Monthly</div>
+                                                    <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer" data-value="Quarterly">Quarterly</div>
+                                                    <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer" data-value="Annually">Annually</div>
+                                                </div>
+                                                <input type="hidden" id="ground-rent-frequency" name="ground-rent-frequency" value="Annually">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="service-charge" class="block text-sm font-medium text-gray-700 mb-1">Service Charge (£) <span class="text-red-500">*</span></label>
+                                        <div class="flex">
+                                            <span class="inline-flex items-center px-3 rounded-l border border-r-0 border-gray-300 bg-gray-50 text-gray-500">£</span>
+                                            <input type="number" id="service-charge" name="service-charge" value="2400" min="0" step="0.01" class="flex-1 px-4 py-2 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                                            <div class="relative">
+                                                <button type="button" id="service-charge-frequency-button" class="px-4 py-2 border border-l-0 border-gray-300 rounded-r text-left focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none flex items-center whitespace-nowrap">
+                                                    <span id="service-charge-frequency-text">Annually</span>
+                                                    <i class="ri-arrow-down-s-line ml-2"></i>
+                                                </button>
+                                                <div id="service-charge-frequency-dropdown" class="absolute z-10 right-0 mt-1 w-40 bg-white shadow-lg rounded-md py-1 hidden">
+                                                    <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer" data-value="Monthly">Monthly</div>
+                                                    <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer" data-value="Quarterly">Quarterly</div>
+                                                    <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer" data-value="Annually">Annually</div>
+                                                </div>
+                                                <input type="hidden" id="service-charge-frequency" name="service-charge-frequency" value="Annually">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="text-md font-medium text-gray-900 mb-3">Managing Agent Details</h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div>
+                                            <label for="agent-company" class="block text-sm font-medium text-gray-700 mb-1">Company Name <span class="text-red-500">*</span></label>
+                                            <input type="text" id="agent-company" name="agent-company" value="Riverside Property Management Ltd" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                                        </div>
+                                        <div>
+                                            <label for="agent-contact" class="block text-sm font-medium text-gray-700 mb-1">Contact Person</label>
+                                            <input type="text" id="agent-contact" name="agent-contact" value="Eleanor Richardson" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                        </div>
+                                        <div>
+                                            <label for="agent-phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number <span class="text-red-500">*</span></label>
+                                            <input type="tel" id="agent-phone" name="agent-phone" value="020 7123 4567" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                                        </div>
+                                        <div>
+                                            <label for="agent-email" class="block text-sm font-medium text-gray-700 mb-1">Email Address <span class="text-red-500">*</span></label>
+                                            <input type="email" id="agent-email" name="agent-email" value="e.richardson@riversidepm.co.uk" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4">
+                                        <label for="agent-website" class="block text-sm font-medium text-gray-700 mb-1">Website</label>
+                                        <input type="url" id="agent-website" name="agent-website" value="https://www.riversidepm.co.uk" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Financial Information -->
+                    <div class="bg-white shadow rounded-lg overflow-hidden">
+                        <div class="p-6 form-section" id="section-financial">
+                            <div class="flex justify-between items-center mb-6 cursor-pointer" onclick="toggleSection('section-financial')">
+                                <h2 class="text-xl font-semibold text-gray-900 flex items-center">
+                                    <div class="w-8 h-8 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-3">
+                                        <i class="ri-money-pound-circle-line text-primary"></i>
+                                    </div>
+                                    Financial Information
+                                </h2>
+                                <i class="ri-arrow-up-s-line text-gray-400 section-toggle"></i>
+                            </div>
+                            <div class="section-content space-y-6">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    <div>
+                                        <label for="purchase-date" class="block text-sm font-medium text-gray-700 mb-1">Purchase Date <span class="text-red-500">*</span></label>
+                                        <input type="date" id="purchase-date" name="purchase-date" value="2020-09-28" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                                    </div>
+                                    <div>
+                                        <label for="purchase-price" class="block text-sm font-medium text-gray-700 mb-1">Purchase Price (£) <span class="text-red-500">*</span></label>
+                                        <div class="flex">
+                                            <span class="inline-flex items-center px-3 rounded-l border border-r-0 border-gray-300 bg-gray-50 text-gray-500">£</span>
+                                            <input type="number" id="purchase-price" name="purchase-price" value="475000" min="0" class="w-full px-4 py-2 border border-gray-300 rounded-r focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="current-value" class="block text-sm font-medium text-gray-700 mb-1">Current Estimated Value (£)</label>
+                                        <div class="flex">
+                                            <span class="inline-flex items-center px-3 rounded-l border border-r-0 border-gray-300 bg-gray-50 text-gray-500">£</span>
+                                            <input type="number" id="current-value" name="current-value" value="525000" min="0" class="w-full px-4 py-2 border border-gray-300 rounded-r focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex items-center mb-4">
+                                        <div class="custom-switch" id="mortgage-switch" onclick="toggleMortgage()"></div>
+                                        <input type="hidden" id="has-mortgage" name="has-mortgage" value="false">
+                                        <label for="mortgage-switch" class="ml-2 text-sm font-medium text-gray-700">I have a mortgage on this property</label>
+                                    </div>
+                                    <div id="mortgage-details" class="bg-gray-50 p-4 rounded-lg hidden">
+                                        <h3 class="text-md font-medium text-gray-900 mb-3">Mortgage Details</h3>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div>
+                                                <label for="mortgage-lender" class="block text-sm font-medium text-gray-700 mb-1">Lender Name</label>
+                                                <input type="text" id="mortgage-lender" name="mortgage-lender" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                            </div>
+                                            <div>
+                                                <label for="mortgage-account" class="block text-sm font-medium text-gray-700 mb-1">Account Number</label>
+                                                <input type="text" id="mortgage-account" name="mortgage-account" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                            </div>
+                                            <div>
+                                                <label for="mortgage-payment" class="block text-sm font-medium text-gray-700 mb-1">Monthly Payment (£)</label>
+                                                <div class="flex">
+                                                    <span class="inline-flex items-center px-3 rounded-l border border-r-0 border-gray-300 bg-gray-50 text-gray-500">£</span>
+                                                    <input type="number" id="mortgage-payment" name="mortgage-payment" min="0" step="0.01" class="w-full px-4 py-2 border border-gray-300 rounded-r focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label for="interest-rate" class="block text-sm font-medium text-gray-700 mb-1">Interest Rate (%)</label>
+                                                <div class="flex">
+                                                    <input type="number" id="interest-rate" name="interest-rate" min="0" step="0.01" class="w-full px-4 py-2 border border-gray-300 rounded-l focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                                    <span class="inline-flex items-center px-3 rounded-r border border-l-0 border-gray-300 bg-gray-50 text-gray-500">%</span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label for="term-remaining" class="block text-sm font-medium text-gray-700 mb-1">Term Remaining (years)</label>
+                                                <input type="number" id="term-remaining" name="term-remaining" min="0" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Insurance Details -->
+                    <div class="bg-white shadow rounded-lg overflow-hidden">
+                        <div class="p-6 form-section" id="section-insurance">
+                            <div class="flex justify-between items-center mb-6 cursor-pointer" onclick="toggleSection('section-insurance')">
+                                <h2 class="text-xl font-semibold text-gray-900 flex items-center">
+                                    <div class="w-8 h-8 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-3">
+                                        <i class="ri-shield-check-line text-primary"></i>
+                                    </div>
+                                    Insurance Details
+                                </h2>
+                                <i class="ri-arrow-up-s-line text-gray-400 section-toggle"></i>
+                            </div>
+                            <div class="section-content space-y-6">
+                                <div>
+                                    <h3 class="text-md font-medium text-gray-900 mb-3">Buildings Insurance</h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div>
+                                            <label for="buildings-provider" class="block text-sm font-medium text-gray-700 mb-1">Insurance Provider <span class="text-red-500">*</span></label>
+                                            <input type="text" id="buildings-provider" name="buildings-provider" value="Aviva Insurance" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                                        </div>
+                                        <div>
+                                            <label for="buildings-policy" class="block text-sm font-medium text-gray-700 mb-1">Policy Number <span class="text-red-500">*</span></label>
+                                            <input type="text" id="buildings-policy" name="buildings-policy" value="BLD-2025-789456" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                                        </div>
+                                        <div>
+                                            <label for="buildings-renewal" class="block text-sm font-medium text-gray-700 mb-1">Renewal Date <span class="text-red-500">*</span></label>
+                                            <input type="date" id="buildings-renewal" name="buildings-renewal" value="2026-03-15" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                                        </div>
+                                        <div>
+                                            <label for="buildings-premium" class="block text-sm font-medium text-gray-700 mb-1">Annual Premium (£) <span class="text-red-500">*</span></label>
+                                            <div class="flex">
+                                                <span class="inline-flex items-center px-3 rounded-l border border-r-0 border-gray-300 bg-gray-50 text-gray-500">£</span>
+                                                <input type="number" id="buildings-premium" name="buildings-premium" value="450" min="0" step="0.01" class="w-full px-4 py-2 border border-gray-300 rounded-r focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex items-center mb-4">
+                                        <div class="custom-switch" id="contents-switch" onclick="toggleContents()"></div>
+                                        <input type="hidden" id="has-contents" name="has-contents" value="false">
+                                        <label for="contents-switch" class="ml-2 text-sm font-medium text-gray-700">I have contents insurance for this property</label>
+                                    </div>
+                                    <div id="contents-details" class="bg-gray-50 p-4 rounded-lg hidden">
+                                        <h3 class="text-md font-medium text-gray-900 mb-3">Contents Insurance</h3>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div>
+                                                <label for="contents-provider" class="block text-sm font-medium text-gray-700 mb-1">Insurance Provider</label>
+                                                <input type="text" id="contents-provider" name="contents-provider" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                            </div>
+                                            <div>
+                                                <label for="contents-policy" class="block text-sm font-medium text-gray-700 mb-1">Policy Number</label>
+                                                <input type="text" id="contents-policy" name="contents-policy" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                            </div>
+                                            <div>
+                                                <label for="contents-renewal" class="block text-sm font-medium text-gray-700 mb-1">Renewal Date</label>
+                                                <input type="date" id="contents-renewal" name="contents-renewal" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                            </div>
+                                            <div>
+                                                <label for="contents-premium" class="block text-sm font-medium text-gray-700 mb-1">Annual Premium (£)</label>
+                                                <div class="flex">
+                                                    <span class="inline-flex items-center px-3 rounded-l border border-r-0 border-gray-300 bg-gray-50 text-gray-500">£</span>
+                                                    <input type="number" id="contents-premium" name="contents-premium" min="0" step="0.01" class="w-full px-4 py-2 border border-gray-300 rounded-r focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Maintenance Information -->
+                    <div class="bg-white shadow rounded-lg overflow-hidden">
+                        <div class="p-6 form-section" id="section-maintenance">
+                            <div class="flex justify-between items-center mb-6 cursor-pointer" onclick="toggleSection('section-maintenance')">
+                                <h2 class="text-xl font-semibold text-gray-900 flex items-center">
+                                    <div class="w-8 h-8 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-3">
+                                        <i class="ri-tools-line text-primary"></i>
+                                    </div>
+                                    Maintenance Information
+                                </h2>
+                                <i class="ri-arrow-up-s-line text-gray-400 section-toggle"></i>
+                            </div>
+                            <div class="section-content space-y-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="last-inspection" class="block text-sm font-medium text-gray-700 mb-1">Last Inspection Date</label>
+                                        <input type="date" id="last-inspection" name="last-inspection" value="2025-02-20" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                    </div>
+                                    <div>
+                                        <label for="next-inspection" class="block text-sm font-medium text-gray-700 mb-1">Next Inspection Due</label>
+                                        <input type="date" id="next-inspection" name="next-inspection" value="2025-08-20" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="text-md font-medium text-gray-900 mb-3">Issues Reported to Estate Managers</h3>
+                                    <div class="overflow-x-auto">
+                                        <table class="min-w-full divide-y divide-gray-200">
+                                            <thead class="bg-gray-50">
+                                                <tr>
+                                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date Reported</th>
+                                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Issue Description</th>
+                                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Resolution</th>
+                                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="bg-white divide-y divide-gray-200" id="issues-table-body">
+                                                <tr>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2025-05-28</td>
+                                                    <td class="px-6 py-4 text-sm text-gray-500">Water ingress from balcony above during heavy rain</td>
+                                                    <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">In Progress</span></td>
+                                                    <td class="px-6 py-4 text-sm text-gray-500">Building surveyor scheduled for inspection on 2025-06-15</td>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                        <button type="button" class="text-primary hover:text-primary-dark mr-2" onclick="sendEmail('Water ingress issue', 'Water ingress from balcony above during heavy rain')"><i class="ri-mail-send-line"></i></button>
+                                                        <button type="button" class="edit-issue text-primary hover:text-primary-dark">Update</button>
+                                                        <button type="button" class="delete-issue ml-3 text-red-600 hover:text-red-900">Delete</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2025-04-12</td>
+                                                    <td class="px-6 py-4 text-sm text-gray-500">Common area lighting malfunction on 3rd floor</td>
+                                                    <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Resolved</span></td>
+                                                    <td class="px-6 py-4 text-sm text-gray-500">Faulty sensor replaced and lighting restored on 2025-04-14</td>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                        <button type="button" class="edit-issue text-primary hover:text-primary-dark">Update</button>
+                                                        <button type="button" class="delete-issue ml-3 text-red-600 hover:text-red-900">Delete</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="mt-4">
+                                        <button type="button" id="add-issue-button" class="px-4 py-2 bg-white border border-gray-300 rounded-button text-sm font-medium text-gray-700 hover:bg-gray-50 flex items-center whitespace-nowrap">
+                                            <i class="ri-add-line mr-1"></i> Report New Issue
+                                        </button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="text-md font-medium text-gray-900 mb-3">Recent Repairs</h3>
+                                    <div class="overflow-x-auto">
+                                        <table class="min-w-full divide-y divide-gray-200">
+                                            <thead class="bg-gray-50">
+                                                <tr>
+                                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cost (£)</th>
+                                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contractor</th>
+                                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="bg-white divide-y divide-gray-200" id="repairs-table-body">
+                                                <tr>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2025-05-12</td>
+                                                    <td class="px-6 py-4 text-sm text-gray-500">Bathroom leak repair</td>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">£320.00</td>
+                                                    <td class="px-6 py-4 text-sm text-gray-500">Waterworks Plumbing Ltd</td>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                        <button type="button" class="edit-repair text-primary hover:text-primary-dark">Edit</button>
+                                                        <button type="button" class="delete-repair ml-3 text-red-600 hover:text-red-900">Delete</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2025-03-24</td>
+                                                    <td class="px-6 py-4 text-sm text-gray-500">Boiler service and repair</td>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">£185.50</td>
+                                                    <td class="px-6 py-4 text-sm text-gray-500">Efficient Heating Solutions</td>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                        <button type="button" class="edit-repair text-primary hover:text-primary-dark">Edit</button>
+                                                        <button type="button" class="delete-repair ml-3 text-red-600 hover:text-red-900">Delete</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="mt-4">
+                                        <button type="button" id="add-repair-button" class="px-4 py-2 bg-white border border-gray-300 rounded-button text-sm font-medium text-gray-700 hover:bg-gray-50 flex items-center whitespace-nowrap">
+                                            <i class="ri-add-line mr-1"></i> Add Repair Record
+                                        </button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="text-md font-medium text-gray-900 mb-3">Upcoming Maintenance</h3>
+                                    <div class="overflow-x-auto">
+                                        <table class="min-w-full divide-y divide-gray-200">
+                                            <thead class="bg-gray-50">
+                                                <tr>
+                                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Due Date</th>
+                                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Task</th>
+                                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estimated Cost (£)</th>
+                                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Priority</th>
+                                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="bg-white divide-y divide-gray-200" id="maintenance-table-body">
+                                                <tr>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2025-08-15</td>
+                                                    <td class="px-6 py-4 text-sm text-gray-500">Annual boiler service</td>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">£120.00</td>
+                                                    <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Medium</span></td>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                        <button type="button" class="edit-maintenance text-primary hover:text-primary-dark">Edit</button>
+                                                        <button type="button" class="delete-maintenance ml-3 text-red-600 hover:text-red-900">Delete</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2025-07-10</td>
+                                                    <td class="px-6 py-4 text-sm text-gray-500">Kitchen tap replacement</td>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">£85.00</td>
+                                                    <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">High</span></td>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                        <button type="button" class="edit-maintenance text-primary hover:text-primary-dark">Edit</button>
+                                                        <button type="button" class="delete-maintenance ml-3 text-red-600 hover:text-red-900">Delete</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="mt-4">
+                                        <button type="button" id="add-maintenance-button" class="px-4 py-2 bg-white border border-gray-300 rounded-button text-sm font-medium text-gray-700 hover:bg-gray-50 flex items-center whitespace-nowrap">
+                                            <i class="ri-add-line mr-1"></i> Add Maintenance Task
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Document Storage -->
+                    <div class="bg-white shadow rounded-lg overflow-hidden">
+                        <div class="p-6 form-section" id="section-documents">
+                            <div class="flex justify-between items-center mb-6 cursor-pointer" onclick="toggleSection('section-documents')">
+                                <h2 class="text-xl font-semibold text-gray-900 flex items-center">
+                                    <div class="w-8 h-8 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-3">
+                                        <i class="ri-file-text-line text-primary"></i>
+                                    </div>
+                                    Document Storage
+                                </h2>
+                                <i class="ri-arrow-up-s-line text-gray-400 section-toggle"></i>
+                            </div>
+                            <div class="section-content">
+                                <div class="space-y-6">
+                                    <div class="flex justify-between items-center">
+                                        <h3 class="text-lg font-medium text-gray-900">Document List</h3>
+                                        <button type="button" id="add-document-button" class="px-4 py-2 bg-primary text-white rounded-button text-sm font-medium hover:bg-primary/90 flex items-center whitespace-nowrap">
+                                            <i class="ri-add-line mr-1"></i> Add New Document
+                                        </button>
+                                    </div>
+                                    <div class="grid grid-cols-1 gap-4">
+                                        <div class="border border-gray-200 rounded-lg p-4">
+                                            <div class="flex items-center justify-between mb-4">
+                                                <div class="flex items-center">
+                                                    <div class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-3">
+                                                        <i class="ri-file-text-line text-primary"></i>
+                                                    </div>
+                                                    <div>
+                                                        <h4 class="text-md font-medium text-gray-900">Lease Agreements</h4>
+                                                        <p class="text-sm text-gray-500">Property lease documents</p>
+                                                    </div>
+                                                </div>
+                                                <span class="text-sm text-gray-500" id="lease-count">1 document</span>
+                                            </div>
+                                            <div class="space-y-3" id="lease-documents">
+                                                <div class="bg-gray-50 rounded p-3 relative document-entry">
+                                                    <div class="flex items-center mb-2">
+                                                        <input type="text" name="lease-name-0" value="Original Lease Agreement" class="flex-grow px-3 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                                        <button type="button" class="delete-document ml-2 text-gray-400 hover:text-red-500"><i class="ri-delete-bin-line"></i></button>
+                                                    </div>
+                                                    <div class="flex items-center">
+                                                        <input type="file" name="lease-file-0" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" class="hidden">
+                                                        <button type="button" class="upload-file px-3 py-1.5 bg-white border border-gray-300 rounded text-sm text-gray-700 hover:bg-gray-50 flex items-center"><i class="ri-upload-line mr-1"></i> Upload</button>
+                                                        <span class="ml-2 text-sm text-gray-500 file-name"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="border border-gray-200 rounded-lg p-4">
+                                            <div class="flex items-center justify-between mb-4">
+                                                <div class="flex items-center">
+                                                    <div class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-3">
+                                                        <i class="ri-shield-check-line text-primary"></i>
+                                                    </div>
+                                                    <div>
+                                                        <h4 class="text-md font-medium text-gray-900">Insurance Certificates</h4>
+                                                        <p class="text-sm text-gray-500">Buildings and contents insurance documents</p>
+                                                    </div>
+                                                </div>
+                                                <span class="text-sm text-gray-500" id="insurance-count">1 document</span>
+                                            </div>
+                                            <div class="space-y-3" id="insurance-documents">
+                                                <div class="bg-gray-50 rounded p-3 relative document-entry">
+                                                    <div class="flex items-center mb-2">
+                                                        <input type="text" name="insurance-name-0" value="Buildings Insurance Certificate" class="flex-grow px-3 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                                        <button type="button" class="delete-document ml-2 text-gray-400 hover:text-red-500"><i class="ri-delete-bin-line"></i></button>
+                                                    </div>
+                                                    <div class="flex items-center">
+                                                        <input type="file" name="insurance-file-0" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" class="hidden">
+                                                        <button type="button" class="upload-file px-3 py-1.5 bg-white border border-gray-300 rounded text-sm text-gray-700 hover:bg-gray-50 flex items-center"><i class="ri-upload-line mr-1"></i> Upload</button>
+                                                        <span class="ml-2 text-sm text-gray-500 file-name"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="border border-gray-200 rounded-lg p-4">
+                                            <div class="flex items-center justify-between mb-4">
+                                                <div class="flex items-center">
+                                                    <div class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-3">
+                                                        <i class="ri-checkbox-circle-line text-primary"></i>
+                                                    </div>
+                                                    <div>
+                                                        <h4 class="text-md font-medium text-gray-900">Safety Certificates</h4>
+                                                        <p class="text-sm text-gray-500">Gas, electrical and other safety certificates</p>
+                                                    </div>
+                                                </div>
+                                                <span class="text-sm text-gray-500" id="safety-count">1 document</span>
+                                            </div>
+                                            <div class="space-y-3" id="safety-documents">
+                                                <div class="bg-gray-50 rounded p-3 relative document-entry">
+                                                    <div class="flex items-center mb-2">
+                                                        <input type="text" name="safety-name-0" value="Gas Safety Certificate" class="flex-grow px-3 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                                        <button type="button" class="delete-document ml-2 text-gray-400 hover:text-red-500"><i class="ri-delete-bin-line"></i></button>
+                                                    </div>
+                                                    <div class="flex items-center">
+                                                        <input type="file" name="safety-file-0" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" class="hidden">
+                                                        <button type="button" class="upload-file px-3 py-1.5 bg-white border border-gray-300 rounded text-sm text-gray-700 hover:bg-gray-50 flex items-center"><i class="ri-upload-line mr-1"></i> Upload</button>
+                                                        <span class="ml-2 text-sm text-gray-500 file-name"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="border border-gray-200 rounded-lg p-4">
+                                            <div class="flex items-center justify-between mb-4">
+                                                <div class="flex items-center">
+                                                    <div class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-3">
+                                                        <i class="ri-search-line text-primary"></i>
+                                                    </div>
+                                                    <div>
+                                                        <h4 class="text-md font-medium text-gray-900">Property Surveys</h4>
+                                                        <p class="text-sm text-gray-500">Survey reports and assessments</p>
+                                                    </div>
+                                                </div>
+                                                <span class="text-sm text-gray-500" id="survey-count">2 documents</span>
+                                            </div>
+                                            <div class="space-y-3" id="survey-documents">
+                                                <div class="bg-gray-50 rounded p-3 relative document-entry">
+                                                    <div class="flex items-center mb-2">
+                                                        <input type="text" name="survey-name-0" value="Building Survey Report 2025" class="flex-grow px-3 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                                        <button type="button" class="delete-document ml-2 text-gray-400 hover:text-red-500"><i class="ri-delete-bin-line"></i></button>
+                                                    </div>
+                                                    <div class="flex items-center">
+                                                        <input type="file" name="survey-file-0" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" class="hidden">
+                                                        <button type="button" class="upload-file px-3 py-1.5 bg-white border border-gray-300 rounded text-sm text-gray-700 hover:bg-gray-50 flex items-center"><i class="ri-upload-line mr-1"></i> Upload</button>
+                                                        <span class="ml-2 text-sm text-gray-500 file-name">BuildingSurvey2025.pdf</span>
+                                                    </div>
+                                                </div>
+                                                <div class="bg-gray-50 rounded p-3 relative document-entry">
+                                                    <div class="flex items-center mb-2">
+                                                        <input type="text" name="survey-name-1" value="Structural Assessment Report" class="flex-grow px-3 py-1.5 border border-gray-300
+                                                                                                            <div class="flex items-center mb-2">
+                                                        <input type="text" name="survey-name-1" value="Structural Assessment Report" class="flex-grow px-3 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                                                        <button type="button" class="delete-document ml-2 text-gray-400 hover:text-red-500"><i class="ri-delete-bin-line"></i></button>
+                                                    </div>
+                                                    <div class="flex items-center">
+                                                        <input type="file" name="survey-file-1" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" class="hidden">
+                                                        <button type="button" class="upload-file px-3 py-1.5 bg-white border border-gray-300 rounded text-sm text-gray-700 hover:bg-gray-50 flex items-center"><i class="ri-upload-line mr-1"></i> Upload</button>
+                                                        <span class="ml-2 text-sm text-gray-500 file-name">StructuralAssessment.pdf</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Form Submission -->
+                    <div class="mt-8 flex justify-end space-x-4">
+                        <button type="button" class="px-6 py-2 bg-white border border-gray-300 rounded-button text-sm font-medium text-gray-700 hover:bg-gray-50">Save Draft</button>
+                        <button type="submit" class="px-6 py-2 bg-primary text-white rounded-button text-sm font-medium hover:bg-primary/90">Submit Property Details</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+        <footer class="bg-white border-t border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+                <div class="text-sm text-gray-500">&copy; 2025 IntelliLease. All rights reserved.</div>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-sm text-gray-500 hover:text-gray-700">Privacy Policy</a>
+                    <a href="#" class="text-sm text-gray-500 hover:text-gray-700">Terms of Service</a>
+                    <a href="#" class="text-sm text-gray-500 hover:text-gray-700">Contact Us</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<!-- Modals -->
+<!-- Add/Edit Issue Modal -->
+<div id="issue-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+            <h3 id="issue-modal-title" class="text-lg font-medium text-gray-900">Report New Issue</h3>
+            <button type="button" class="text-gray-400 hover:text-gray-600" onclick="closeModal('issue-modal')"><i class="ri-close-line text-xl"></i></button>
+        </div>
+        <form id="issue-form">
+            <input type="hidden" id="issue-index" value="">
+            <div class="space-y-4">
+                <div>
+                    <label for="issue-date" class="block text-sm font-medium text-gray-700 mb-1">Date Reported</label>
+                    <input type="date" id="issue-date" name="issue-date" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                </div>
+                <div>
+                    <label for="issue-description" class="block text-sm font-medium text-gray-700 mb-1">Issue Description</label>
+                    <textarea id="issue-description" name="issue-description" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required></textarea>
+                </div>
+                <div>
+                    <label for="issue-status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                    <select id="issue-status" name="issue-status" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                        <option value="In Progress">In Progress</option>
+                        <option value="Resolved">Resolved</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="issue-resolution" class="block text-sm font-medium text-gray-700 mb-1">Resolution</label>
+                    <textarea id="issue-resolution" name="issue-resolution" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none"></textarea>
+                </div>
+            </div>
+            <div class="mt-6 flex justify-end space-x-3">
+                <button type="button" class="px-4 py-2 bg-white border border-gray-300 rounded-button text-sm font-medium text-gray-700 hover:bg-gray-50" onclick="closeModal('issue-modal')">Cancel</button>
+                <button type="submit" class="px-4 py-2 bg-primary text-white rounded-button text-sm font-medium hover:bg-primary/90">Save Issue</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Add/Edit Repair Modal -->
+<div id="repair-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+            <h3 id="repair-modal-title" class="text-lg font-medium text-gray-900">Add Repair Record</h3>
+            <button type="button" class="text-gray-400 hover:text-gray-600" onclick="closeModal('repair-modal')"><i class="ri-close-line text-xl"></i></button>
+        </div>
+        <form id="repair-form">
+            <input type="hidden" id="repair-index" value="">
+            <div class="space-y-4">
+                <div>
+                    <label for="repair-date" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                    <input type="date" id="repair-date" name="repair-date" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                </div>
+                <div>
+                    <label for="repair-description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                    <input type="text" id="repair-description" name="repair-description" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                </div>
+                <div>
+                    <label for="repair-cost" class="block text-sm font-medium text-gray-700 mb-1">Cost (£)</label>
+                    <div class="flex">
+                        <span class="inline-flex items-center px-3 rounded-l border border-r-0 border-gray-300 bg-gray-50 text-gray-500">£</span>
+                        <input type="number" id="repair-cost" name="repair-cost" step="0.01" min="0" class="w-full px-4 py-2 border border-gray-300 rounded-r focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                    </div>
+                </div>
+                <div>
+                    <label for="repair-contractor" class="block text-sm font-medium text-gray-700 mb-1">Contractor</label>
+                    <input type="text" id="repair-contractor" name="repair-contractor" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                </div>
+            </div>
+            <div class="mt-6 flex justify-end space-x-3">
+                <button type="button" class="px-4 py-2 bg-white border border-gray-300 rounded-button text-sm font-medium text-gray-700 hover:bg-gray-50" onclick="closeModal('repair-modal')">Cancel</button>
+                <button type="submit" class="px-4 py-2 bg-primary text-white rounded-button text-sm font-medium hover:bg-primary/90">Save Repair</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Add/Edit Maintenance Modal -->
+<div id="maintenance-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+            <h3 id="maintenance-modal-title" class="text-lg font-medium text-gray-900">Add Maintenance Task</h3>
+            <button type="button" class="text-gray-400 hover:text-gray-600" onclick="closeModal('maintenance-modal')"><i class="ri-close-line text-xl"></i></button>
+        </div>
+        <form id="maintenance-form">
+            <input type="hidden" id="maintenance-index" value="">
+            <div class="space-y-4">
+                <div>
+                    <label for="maintenance-date" class="block text-sm font-medium text-gray-700 mb-1">Due Date</label>
+                    <input type="date" id="maintenance-date" name="maintenance-date" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                </div>
+                <div>
+                    <label for="maintenance-task" class="block text-sm font-medium text-gray-700 mb-1">Task</label>
+                    <input type="text" id="maintenance-task" name="maintenance-task" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                </div>
+                <div>
+                    <label for="maintenance-cost" class="block text-sm font-medium text-gray-700 mb-1">Estimated Cost (£)</label>
+                    <div class="flex">
+                        <span class="inline-flex items-center px-3 rounded-l border border-r-0 border-gray-300 bg-gray-50 text-gray-500">£</span>
+                        <input type="number" id="maintenance-cost" name="maintenance-cost" step="0.01" min="0" class="w-full px-4 py-2 border border-gray-300 rounded-r focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                    </div>
+                </div>
+                <div>
+                    <label for="maintenance-priority" class="block text-sm font-medium text-gray-700 mb-1">Priority</label>
+                    <select id="maintenance-priority" name="maintenance-priority" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mt-6 flex justify-end space-x-3">
+                <button type="button" class="px-4 py-2 bg-white border border-gray-300 rounded-button text-sm font-medium text-gray-700 hover:bg-gray-50" onclick="closeModal('maintenance-modal')">Cancel</button>
+                <button type="submit" class="px-4 py-2 bg-primary text-white rounded-button text-sm font-medium hover:bg-primary/90">Save Maintenance</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Add Document Modal -->
+<div id="document-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-medium text-gray-900">Add New Document</h3>
+            <button type="button" class="text-gray-400 hover:text-gray-600" onclick="closeModal('document-modal')"><i class="ri-close-line text-xl"></i></button>
+        </div>
+        <form id="document-form">
+            <div class="space-y-4">
+                <div>
+                    <label for="document-type" class="block text-sm font-medium text-gray-700 mb-1">Document Type</label>
+                    <select id="document-type" name="document-type" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                        <option value="lease">Lease Agreements</option>
+                        <option value="insurance">Insurance Certificates</option>
+                        <option value="safety">Safety Certificates</option>
+                        <option value="survey">Property Surveys</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="document-name" class="block text-sm font-medium text-gray-700 mb-1">Document Name</label>
+                    <input type="text" id="document-name" name="document-name" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                </div>
+                <div>
+                    <label for="document-file" class="block text-sm font-medium text-gray-700 mb-1">Upload File</label>
+                    <input type="file" id="document-file" name="document-file" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none" required>
+                </div>
+            </div>
+            <div class="mt-6 flex justify-end space-x-3">
+                <button type="button" class="px-4 py-2 bg-white border border-gray-300 rounded-button text-sm font-medium text-gray-700 hover:bg-gray-50" onclick="closeModal('document-modal')">Cancel</button>
+                <button type="submit" class="px-4 py-2 bg-primary text-white rounded-button text-sm font-medium hover:bg-primary/90">Add Document</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Initialize Tailwind primary color
+    document.documentElement.style.setProperty('--primary', '#4f46e5');
+
+    // Section toggle functionality
+    function toggleSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        const toggleIcon = section.querySelector('.section-toggle');
+        section.classList.toggle('collapsed');
+        toggleIcon.classList.toggle('ri-arrow-up-s-line');
+        toggleIcon.classList.toggle('ri-arrow-down-s-line');
+    }
+
+    // Progress bar calculation
+    function updateProgress() {
+        const form = document.getElementById('property-form');
+        const inputs = form.querySelectorAll('input:not([type="hidden"]), textarea, select');
+        let filled = 0;
+        inputs.forEach(input => {
+            if (input.type === 'file') {
+                if (input.files.length > 0) filled++;
+            } else if (input.value.trim() !== '') {
+                filled++;
+            }
+        });
+        const percentage = Math.round((filled / inputs.length) * 100);
+        document.getElementById('progress-percentage').textContent = `${percentage}%`;
+        document.getElementById('progress-bar-fill').style.width = `${percentage}%`;
+    }
+
+    // Property type dropdown
+    const propertyTypeButton = document.getElementById('property-type-button');
+    const propertyTypeDropdown = document.getElementById('property-type-dropdown');
+    const propertyTypeInput = document.getElementById('property-type');
+    const propertyTypeText = document.getElementById('property-type-text');
+    propertyTypeButton.addEventListener('click', () => {
+        propertyTypeDropdown.classList.toggle('hidden');
+    });
+    propertyTypeDropdown.querySelectorAll('div').forEach(item => {
+        item.addEventListener('click', () => {
+            const value = item.dataset.value;
+            propertyTypeText.textContent = value;
+            propertyTypeInput.value = value;
+            propertyTypeDropdown.classList.add('hidden');
+            updateProgress();
+        });
+    });
+
+    // Image upload preview
+    const propertyImageInput = document.getElementById('property-image');
+    const uploadButton = document.getElementById('upload-button');
+    const imagePreview = document.getElementById('image-preview');
+    const previewImg = document.getElementById('preview-img');
+    const uploadPrompt = document.getElementById('upload-prompt');
+    uploadButton.addEventListener('click', () => propertyImageInput.click());
+    propertyImageInput.addEventListener('change', () => {
+        const file = propertyImageInput.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                previewImg.src = e.target.result;
+                imagePreview.classList.remove('hidden');
+                uploadPrompt.classList.add('hidden');
+            };
+            reader.readAsDataURL(file);
+            updateProgress();
+        }
+    });
+
+    // Years remaining calculation
+    function updateYearsRemaining() {
+        const startDate = document.getElementById('lease-start-date').value;
+        const leaseLength = parseInt(document.getElementById('lease-length').value) || 0;
+        if (startDate) {
+            const start = new Date(startDate);
+            const current = new Date();
+            const end = new Date(start.getFullYear() + leaseLength, start.getMonth(), start.getDate());
+            const remaining = Math.max(0, Math.floor((end - current) / (1000 * 60 * 60 * 24 * 365)));
+            document.getElementById('years-remaining').value = remaining;
+        }
+    }
+    document.getElementById('lease-start-date').addEventListener('change', updateYearsRemaining);
+    document.getElementById('lease-length').addEventListener('change', updateYearsRemaining);
+
+    // Frequency dropdowns
+    ['ground-rent', 'service-charge'].forEach(type => {
+        const button = document.getElementById(`${type}-frequency-button`);
+        const dropdown = document.getElementById(`${type}-frequency-dropdown`);
+        const input = document.getElementById(`${type}-frequency`);
+        const text = document.getElementById(`${type}-frequency-text`);
+        button.addEventListener('click', () => {
+            dropdown.classList.toggle('hidden');
+        });
+        dropdown.querySelectorAll('div').forEach(item => {
+            item.addEventListener('click', () => {
+                const value = item.dataset.value;
+                text.textContent = value;
+                input.value = value;
+                dropdown.classList.add('hidden');
+                updateProgress();
+            });
+        });
+    });
+
+    // Switch toggles
+    function createToggleHandler(switchId, inputId, detailsId) {
+        return function () {
+            const switchEl = document.getElementById(switchId);
+            const input = document.getElementById(inputId);
+            const details = document.getElementById(detailsId);
+            const isChecked = switchEl.classList.toggle('checked');
+            input.value = isChecked;
+            details.classList.toggle('hidden', !isChecked);
+            updateProgress();
+        };
+    }
+    document.getElementById('rtm-switch').addEventListener('click', createToggleHandler('rtm-switch', 'has-rtm', 'rtm-details'));
+    document.getElementById('head-leaseholder-switch').addEventListener('click', createToggleHandler('head-leaseholder-switch', 'has-head-leaseholder', 'head-leaseholder-details'));
+    document.getElementById('mortgage-switch').addEventListener('click', createToggleHandler('mortgage-switch', 'has-mortgage', 'mortgage-details'));
+    document.getElementById('contents-switch').addEventListener('click', createToggleHandler('contents-switch', 'has-contents', 'contents-details'));
+    document.getElementById('estate-rtm-switch').addEventListener('click', createToggleHandler('estate-rtm-switch', 'estate-has-rtm', 'estate-rtm-details'));
+
+    // Modal handling
+    function openModal(modalId, title, data = {}) {
+        const modal = document.getElementById(modalId);
+        modal.classList.remove('hidden');
+        if (title) document.getElementById(`${modalId}-title`).textContent = title;
+        const form = modal.querySelector('form');
+        Object.keys(data).forEach(key => {
+            const input = form.querySelector(`[name="${key}"]`);
+            if (input) input.value = data[key];
+        });
+    }
+
+    function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.classList.add('hidden');
+        const form = modal.querySelector('form');
+        form.reset();
+        if (modalId !== 'document-modal') {
+            form.querySelector('[type="hidden"]').value = '';
+        }
+    }
+
+    // Issues table management
+    document.getElementById('add-issue-button').addEventListener('click', () => openModal('issue-modal', 'Report New Issue'));
+    document.getElementById('issue-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const index = document.getElementById('issue-index').value;
+        const data = {
+            date: form['issue-date'].value,
+            description: form['issue-description'].value,
+            status: form['issue-status'].value,
+            resolution: form['issue-resolution'].value
+        };
+        const tableBody = document.getElementById('issues-table-body');
+        if (index !== '') {
+            const row = tableBody.rows[parseInt(index)];
+            row.cells[0].textContent = data.date;
+            row.cells[1].textContent = data.description;
+            row.cells[2].innerHTML = `<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-${data.status === 'Resolved' ? 'green' : 'yellow'}-100 text-${data.status === 'Resolved' ? 'green' : 'yellow'}-800">${data.status}</span>`;
+            row.cells[3].textContent = data.resolution;
+        } else {
+            const row = tableBody.insertRow();
+            row.innerHTML = `
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${data.date}</td>
+                <td class="px-6 py-4 text-sm text-gray-500">${data.description}</td>
+                <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-${data.status === 'Resolved' ? 'green' : 'yellow'}-100 text-${data.status === 'Resolved' ? 'green' : 'yellow'}-800">${data.status}</span></td>
+                <td class="px-6 py-4 text-sm text-gray-500">${data.resolution}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <button type="button" class="text-primary hover:text-primary-dark mr-2" onclick="sendEmail('${data.description}', '${data.description}')"><i class="ri-mail-send-line"></i></button>
+                    <button type="button" class="edit-issue text-primary hover:text-primary-dark">Update</button>
+                    <button type="button" class="delete-issue ml-3 text-red-600 hover:text-red-900">Delete</button>
+                </td>
+            `;
+            attachIssueEventListeners(row);
+        }
+        closeModal('issue-modal');
+        updateHiddenInputs();
+    });
+
+    function attachIssueEventListeners(row) {
+        row.querySelector('.edit-issue').addEventListener('click', () => {
+            const index = Array.from(row.parentNode.children).indexOf(row);
+            const data = {
+                'issue-date': row.cells[0].textContent,
+                'issue-description': row.cells[1].textContent,
+                'issue-status': row.cells[2].querySelector('span').textContent,
+                'issue-resolution': row.cells[3].textContent
+            };
+            openModal('issue-modal', 'Edit Issue', data);
+            document.getElementById('issue-index').value = index;
+        });
+        row.querySelector('.delete-issue').addEventListener('click', () => {
+            row.remove();
+            updateHiddenInputs();
+        });
+    }
+    document.querySelectorAll('#issues-table-body tr').forEach(attachIssueEventListeners);
+
+    // Repairs table management
+    document.getElementById('add-repair-button').addEventListener('click', () => openModal('repair-modal', 'Add Repair Record'));
+    document.getElementById('repair-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const index = document.getElementById('repair-index').value;
+        const data = {
+            date: form['repair-date'].value,
+            description: form['repair-description'].value,
+            cost: `£${parseFloat(form['repair-cost'].value).toFixed(2)}`,
+            contractor: form['repair-contractor'].value
+        };
+        const tableBody = document.getElementById('repairs-table-body');
+        if (index !== '') {
+            const row = tableBody.rows[parseInt(index)];
+            row.cells[0].textContent = data.date;
+            row.cells[1].textContent = data.description;
+            row.cells[2].textContent = data.cost;
+            row.cells[3].textContent = data.contractor;
+        } else {
+            const row = tableBody.insertRow();
+            row.innerHTML = `
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${data.date}</td>
+                <td class="px-6 py-4 text-sm text-gray-500">${data.description}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${data.cost}</td>
+                <td class="px-6 py-4 text-sm text-gray-500">${data.contractor}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <button type="button" class="edit-repair text-primary hover:text-primary-dark">Edit</button>
+                    <button type="button" class="delete-repair ml-3 text-red-600 hover:text-red-900">Delete</button>
+                </td>
+            `;
+            attachRepairEventListeners(row);
+        }
+        closeModal('repair-modal');
+        updateHiddenInputs();
+    });
+
+    function attachRepairEventListeners(row) {
+        row.querySelector('.edit-repair').addEventListener('click', () => {
+            const index = Array.from(row.parentNode.children).indexOf(row);
+            const data = {
+                'repair-date': row.cells[0].textContent,
+                'repair-description': row.cells[1].textContent,
+                'repair-cost': parseFloat(row.cells[2].textContent.replace('£', '')),
+                'repair-contractor': row.cells[3].textContent
+            };
+            openModal('repair-modal', 'Edit Repair', data);
+            document.getElementById('repair-index').value = index;
+        });
+        row.querySelector('.delete-repair').addEventListener('click', () => {
+            row.remove();
+            updateHiddenInputs();
+        });
+    }
+    document.querySelectorAll('#repairs-table-body tr').forEach(attachRepairEventListeners);
+
+    // Maintenance table management
+    document.getElementById('add-maintenance-button').addEventListener('click', () => openModal('maintenance-modal', 'Add Maintenance Task'));
+    document.getElementById('maintenance-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const index = document.getElementById('maintenance-index').value;
+        const data = {
+            date: form['maintenance-date'].value,
+            task: form['maintenance-task'].value,
+            cost: `£${parseFloat(form['maintenance-cost'].value).toFixed(2)}`,
+            priority: form['maintenance-priority'].value
+        };
+        const tableBody = document.getElementById('maintenance-table-body');
+        if (index !== '') {
+            const row = tableBody.rows[parseInt(index)];
+            row.cells[0].textContent = data.date;
+            row.cells[1].textContent = data.task;
+            row.cells[2].textContent = data.cost;
+            row.cells[3].innerHTML = `<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-${data.priority === 'High' ? 'red' : data.priority === 'Medium' ? 'yellow' : 'green'}-100 text-${data.priority === 'High' ? 'red' : data.priority === 'Medium' ? 'yellow' : 'green'}-800">${data.priority}</span>`;
+        } else {
+            const row = tableBody.insertRow();
+            row.innerHTML = `
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${data.date}</td>
+                <td class="px-6 py-4 text-sm text-gray-500">${data.task}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${data.cost}</td>
+                <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-${data.priority === 'High' ? 'red' : data.priority === 'Medium' ? 'yellow' : 'green'}-100 text-${data.priority === 'High' ? 'red' : data.priority === 'Medium' ? 'yellow' : 'green'}-800">${data.priority}</span></td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <button type="button" class="edit-maintenance text-primary hover:text-primary-dark">Edit</button>
+                    <button type="button" class="delete-maintenance ml-3 text-red-600 hover:text-red-900">Delete</button>
+                </td>
+            `;
+            attachMaintenanceEventListeners(row);
+        }
+        closeModal('maintenance-modal');
+        updateHiddenInputs();
+    });
+
+    function attachMaintenanceEventListeners(row) {
+        row.querySelector('.edit-maintenance').addEventListener('click', () => {
+            const index = Array.from(row.parentNode.children).indexOf(row);
+            const data = {
+                'maintenance-date': row.cells[0].textContent,
+                'maintenance-task': row.cells[1].textContent,
+                'maintenance-cost': parseFloat(row.cells[2].textContent.replace('£', '')),
+                'maintenance-priority': row.cells[3].querySelector('span').textContent
+            };
+            openModal('maintenance-modal', 'Edit Maintenance', data);
+            document.getElementById('maintenance-index').value = index;
+        });
+        row.querySelector('.delete-maintenance').addEventListener('click', () => {
+            row.remove();
+            updateHiddenInputs();
+        });
+    }
+    document.querySelectorAll('#maintenance-table-body tr').forEach(attachMaintenanceEventListeners);
+
+    // Document management
+    const documentCounts = {
+        lease: document.querySelectorAll('#lease-documents .document-entry').length,
+        insurance: document.querySelectorAll('#insurance-documents .document-entry').length,
+        safety: document.querySelectorAll('#safety-documents .document-entry').length,
+        survey: document.querySelectorAll('#survey-documents .document-entry').length
+    };
+
+    function updateDocumentCount(type) {
+        document.getElementById(`${type}-count`).textContent = `${documentCounts[type]} document${documentCounts[type] !== 1 ? 's' : ''}`;
+    }
+
+    document.getElementById('add-document-button').addEventListener('click', () => openModal('document-modal'));
+    document.getElementById('document-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const type = form['document-type'].value;
+        const name = form['document-name'].value;
+        const file = form['document-file'].files[0];
+        const container = document.getElementById(`${type}-documents`);
+        const index = documentCounts[type]++;
+        const entry = document.createElement('div');
+        entry.className = 'bg-gray-50 rounded p-3 relative document-entry';
+        entry.innerHTML = `
+            <div class="flex items-center mb-2">
+                <input type="text" name="${type}-name-${index}" value="${name}" class="flex-grow px-3 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none">
+                <button type="button" class="delete-document ml-2 text-gray-400 hover:text-red-500"><i class="ri-delete-bin-line"></i></button>
+            </div>
+            <div class="flex items-center">
+                <input type="file" name="${type}-file-${index}" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" class="hidden">
+                <button type="button" class="upload-file px-3 py-1.5 bg-white border border-gray-300 rounded text-sm text-gray-700 hover:bg-gray-50 flex items-center"><i class="ri-upload-line mr-1"></i> Upload</button>
+                <span class="ml-2 text-sm text-gray-500 file-name">${file ? file.name : ''}</span>
+            </div>
+        `;
+        container.appendChild(entry);
+        if (file) {
+            const fileInput = entry.querySelector(`input[name="${type}-file-${index}"]`);
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            fileInput.files = dataTransfer.files;
+        }
+        attachDocumentEventListeners(entry);
+        updateDocumentCount(type);
+        closeModal('document-modal');
+        updateProgress();
+    });
+
+    function attachDocumentEventListeners(entry) {
+        const deleteButton = entry.querySelector('.delete-document');
+        const uploadButton = entry.querySelector('.upload-file');
+        const fileInput = entry.querySelector('input[type="file"]');
+        const fileName = entry.querySelector('.file-name');
+        deleteButton.addEventListener('click', () => {
+            const type = entry.closest('[id$="-documents"]').id.split('-')[0];
+            entry.remove();
+            documentCounts[type]--;
+            updateDocumentCount(type);
+            renumberDocuments(type);
+            updateProgress();
+        });
+        uploadButton.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                fileName.textContent = fileInput.files[0].name;
+                updateProgress();
+            }
+        });
+    }
+
+    function renumberDocuments(type) {
+        const entries = document.querySelectorAll(`#${type}-documents .document-entry`);
+        entries.forEach((entry, index) => {
+            const nameInput = entry.querySelector('input[type="text"]');
+            const fileInput = entry.querySelector('input[type="file"]');
+            nameInput.name = `${type}-name-${index}`;
+            fileInput.name = `${type}-file-${index}`;
+        });
+    }
+
+    document.querySelectorAll('.document-entry').forEach(attachDocumentEventListeners);
+
+    // Email sending placeholder
+    function sendEmail(subject, body) {
+        alert(`Sending email with subject: ${subject}\nBody: ${body}`);
+        // Implement actual email functionality here
+    }
+
+    // Update hidden inputs for form submission
+    function updateHiddenInputs() {
+        const issues = [];
+        document.querySelectorAll('#issues-table-body tr').forEach(row => {
+            issues.push({
+                date: row.cells[0].textContent,
+                description: row.cells[1].textContent,
+                status: row.cells[2].querySelector('span').textContent,
+                resolution: row.cells[3].textContent
+            });
+        });
+        const repairs = [];
+        document.querySelectorAll('#repairs-table-body tr').forEach(row => {
+            repairs.push({
+                date: row.cells[0].textContent,
+                description: row.cells[1].textContent,
+                cost: row.cells[2].textContent,
+                contractor: row.cells[3].textContent
+            });
+        });
+        const maintenance = [];
+        document.querySelectorAll('#maintenance-table-body tr').forEach(row => {
+            maintenance.push({
+                date: row.cells[0].textContent,
+                task: row.cells[1].textContent,
+                cost: row.cells[2].textContent,
+                priority: row.cells[3].querySelector('span').textContent
+            });
+        });
+        // Ensure hidden inputs exist or create them
+        let issuesInput = document.getElementById('issues-data');
+        if (!issuesInput) {
+            issuesInput = document.createElement('input');
+            issuesInput.type = 'hidden';
+            issuesInput.id = 'issues-data';
+            issuesInput.name = 'issues';
+            document.getElementById('property-form').appendChild(issuesInput);
+        }
+        let repairsInput = document.getElementById('repairs-data');
+        if (!repairsInput) {
+            repairsInput = document.createElement('input');
+            repairsInput.type = 'hidden';
+            repairsInput.id = 'repairs-data';
+            repairsInput.name = 'repairs';
+            document.getElementById('property-form').appendChild(repairsInput);
+        }
+        let maintenanceInput = document.getElementById('maintenance-data');
+        if (!maintenanceInput) {
+            maintenanceInput = document.createElement('input');
+            maintenanceInput.type = 'hidden';
+            maintenanceInput.id = 'maintenance-data';
+            maintenanceInput.name = 'maintenance';
+            document.getElementById('property-form').appendChild(maintenanceInput);
+        }
+        issuesInput.value = JSON.stringify(issues);
+        repairsInput.value = JSON.stringify(repairs);
+        maintenanceInput.value = JSON.stringify(maintenance);
+    }
+
+    // Form submission
+    document.getElementById('property-form').addEventListener('submit', (e) => {
+        // e.preventDefault(); // Uncomment for testing
+        updateHiddenInputs();
+        // The form will submit to /submit-property with multipart/form-data
+        console.log('Form submitted with all data including files and table data');
+    });
+
+    // Initialize progress and years remaining
+    updateProgress();
+    updateYearsRemaining();
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!propertyTypeButton.contains(e.target) && !propertyTypeDropdown.contains(e.target)) {
+            propertyTypeDropdown.classList.add('hidden');
+        }
+        ['ground-rent', 'service-charge'].forEach(type => {
+            const button = document.getElementById(`${type}-frequency-button`);
+            const dropdown = document.getElementById(`${type}-frequency-dropdown`);
+            if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+    });
+</script>
+</body>
+</html>

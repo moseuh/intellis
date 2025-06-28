@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntelliLease Dashboard</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: '#5a5af3', secondary: '#6c757d' },
+                    borderRadius: {
+                        'none': '0px', 'sm': '4px', DEFAULT: '8px', 'md': '12px',
+                        'lg': '16px', 'xl': '20px', '2xl': '24px', '3xl': '32px',
+                        'full': '9999px', 'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        #propertyDetailsContent { max-height: 1000px; opacity: 1; margin-top: 1.5rem; }
+    </style>
+</head>
+<body class="bg-gray-50 flex h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white shadow-md flex-shrink-0 overflow-y-auto">
+        <div class="p-6">
+            <h1 class="text-primary text-2xl font-bold">IntelliLease</h1>
+        </div>
+        <nav class="mt-2">
+            <div class="px-4 space-y-2">
+                <a href="/" class="flex items-center px-4 py-3 text-gray-600 rounded-lg hover:bg-gray-100">
+                    <div class="w-5 h-5 flex items-center justify-center mr-3"><i class="ri-home-line"></i></div>
+                    <span>Home</span>
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-primary font-medium rounded-lg bg-gray-100">
+                    <div class="w-5 h-5 flex items-center justify-center mr-3"><i class="ri-dashboard-line"></i></div>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/properties" class="flex items-center px-4 py-3 text-gray-600 rounded-lg hover:bg-gray-100">
+                    <div class="w-5 h-5 flex items-center justify-center mr-3"><i class="ri-building-line"></i></div>
+                    <span>Property Details</span>
+                </a>
+                <a href="/account" class="flex items-center px-4 py-3 text-gray-600 rounded-lg hover:bg-gray-100">
+                    <div class="w-5 h-5 flex items-center justify-center mr-3"><i class="ri-settings-line"></i></div>
+                    <span>Account Settings</span>
+                </a>
+                <a href="/pricing" class="flex items-center px-4 py-3 text-gray-600 rounded-lg hover:bg-gray-100">
+                    <div class="w-5 h-5 flex items-center justify-center mr-3"><i class="ri-shopping-bag-line"></i></div>
+                    <span>Products</span>
+                </a>
+                <div class="pl-7 space-y-2 mt-2">
+                    <a href="#" class="flex items-center px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-100">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3"><i class="ri-file-chart-line"></i></div>
+                        <span>Analyse Leasehold</span>
+                    </a>
+                    <a href="/compare" class="flex items-center px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-100">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3"><i class="ri-scales-line"></i></div>
+                        <span>Compare Leaseholds</span>
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-100">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3"><i class="ri-money-dollar-circle-line"></i></div>
+                        <span>Analyse Service Charges</span>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-8 px-4">
+                <h3 class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Support</h3>
+                <div class="mt-2 space-y-2">
+                    <a href="#" class="flex items-center px-4 py-3 text-gray-600 rounded-lg hover:bg-gray-100">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3"><i class="ri-question-line"></i></div>
+                        <span>View FAQ</span>
+                    </a>
+                    <a href="/contact" class="flex items-center px-4 py-3 text-gray-600 rounded-lg hover:bg-gray-100">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3"><i class="ri-customer-service-line"></i></div>
+                        <span>Contact Support</span>
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-3 text-gray-600 rounded-lg hover:bg-gray-100">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3"><i class="ri-chat-1-line"></i></div>
+                        <span>Start Live Chat</span>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-6 px-4">
+                <a href="#" class="flex items-center px-4 py-3 text-gray-600 rounded-lg hover:bg-gray-100">
+                    <div class="w-5 h-5 flex items-center justify-center mr-3"><i class="ri-star-line"></i></div>
+                    <span>Write a Review</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto p-8">
+        <!-- Welcome Banner -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-8" id="welcomeBanner">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-800" id="welcomeMessage">Loading...</h1>
+                    <p class="text-gray-600 mt-1" id="productStatus">Loading...</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-sm text-gray-500">Today is</p>
+                    <p class="text-lg font-medium text-gray-800" id="currentDate">Loading...</p>
+                </div>
+            </div>
+        </div>
+        <!-- Property Details -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+            <div class="flex justify-between items-center mb-6 cursor-pointer" id="propertyDetailsHeader">
+                <div class="flex items-center gap-2">
+                    <h2 class="text-xl font-semibold text-gray-800">Property Details</h2>
+                    <i class="ri-arrow-down-s-line transition-transform" id="propertyDetailsArrow"></i>
+                </div>
+                <button class="text-primary hover:text-primary/80 flex items-center justify-center whitespace-nowrap">
+                    <i class="ri-edit-line mr-1"></i> Edit Details
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-300 overflow-hidden" id="propertyDetailsContent">
+                <p class="text-gray-600">Loading property data...</p>
+            </div>
+        </div>
+        <!-- Dashboard Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Active Products Section -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-semibold text-gray-800">Your–
+
+System: Products</h2>
+                        <a href="/pricing" class="text-primary text-sm hover:underline">View all</a>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="productsContent">
+                        <p class="text-gray-600">Loading products...</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Upcoming Events -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Upcoming Events</h2>
+                    <div class="space-y-4" id="eventsContent">
+                        <p class="text-gray-600">Loading events...</p>
+                    </div>
+                    <div class="mt-4">
+                        <a href="#" class="text-primary text-sm hover:underline flex items-center">
+                            View all events <i class="ri-arrow-right-line ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Recent Reports & Legislative Updates -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <!-- Recent Reports -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Recent Reports</h2>
+                <div class="lg:col-span-1">
+                        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+                            <h3 class="text-xl font-bold text-gray-900 mb-4">Uploaded Documents</h3>
+                            {% if documents %}
+                                <div class="space-y-4">
+                                    {% for doc in documents %}
+                                        <div class="document-card bg-white p-4 rounded-lg border border-gray-200 hover:border-primary">
+                                            <div class="flex items-center space-x-3">
+                                                <span class="w-8 h-8 flex items-center justify-center text-gray-400">
+                                                    <i class="ri-file-text-line ri-lg"></i>
+                                                </span>
+                                                <div>
+                                                    <p class="text-gray-700 font-medium">{{ doc.filename }}</p>
+                                                    <p class="text-sm text-gray-500">Uploaded: {{ doc.upload_date }}</p>
+                                                    <p class="text-sm text-gray-500">Type: {{ 'Scanned' if doc.is_scanned else 'Text-based' }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <p class="text-gray-600 text-center">No documents uploaded yet.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                <div class="mt-4">
+                    <a href="#" class="text-primary text-sm hover:underline flex items-center">
+                        View all reports <i class="ri-arrow-right-line ml-1"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- Legislative Updates -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Legislative Updates</h2>
+                <div class="space-y-4" id="legislativeUpdatesContent">
+                    <p class="text-gray-600">Loading updates...</p>
+                </div>
+                <div class="mt-4">
+                    <a href="#" class="text-primary text-sm hover:underline flex items-center">
+                        View all updates <i class="ri-arrow-right-line ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Upgrade Section -->
+        <div class="bg-gradient-to-r from-primary to-indigo-600 rounded-lg shadow-sm p-6 text-white hidden" id="upgradeSection">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="mb-4 md:mb-0">
+                    <h2 class="text-xl font-semibold mb-2">Unlock Premium Features</h2>
+                    <p class="text-white/80">Get access to advanced analysis tools, priority support, and expert consultations.</p>
+                </div>
+                <button class="px-6 py-3 bg-white text-primary font-medium rounded-button shadow-sm hover:bg-gray-100 whitespace-nowrap">
+                    Upgrade Now
+                </button>
+            </div>
+        </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Utility function to format dates
+            const formatDate = (date) => {
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                return new Date(date).toLocaleDateString('en-GB', options);
+            };
+
+            // Handle API errors
+            const handleApiError = (response, sectionId, errorMessage) => {
+                if (response.status === 401) {
+                    window.location.href = '/login';
+                    return false;
+                }
+                document.getElementById(sectionId).innerHTML = `<p class="text-gray-600">${errorMessage}</p>`;
+                console.error(errorMessage, response.statusText);
+                return false;
+            };
+
+            // Fetch user data
+            try {
+                const userResponse = await fetch('/get_user_data', { credentials: 'include' });
+                if (!userResponse.ok) {
+                    return handleApiError(userResponse, 'welcomeBanner', 'Error loading user data.');
+                }
+                const userData = await userResponse.json();
+                document.getElementById('welcomeMessage').textContent = `Welcome back, ${userData.first_name} ${userData.last_name}`;
+                const activeProducts = userData.subscription?.plan ? 3 : 0;
+                const availableReports = userData.billing_history?.length || 0;
+                document.getElementById('productStatus').textContent = 
+                    `You have ${activeProducts} active products and ${availableReports} reports available.`;
+                document.getElementById('currentDate').textContent = formatDate(new Date());
+                // Show/hide upgrade section based on subscription
+                if (!userData.subscription?.plan || userData.subscription.status !== 'active') {
+                    document.getElementById('upgradeSection').classList.remove('hidden');
+                }
+            } catch (error) {
+                document.getElementById('welcomeBanner').innerHTML = '<p class="text-gray-600">Error loading user data.</p>';
+                console.error('Error fetching user data:', error);
+            }
+
+            // Fetch properties data
+            try {
+                const propertiesResponse = await fetch('/properties/data', { credentials: 'include' });
+                if (!propertiesResponse.ok) {
+                    return handleApiError(propertiesResponse, 'propertyDetailsContent', 'Error loading property data.');
+                }
+                const properties = await propertiesResponse.json();
+                const property = properties[0] || {};
+                const propertyDetailsContent = document.getElementById('propertyDetailsContent');
+                propertyDetailsContent.innerHTML = property.address ? `
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500">Property Address</h3>
+                            <p class="text-gray-800">${property.address || 'N/A'}</p>
+                            <p class="text-gray-800">${property.address_line_2 || ''}</p>
+                            <p class="text-gray-800">${property.city || ''}, ${property.postcode || ''}</p>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500">Property Type</h3>
+                            <p class="text-gray-800">${property.property_type || 'N/A'}</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500">Lease Details</h3>
+                            <div class="flex items-center gap-2">
+                                <p class="text-gray-800">${property.lease_term || 'N/A'}</p>
+                                <span class="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">
+                                    ${property.lease_remaining || 'N/A'} remaining
+                                </span>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500">Ground Rent</h3>
+                            <p class="text-gray-800">${property.ground_rent || 'N/A'}</p>
+                            <p class="text-xs text-gray-500">Next review: ${property.ground_rent_review || 'N/A'}</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500">Service Charge</h3>
+                            <p class="text-gray-800">${property.service_charge || 'N/A'}</p>
+                            <p class="text-xs text-gray-500">${property.service_charge_frequency || 'N/A'}</p>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500">Managing Agent</h3>
+                            <p class="text-gray-800">${property.managing_agent || 'N/A'}</p>
+                            <p class="text-xs text-gray-500">Contact: ${property.managing_agent_contact || 'N/A'}</p>
+                        </div>
+                    </div>
+                ` : '<p class="text-gray-600">No property data available.</p>';
+            } catch (error) {
+                document.getElementById('propertyDetailsContent').innerHTML = '<p class="text-gray-600">Error loading property data.</p>';
+                console.error('Error fetching properties:', error);
+            }
+
+            // Fetch products
+            try {
+                const productsResponse = await fetch('/products', { credentials: 'include' });
+                if (!productsResponse.ok) {
+                    return handleApiError(productsResponse, 'productsContent', 'Error loading products.');
+                }
+                const products = await productsResponse.json();
+                const productsContent = document.getElementById('productsContent');
+                productsContent.innerHTML = products.map(product => `
+                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow ${product.status === 'Locked' ? 'bg-gray-50' : ''}">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-${product.color}-100 flex items-center justify-center mr-3">
+                                    <i class="${product.icon} text-${product.color}-600 ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium text-gray-${product.status === 'Locked' ? '600' : '800'}">${product.name}</h3>
+                                    <p class="text-xs text-gray-500">${product.lastUpdated}</p>
+                                </div>
+                            </div>
+                            <span class="px-2 py-1 text-xs font-medium bg-${product.status === 'Locked' ? 'gray-200 text-gray-600' : 'green-100 text-green-800'} rounded-full">${product.status}</span>
+                        </div>
+                        <div class="mt-4">
+                            <button class="w-full py-2 bg-${product.status === 'Locked' ? 'gray-300 text-gray-700' : 'primary text-white'} font-medium rounded-button flex items-center justify-center whitespace-nowrap">
+                                <i class="ri-${product.status === 'Locked' ? 'lock' : 'eye'}-line mr-2"></i>
+                                ${product.status === 'Locked' ? 'Upgrade' : 'View Report'}
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                document.getElementById('productsContent').innerHTML = '<p class="text-gray-600">Error loading products.</p>';
+                console.error('Error fetching products:', error);
+            }
+
+            // Fetch events
+            try {
+                const eventsResponse = await fetch('/events', { credentials: 'include' });
+                if (!eventsResponse.ok) {
+                    return handleApiError(eventsResponse, 'eventsContent', 'Error loading events.');
+                }
+                const events = await eventsResponse.json();
+                const eventsContent = document.getElementById('eventsContent');
+                eventsContent.innerHTML = events.map(event => `
+                    <div class="border-l-4 border-${event.color}-500 pl-3 py-2">
+                        <p class="text-sm text-gray-500">${event.date}</p>
+                        <h3 class="font-medium text-gray-800">${event.title}</h3>
+                        <p class="text-sm text-gray-600">${event.description}</p>
+                    </div>
+                `).join('') || '<p class="text-gray-600">No upcoming events.</p>';
+            } catch (error) {
+                document.getElementById('eventsContent').innerHTML = '<p class="text-gray-600">Error loading events.</p>';
+                console.error('Error fetching events:', error);
+            }
+
+            // Fetch reports
+            try {
+                const reportsResponse = await fetch('/reports', { credentials: 'include' });
+                if (!reportsResponse.ok) {
+                    return handleApiError(reportsResponse, 'reportsContent', 'Error loading reports.');
+                }
+                const reports = await reportsResponse.json();
+                const reportsContent = document.getElementById('reportsContent');
+                reportsContent.innerHTML = reports.map(report => `
+                    <div class="flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-${report.color}-100 flex items-center justify-center mr-3">
+                                <i class="${report.icon} text-${report.color}-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-gray-800">${report.title}</h3>
+                                <p class="text-xs text-gray-500">Generated on ${report.date}</p>
+                            </div>
+                        </div>
+                        <button class="p-2 text-primary hover:bg-blue-50 rounded-full">
+                            <i class="ri-download-line"></i>
+                        </button>
+                    </div>
+                `).join('') || '<p class="text-gray-600">No recent reports.</p>';
+            } catch (error) {
+                document.getElementById('reportsContent').innerHTML = '<p class="text-gray-600">Error loading reports.</p>';
+                console.error('Error fetching reports:', error);
+            }
+
+            // Fetch legislative updates
+            try {
+                const updatesResponse = await fetch('/legislative_updates', { credentials: 'include' });
+                if (!updatesResponse.ok) {
+                    return handleApiError(updatesResponse, 'legislativeUpdatesContent', 'Error loading updates.');
+                }
+                const updates = await updatesResponse.json();
+                const legislativeUpdatesContent = document.getElementById('legislativeUpdatesContent');
+                legislativeUpdatesContent.innerHTML = updates.map(update => `
+                    <div class="p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-${update.color}-100 flex items-center justify-center mr-3">
+                                <i class="${update.icon} text-${update.color}-600"></i>
+                            </div>
+                            <h3 class="font-medium text-gray-800">${update.title}</h3>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-2">${update.description}</p>
+                        <p class="text-xs text-gray-500 mt-1">Published: ${update.date}</p>
+                    </div>
+                `).join('') || '<p class="text-gray-600">No legislative updates.</p>';
+            } catch (error) {
+                document.getElementById('legislativeUpdatesContent').innerHTML = '<p class="text-gray-600">Error loading updates.</p>';
+                console.error('Error fetching updates:', error);
+            }
+
+            // Existing interactions
+            const propertyDetailsHeader = document.getElementById('propertyDetailsHeader');
+            const propertyDetailsContent = document.getElementById('propertyDetailsContent');
+            const propertyDetailsArrow = document.getElementById('propertyDetailsArrow');
+            let isCollapsed = false;
+            propertyDetailsHeader.addEventListener('click', function(e) {
+                if (e.target.closest('button')) return;
+                isCollapsed = !isCollapsed;
+                propertyDetailsArrow.style.transform = isCollapsed ? 'rotate(-180deg)' : 'rotate(0)';
+                if (isCollapsed) {
+                    propertyDetailsContent.style.maxHeight = '0';
+                    propertyDetailsContent.style.opacity = '0';
+                    propertyDetailsContent.style.marginTop = '0';
+                } else {
+                    propertyDetailsContent.style.maxHeight = propertyDetailsContent.scrollHeight + 'px';
+                    propertyDetailsContent.style.opacity = '1';
+                    propertyDetailsContent.style.marginTop = '1.5rem';
+                }
+            });
+
+            const editDetailsBtn = document.querySelector('button:has(.ri-edit-line)');
+            editDetailsBtn.addEventListener('click', function() {
+                const modal = document.createElement('div');
+                modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+                modal.innerHTML = `
+                    <div class="bg-white rounded-lg p-6 max-w-lg w-full mx-4">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-semibold text-gray-800">Edit Property Details</h3>
+                            <button class="text-gray-500 hover:text-gray-700" id="closeModal">
+                                <i class="ri-close-line ri-lg"></i>
+                            </button>
+                        </div>
+                        <p class="text-gray-600 mb-4">This feature is coming soon. You'll be able to edit your property details here.</p>
+                        <button class="w-full py-2 bg-primary text-white font-medium rounded-button">Got it</button>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+                const closeModal = () => modal.remove();
+                modal.querySelector('#closeModal').addEventListener('click', closeModal);
+                modal.querySelector('.rounded-button').addEventListener('click', closeModal);
+                modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+            });
+
+            const lockedButtons = document.querySelectorAll('.bg-gray-300');
+            lockedButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    alert('This feature requires an upgrade. Please purchase this product to access it.');
+                });
+            });
+        });
+    </script>
+    <script>
+        !function (t, e) { var o, n, p, r; e.__SV || (window.posthog = e, e._i = [], e.init = function (i, s, a) { function g(t, e) { var o = e.split("."); 2 == o.length && (t = t[o[0]], e = o[1]), t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } } (p = t.createElement("script")).type = "text/javascript", p.crossOrigin = "anonymous", p.async = !0, p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js", (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r); var u = e; for (void 0 !== a ? u = e[a] = [] : a = "posthog", u.people = u.people || [], u.toString = function (t) { var e = "posthog"; return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e }, u.people.toString = function () { return u.toString(1) + ".people (stub)" }, o = "init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "), n = 0; n < o.length; n++)g(u, o[n]); e._i.push([i, s, a]) }, e.__SV = 1) }(document, window.posthog || []);
+        posthog.init('phc_t9tkQZJiyi2ps9zUYm8TDsL6qXo4YmZx0Ot5rBlAlEd', {
+            api_host: 'https://us.i.posthog.com',
+            autocapture: false,
+            capture_pageview: false,
+            capture_pageleave: false,
+            capture_performance: { web_vitals: false },
+            rageclick: false,
+        });
+        window.shareKey = 'qo5Z9AvJnRuXh9LZI3T-Mw';
+        window.host = 'readdy.ai';
+    </script>
+    <script src="https://static.readdy.ai/static/share.js"></script>
+</body>
+</html>

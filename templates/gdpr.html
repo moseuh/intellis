@@ -1,0 +1,52 @@
+<div id="gdpr-popup" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+  <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6 relative">
+    <button onclick="document.getElementById('gdpr-popup').style.display='none'" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
+    <div class="flex items-center mb-4">
+      <span class="text-2xl mr-2">✅</span>
+      <h2 class="text-xl font-bold">GDPR Consent Form</h2>
+    </div>
+    <p class="mb-2 text-gray-700">🔒 <strong>Secure Your Lease Audit with Confidence</strong></p>
+    <p class="mb-4 text-gray-600">Before we proceed, please review and consent to how we use your data.</p>
+    <div class="mb-3">
+      <p class="font-semibold mb-1">📋 Data We Collect:</p>
+      <ul class="list-disc list-inside text-gray-700">
+        <li>✅ Uploaded leases and billing documents</li>
+        <li>✅ Your name, email, and address</li>
+        <li>✅ Usage data (to improve services)</li>
+      </ul>
+    </div>
+    <div class="mb-3">
+      <p class="font-semibold mb-1">💡 How We Use It:</p>
+      <ul class="list-disc list-inside text-gray-700">
+        <li>Provide AI-powered analysis and lease comparisons</li>
+        <li>Generate RTM notices or audit reports</li>
+        <li>Securely store your reports for future access</li>
+        <li>Never sell or share your data without consent</li>
+      </ul>
+    </div>
+    <div class="mb-3">
+      <p class="font-semibold mb-1">🔍 Your Rights:</p>
+      <ul class="list-disc list-inside text-gray-700">
+        <li>Access, correct, or delete your data at any time</li>
+        <li>Withdraw consent at any time from your dashboard</li>
+        <li>Request a full data export</li>
+      </ul>
+    </div>
+    <form id="gdpr-consent-form" class="mt-4">
+      <label class="flex items-center mb-4">
+        <input type="checkbox" id="gdpr-consent-checkbox" class="mr-2" required>
+        <span class="text-gray-700">I have read and consent to the use of my data as described above.</span>
+      </label>
+      <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Continue
+      </button>
+    </form>
+  </div>
+</div>
+<script>
+  document.getElementById('gdpr-consent-form').onsubmit = function(e) {
+    e.preventDefault();
+    // You can store consent in localStorage or send to backend here
+    document.getElementById('gdpr-popup').style.display = 'none';
+  };
+</script>

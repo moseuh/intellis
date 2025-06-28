@@ -1,0 +1,96 @@
+<div id="terms-popup" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+  <div class="bg-white rounded-lg shadow-lg max-w-2xl w-full p-8 relative overflow-y-auto max-h-[90vh]">
+    <button onclick="document.getElementById('terms-popup').style.display='none'" class="absolute top-3 right-4 text-gray-400 hover:text-gray-700 text-3xl font-bold">&times;</button>
+    <div class="mb-4 flex items-center">
+      <span class="text-2xl mr-2">📄</span>
+      <h2 class="text-2xl font-bold">Terms of Use for IntelliLease</h2>
+    </div>
+    <p class="text-gray-600 mb-2">Effective Date: <span class="font-semibold">{{ current_date }}</span></p>
+    <hr class="my-4">
+    <p class="mb-4 text-gray-700">
+      Welcome to IntelliLease, an AI-powered platform for leasehold document analysis, service charge auditing, and Right to Manage (RTM) support. By using our platform, you agree to the following terms and conditions:
+    </p>
+    <hr class="my-4">
+    <h3 class="font-semibold text-lg mb-2">Acceptance of Terms</h3>
+    <p class="mb-4 text-gray-700">
+      By accessing or using IntelliLease ("the Service"), you agree to be bound by these Terms of Use and our 
+      <a href="{{ url_for('privacy') }}" class="text-blue-600 underline" target="_blank">Privacy Policy</a>. If you do not agree, you may not use the Service.
+    </p>
+    <hr class="my-4">
+    <h3 class="font-semibold text-lg mb-2">Eligibility</h3>
+    <p class="mb-4 text-gray-700">
+      To use IntelliLease, you must be at least 18 years old and legally able to enter into contracts.
+    </p>
+    <hr class="my-4">
+    <h3 class="font-semibold text-lg mb-2">Services Provided</h3>
+    <ul class="list-disc list-inside mb-4 text-gray-700">
+      <li>Lease analysis and comparison tools</li>
+      <li>Service charge auditing and reporting</li>
+      <li>Right to Manage (RTM) timeline tracking and document generation</li>
+      <li>Document storage and summarisation</li>
+    </ul>
+    <p class="mb-4 text-gray-700">We may update or modify our services at any time.</p>
+    <hr class="my-4">
+    <h3 class="font-semibold text-lg mb-2">User Accounts</h3>
+    <p class="mb-4 text-gray-700">
+      You must create an account to access certain features. You are responsible for safeguarding your login credentials and for all activities under your account.
+    </p>
+    <hr class="my-4">
+    <h3 class="font-semibold text-lg mb-2">User Responsibilities</h3>
+    <ul class="list-disc list-inside mb-2 text-gray-700">
+      <li>Upload documents you do not have the right to use</li>
+      <li>Use the Service for illegal or abusive purposes</li>
+      <li>Attempt to reverse engineer or disrupt the platform</li>
+    </ul>
+    <p class="mb-4 text-gray-700">You are solely responsible for the accuracy and legality of any data or documents you upload.</p>
+    <hr class="my-4">
+    <h3 class="font-semibold text-lg mb-2">Payment and Subscriptions</h3>
+    <p class="mb-4 text-gray-700">
+      Some features are paid services. By subscribing, you agree to our pricing and billing terms. All payments are handled via third-party providers such as Stripe.
+    </p>
+    <hr class="my-4">
+    <h3 class="font-semibold text-lg mb-2">Intellectual Property</h3>
+    <p class="mb-4 text-gray-700">
+      All content, software, and trademarks on IntelliLease belong to us or our licensors. You may not reproduce, copy, or distribute any part of the platform without permission.
+    </p>
+    <hr class="my-4">
+    <h3 class="font-semibold text-lg mb-2">Data Use and Privacy</h3>
+    <p class="mb-4 text-gray-700">
+      We handle personal and document data according to our 
+      <a href="{{ url_for('privacy') }}" class="text-blue-600 underline" target="_blank">Privacy Policy</a>. You grant IntelliLease a limited license to process your uploaded content solely to provide the services.
+    </p>
+    <hr class="my-4">
+    <h3 class="font-semibold text-lg mb-2">Disclaimers</h3>
+    <p class="mb-4 text-gray-700">
+      The Service is provided “as is” without warranties. We do not guarantee that our audits or analyses are legally conclusive or error-free. Always seek independent legal advice for critical decisions.
+    </p>
+    <hr class="my-4">
+    <h3 class="font-semibold text-lg mb-2">Limitation of Liability</h3>
+    <p class="mb-4 text-gray-700">
+      We are not liable for indirect, incidental, or consequential damages arising from your use of the Service. Our total liability shall not exceed the amount paid by you in the past 12 months.
+    </p>
+    <hr class="my-4">
+    <h3 class="font-semibold text-lg mb-2">Termination</h3>
+    <p class="mb-4 text-gray-700">
+      We may suspend or terminate your access if you violate these terms. You may also close your account at any time. Certain obligations survive termination.
+    </p>
+    <hr class="my-4">
+    <h3 class="font-semibold text-lg mb-2">Governing Law</h3>
+    <p class="mb-4 text-gray-700">
+      These Terms are governed by the laws of England and Wales. Any disputes will be subject to the exclusive jurisdiction of English courts.
+    </p>
+    <hr class="my-4">
+    <h3 class="font-semibold text-lg mb-2">Contact Us</h3>
+    <p class="mb-4 text-gray-700">
+      If you have questions or concerns:<br>
+      Email: <a href="mailto:Info@intellilease.co" class="text-blue-600 underline">Info@intellilease.co</a>
+    </p>
+    <hr class="my-4">
+    <p class="mb-2 text-gray-800 font-semibold text-center">By using IntelliLease, you agree to these terms.</p>
+    <div class="flex justify-center mt-6">
+      <button onclick="document.getElementById('terms-popup').style.display='none'" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded">
+        I Agree
+      </button>
+    </div>
+  </div>
+</div>

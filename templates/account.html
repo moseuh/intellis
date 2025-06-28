@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings - IntelliLease</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .sidebar-link {
+            transition: all 0.2s ease;
+        }
+        .sidebar-link:hover:not(.active) {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#64748b'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+<div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="w-[280px] bg-white border-r border-gray-200 fixed h-full flex flex-col">
+        <div class="px-6 py-6 border-b border-gray-100">
+            <h1 class="text-2xl font-semibold text-primary tracking-tight">IntelliLease</h1>
+        </div>
+        <nav class="flex-1 overflow-y-auto py-4">
+            <ul class="space-y-1 px-3">
+                <li>
+                    <a href="#" class="sidebar-link flex items-center px-3 py-2.5 text-gray-700 rounded-lg">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3">
+                            <i class="ri-home-line"></i>
+                        </div>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="sidebar-link flex items-center px-3 py-2.5 text-gray-700 rounded-lg">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3">
+                            <i class="ri-dashboard-line"></i>
+                        </div>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                  <li>
+                    <a href="/properties" class="sidebar-link flex items-center px-3 py-2.5 text-gray-700 rounded-lg">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3">
+                            <i class="ri-dashboard-line"></i>
+                        </div>
+                        <span>Property  Details</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="sidebar-link active flex items-center px-3 py-2.5 text-primary font-medium bg-blue-50 rounded-lg border-l-4 border-primary">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3">
+                            <i class="ri-settings-line"></i>
+                        </div>
+                        <span>Account Settings</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="mt-8 px-6">
+                <p class="text-xs font-medium text-gray-400 mb-3">PRODUCTS</p>
+                <ul class="space-y-1 px-3">
+                    <li>
+                        <a href="/upload" class="sidebar-link flex items-center px-3 py-2.5 text-gray-700 rounded-lg">
+                            <div class="w-5 h-5 flex items-center justify-center mr-3">
+                                <i class="ri-file-chart-line"></i>
+                            </div>
+                            <span>Analyse Leasehold</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/compare" class="sidebar-link flex items-center px-3 py-2.5 text-gray-700 rounded-lg">
+                            <div class="w-5 h-5 flex items-center justify-center mr-3">
+                                <i class="ri-bar-chart-grouped-line"></i>
+                            </div>
+                            <span>Compare Leaseholds</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/analyse" class="sidebar-link flex items-center px-3 py-2.5 text-gray-700 rounded-lg">
+                            <div class="w-5 h-5 flex items-center justify-center mr-3">
+                                <i class="ri-money-dollar-circle-line"></i>
+                            </div>
+                            <span>Analyse Service Charges</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="mt-8 px-6">
+                <p class="text-xs font-medium text-gray-400 mb-3">SUPPORT</p>
+                <ul class="space-y-1 px-3">
+                    <li>
+                        <a href="#" class="sidebar-link flex items-center px-3 py-2.5 text-gray-700 rounded-lg">
+                            <div class="w-5 h-5 flex items-center justify-center mr-3">
+                                <i class="ri-question-line"></i>
+                            </div>
+                            <span>View FAQ</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="sidebar-link flex items-center px-3 py-2.5 text-gray-700 rounded-lg">
+                            <div class="w-5 h-5 flex items-center justify-center mr-3">
+                                <i class="ri-customer-service-line"></i>
+                            </div>
+                            <span>Contact Support</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="sidebar-link flex items-center px-3 py-2.5 text-gray-700 rounded-lg">
+                            <div class="w-5 h-5 flex items-center justify-center mr-3">
+                                <i class="ri-chat-1-line"></i>
+                            </div>
+                            <span>Start Live Chat</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="p-6 border-t border-gray-100">
+            <button class="w-full bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 py-2.5 px-4 rounded-button flex items-center justify-center whitespace-nowrap">
+                <div class="w-5 h-5 flex items-center justify-center mr-2">
+                    <i class="ri-star-line"></i>
+                </div>
+                <span>Write a Review</span>
+            </button>
+        </div>
+    </aside>
+    <!-- Main Content -->
+    <main class="ml-[280px] flex-1 p-8">
+        <div class="max-w-4xl mx-auto">
+            <header class="mb-8">
+                <h1 class="text-2xl font-semibold text-gray-900">Account Settings</h1>
+                <p class="text-gray-500 mt-1">Manage your account information and preferences</p>
+            </header>
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden mb-8">
+                <div class="p-6 border-b border-gray-100">
+                    <h2 class="text-lg font-medium">Personal Information</h2>
+                </div>
+                <div class="p-6">
+                    <form id="personalInfoForm">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                                <input type="text" id="firstName" value="" class="w-full px-4 py-2.5 border border-gray-300 rounded-button focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition">
+                            </div>
+                            <div>
+                                <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                                <input type="text" id="lastName" value="" class="w-full px-4 py-2.5 border border-gray-300 rounded-button focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                                <input type="email" id="email" value="" class="w-full px-4 py-2.5 border border-gray-300 rounded-button focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition" readonly>
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                                <input type="tel" id="phone" value="" class="w-full px-4 py-2.5 border border-gray-300 rounded-button focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition">
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <button type="submit" class="bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-button whitespace-nowrap">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden mb-8">
+                <div class="p-6 border-b border-gray-100">
+                    <h2 class="text-lg font-medium">Password & Security</h2>
+                </div>
+                <div class="p-6">
+                    <form id="passwordForm">
+                        <div class="space-y-4 max-w-lg">
+                            <div>
+                                <label for="currentPassword" class="block text-sm font-medium text-gray-700 mb-1">Current Password</label>
+                                <div class="relative">
+                                    <input type="password" id="currentPassword" placeholder="••••••••" class="w-full px-4 py-2.5 border border-gray-300 rounded-button focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition">
+                                    <button type="button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                        <div class="w-5 h-5 flex items-center justify-center">
+                                            <i class="ri-eye-line"></i>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="newPassword" class="block text-sm font-medium text-gray-700 mb-1">New Password</label>
+                                <div class="relative">
+                                    <input type="password" id="newPassword" placeholder="••••••••" class="w-full px-4 py-2.5 border border-gray-300 rounded-button focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition">
+                                    <button type="button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                        <div class="w-5 h-5 flex items-center justify-center">
+                                            <i class="ri-eye-line"></i>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1">Confirm New Password</label>
+                                <div class="relative">
+                                    <input type="password" id="confirmPassword" placeholder="••••••••" class="w-full px-4 py-2.5 border border-gray-300 rounded-button focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition">
+                                    <button type="button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                        <div class="w-5 h-5 flex items-center justify-center">
+                                            <i class="ri-eye-line"></i>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="border-t border-gray-100 pt-4 mt-6">
+                                <h3 class="text-sm font-medium text-gray-900 mb-4">Two-Factor Authentication</h3>
+                                <div class="bg-gray-50 rounded-lg p-4">
+                                    <div class="flex items-start">
+                                        <div class="flex-shrink-0 mt-0.5">
+                                            <div class="w-5 h-5 flex items-center justify-center text-primary">
+                                                <i class="ri-shield-keyhole-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-sm text-gray-900">For enhanced security, you'll need to verify your identity using a code sent to your email or phone.</p>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 space-y-3">
+                                        <div>
+                                            <label class="flex items-center">
+                                                <input type="radio" name="2fa_method" value="email" class="w-4 h-4 text-primary border-gray-300 focus:ring-primary" checked>
+                                                <span class="ml-3">
+                                                    <span class="text-sm font-medium text-gray-900">Email Verification</span>
+                                                    <span class="block text-sm text-gray-500" id="emailVerificationText">Send code to [Email]</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <label class="flex items-center">
+                                                <input type="radio" name="2fa_method" value="sms" class="w-4 h-4 text-primary border-gray-300 focus:ring-primary">
+                                                <span class="ml-3">
+                                                    <span class="text-sm font-medium text-gray-900">SMS Verification</span>
+                                                    <span class="block text-sm text-gray-500" id="smsVerificationText">Send code to [Phone]</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <button type="submit" class="bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-button whitespace-nowrap">Continue with Verification</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden mb-8">
+                <div class="p-6 border-b border-gray-100">
+                    <h2 class="text-lg font-medium">Notification Preferences</h2>
+                </div>
+                <div class="p-6">
+                    <form id="notificationForm">
+                        <div class="space-y-5">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="text-sm font-medium text-gray-900">Email Notifications</h3>
+                                    <p class="text-sm text-gray-500">Receive email updates about your account activity</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="emailNotifications" class="sr-only peer">
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                                </label>
+                            </div>
+                            <div class="border-t border-gray-100 pt-5"></div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="text-sm font-medium text-gray-900">SMS Notifications</h3>
+                                    <p class="text-sm text-gray-500">Receive text messages for important updates</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="smsNotifications" class="sr-only peer">
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                                </label>
+                            </div>
+                            <div class="border-t border-gray-100 pt-5"></div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="text-sm font-medium text-gray-900">Marketing Communications</h3>
+                                    <p class="text-sm text-gray-500">Receive updates about new features and promotions</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="marketingNotifications" class="sr-only peer">
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <button type="submit" class="bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-button whitespace-nowrap">Save Preferences</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden mb-8">
+                <div class="p-6 border-b border-gray-100">
+                    <h2 class="text-lg font-medium">Cohort Settings</h2>
+                </div>
+                <div class="p-6">
+                    <form id="cohortForm">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Cohort Name</label>
+                                <input type="text" id="cohortName" value="" class="w-full px-4 py-2.5 border border-gray-300 rounded-button focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Cohort Type</label>
+                                <div class="relative">
+                                    <select id="cohortType" class="w-full px-4 py-2.5 border border-gray-300 rounded-button focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition appearance-none pr-10">
+                                        <option value="Property Investment">Property Investment</option>
+                                        <option value="Real Estate Development">Real Estate Development</option>
+                                        <option value="Leasehold Management">Leasehold Management</option>
+                                        <option value="Property Portfolio">Property Portfolio</option>
+                                    </select>
+                                    <div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-arrow-down-s-line"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Cohort Members</label>
+                                <div class="border border-gray-200 rounded-lg overflow-hidden" id="cohortMembers">
+                                    <!-- Members will be populated dynamically -->
+                                </div>
+                                <div class="border-t border-gray-100 p-4 mt-4">
+                                    <button type="button" id="addMemberBtn" class="text-primary hover:text-primary/80 text-sm font-medium flex items-center">
+                                        <div class="w-5 h-5 flex items-center justify-center mr-1">
+                                            <i class="ri-add-line"></i>
+                                        </div>
+                                        Add Member
+                                    </button>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Cohort Privacy</label>
+                                <div class="space-y-3">
+                                    <label class="flex items-center">
+                                        <input type="radio" name="privacy" value="private" class="w-4 h-4 text-primary border-gray-300 focus:ring-primary" checked>
+                                        <span class="ml-3">
+                                            <span class="block text-sm font-medium text-gray-900">Private Cohort</span>
+                                            <span class="block text-sm text-gray-500">Only invited members can join and view content</span>
+                                        </span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="radio" name="privacy" value="public" class="w-4 h-4 text-primary border-gray-300 focus:ring-primary">
+                                        <span class="ml-3">
+                                            <span class="block text-sm font-medium text-gray-900">Public Cohort</span>
+                                            <span class="block text-sm text-gray-500">Anyone can join and view content</span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <button type="submit" class="bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-button whitespace-nowrap">Save Cohort Settings</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                <div class="p-6 border-b border-gray-100">
+                    <h2 class="text-lg font-medium">Billing Information</h2>
+                </div>
+                <div class="p-6">
+                    <div class="mb-6">
+                        <h3 class="text-sm font-medium text-gray-700 mb-3">Current Plan</h3>
+                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 flex items-center justify-between" id="currentPlan">
+                            <!-- Plan will be populated dynamically -->
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h3 class="text-sm font-medium text-gray-700 mb-3">Payment Method</h3>
+                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 flex items-center justify-between" id="paymentMethod">
+                            <!-- Payment method will be populated dynamically -->
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-700 mb-3">Billing History</h3>
+                        <div class="border border-gray-200 rounded-lg overflow-hidden" id="billingHistory">
+                            <!-- Billing history will be populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script id="fetchUserData">
+document.addEventListener('DOMContentLoaded', function() {
+    // Fetch user data from Flask endpoint
+    fetch('/get_user_data')
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                console.error('Error fetching user data:', data.error);
+                return;
+            }
+
+            // Populate Personal Information
+            document.getElementById('firstName').value = data.first_name || '';
+            document.getElementById('lastName').value = data.last_name || '';
+            document.getElementById('email').value = data.email || '';
+            document.getElementById('phone').value = data.phone || '';
+
+            // Update 2FA verification text
+            document.getElementById('emailVerificationText').textContent = `Send code to ${data.email || '[Email]'}`;
+            document.getElementById('smsVerificationText').textContent = `Send code to ${data.phone || '[Phone]'}`;
+
+            // Populate Notification Preferences (assuming defaults or from user data if available)
+            document.getElementById('emailNotifications').checked = data.email_notifications !== false;
+            document.getElementById('smsNotifications').checked = data.sms_notifications !== false;
+            document.getElementById('marketingNotifications').checked = data.marketing_notifications !== false;
+
+            // Populate Cohort Settings
+            document.getElementById('cohortName').value = data.cohort_name || '';
+            if (data.cohort_type) {
+                document.getElementById('cohortType').value = data.cohort_type;
+            }
+            const cohortMembersDiv = document.getElementById('cohortMembers');
+            if (data.cohort_members && data.cohort_members.length > 0) {
+                cohortMembersDiv.innerHTML = data.cohort_members.map(member => `
+                    <div class="flex items-center justify-between p-4 border-b border-gray-100 last:border-b-0">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                                <span class="text-sm font-medium text-blue-600">${member.initials}</span>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-900">${member.name}</p>
+                                <p class="text-xs text-gray-500">${member.email}</p>
+                            </div>
+                        </div>
+                        <button class="text-gray-400 hover:text-gray-600">
+                            <div class="w-5 h-5 flex items-center justify-center">
+                                <i class="ri-close-line"></i>
+                            </div>
+                        </button>
+                    </div>
+                `).join('');
+            }
+
+            // Populate Billing Information
+            const currentPlanDiv = document.getElementById('currentPlan');
+            if (data.subscription) {
+                currentPlanDiv.innerHTML = `
+                    <div>
+                        <p class="font-medium text-gray-900">${data.subscription.plan || 'No Plan'}</p>
+                        <p class="text-sm text-gray-500">${data.subscription.plan ? '£49.99 / month' : 'Not subscribed'}</p>
+                    </div>
+                    <div class="flex space-x-3">
+                        <button class="text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 px-4 py-2 text-sm rounded-button whitespace-nowrap">Change Plan</button>
+                        <button class="text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 px-4 py-2 text-sm rounded-button whitespace-nowrap">Cancel Plan</button>
+                    </div>
+                `;
+            }
+
+            const paymentMethodDiv = document.getElementById('paymentMethod');
+            if (data.payment_method) {
+                paymentMethodDiv.innerHTML = `
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center text-white mr-3">
+                            <div class="w-6 h-6 flex items-center justify-center">
+                                <i class="ri-visa-fill"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-900">${data.payment_method.last4 ? `Visa ending in ${data.payment_method.last4}` : 'No payment method'}</p>
+                            <p class="text-sm text-gray-500">${data.payment_method.expiry ? `Expires ${data.payment_method.expiry}` : ''}</p>
+                        </div>
+                    </div>
+                    <button class="text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 px-4 py-2 text-sm rounded-button whitespace-nowrap">Update</button>
+                `;
+            }
+
+            const billingHistoryDiv = document.getElementById('billingHistory');
+            if (data.billing_history && data.billing_history.length > 0) {
+                billingHistoryDiv.innerHTML = `
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Receipt</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            ${data.billing_history.map(item => `
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.date}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.description}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.amount}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-medium rounded-full bg-green-100 text-green-800">Paid</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
+                                        <a href="#" class="text-primary hover:text-primary/80">Download</a>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+            }
+        })
+        .catch(error => console.error('Error:', error));
+
+    // Form submission handlers (to be implemented on backend)
+    document.getElementById('personalInfoForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const data = {
+            first_name: document.getElementById('firstName').value,
+            last_name: document.getElementById('lastName').value,
+            phone: document.getElementById('phone').value
+        };
+        fetch('/update_user_data', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        }).then(response => response.json())
+          .then(result => console.log(result))
+          .catch(error => console.error('Error:', error));
+    });
+
+    document.getElementById('notificationForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const data = {
+            email_notifications: document.getElementById('emailNotifications').checked,
+            sms_notifications: document.getElementById('smsNotifications').checked,
+            marketing_notifications: document.getElementById('marketingNotifications').checked
+        };
+        fetch('/update_notification_preferences', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        }).then(response => response.json())
+          .then(result => console.log(result))
+          .catch(error => console.error('Error:', error));
+    });
+
+    document.getElementById('cohortForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const data = {
+            cohort_name: document.getElementById('cohortName').value,
+            cohort_type: document.getElementById('cohortType').value,
+            privacy: document.querySelector('input[name="privacy"]:checked').value
+            // Add member management logic if needed
+        };
+        fetch('/update_cohort_settings', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        }).then(response => response.json())
+          .then(result => console.log(result))
+          .catch(error => console.error('Error:', error));
+    });
+
+    // Add member functionality
+    document.getElementById('addMemberBtn').addEventListener('click', function() {
+        // Implement member addition UI (e.g., modal or input field)
+        console.log('Add member clicked');
+    });
+});
+</script>
+
+<script id="passwordToggle">
+document.addEventListener('DOMContentLoaded', function() {
+    const passwordFields = document.querySelectorAll('input[type="password"]');
+    const toggleButtons = document.querySelectorAll('input[type="password"] + button');
+    const passwordForm = document.getElementById('passwordForm');
+    let verificationStep = false;
+
+    toggleButtons.forEach((button, index) => {
+        button.addEventListener('click', function() {
+            const field = passwordFields[index];
+            const icon = button.querySelector('i');
+            if (field.type === 'password') {
+                field.type = 'text';
+                icon.classList.remove('ri-eye-line');
+                icon.classList.add('ri-eye-off-line');
+            } else {
+                field.type = 'password';
+                icon.classList.remove('ri-eye-off-line');
+                icon.classList.add('ri-eye-line');
+            }
+        });
+    });
+
+    function createVerificationUI() {
+        const verificationDiv = document.createElement('div');
+        verificationDiv.className = 'space-y-4 max-w-lg';
+        verificationDiv.innerHTML = `
+            <div class="bg-blue-50 rounded-lg p-4 mb-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <div class="w-5 h-5 flex items-center justify-center text-blue-400">
+                            <i class="ri-mail-send-line"></i>
+                        </div>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-blue-700">
+                            Verification code has been sent. Please check your inbox and enter the code below.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Enter Verification Code</label>
+                <div class="flex space-x-2">
+                    <input type="text" maxlength="1" class="verification-input w-12 h-12 text-center text-xl border border-gray-300 rounded-button focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition">
+                    <input type="text" maxlength="1" class="verification-input w-12 h-12 text-center text-xl border border-gray-300 rounded-button focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition">
+                    <input type="text" maxlength="1" class="verification-input w-12 h-12 text-center text-xl border border-gray-300 rounded-button focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition">
+                    <input type="text" maxlength="1" class="verification-input w-12 h-12 text-center text-xl border border-gray-300 rounded-button focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition">
+                    <input type="text" maxlength="1" class="verification-input w-12 h-12 text-center text-xl border border-gray-300 rounded-button focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition">
+                    <input type="text" maxlength="1" class="verification-input w-12 h-12 text-center text-xl border border-gray-300 rounded-button focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition">
+                </div>
+            </div>
+            <div class="text-sm text-gray-500 mt-2">
+                Didn't receive the code? <button type="button" class="text-primary hover:text-primary/80 font-medium">Resend Code</button>
+            </div>
+        `;
+        return verificationDiv;
+    }
+
+    passwordForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (!verificationStep) {
+            const method = document.querySelector('input[name="2fa_method"]:checked').value;
+            const formContent = passwordForm.querySelector('.space-y-4');
+            const submitButton = passwordForm.querySelector('button[type="submit"]');
+            formContent.style.display = 'none';
+            passwordForm.insertBefore(createVerificationUI(), submitButton);
+            submitButton.textContent = 'Verify & Update Password';
+            verificationStep = true;
+
+            const verificationInputs = passwordForm.querySelectorAll('.verification-input');
+            verificationInputs.forEach((input, index) => {
+                input.addEventListener('input', function() {
+                    if (this.value && index < verificationInputs.length - 1) {
+                        verificationInputs[index + 1].focus();
+                    }
+                });
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Backspace' && !this.value && index > 0) {
+                        verificationInputs[index - 1].focus();
+                    }
+                });
+            });
+        } else {
+            const successMessage = document.createElement('div');
+            successMessage.className = 'fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50';
+            successMessage.innerHTML = `
+                <div class="bg-white rounded-lg p-6 max-w-sm mx-4">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-green-100 mx-auto mb-4">
+                        <i class="ri-check-line text-2xl text-green-500"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-center text-gray-900 mb-2">Password Updated Successfully</h3>
+                    <p class="text-sm text-center text-gray-500 mb-4">Your password has been updated with enhanced security measures.</p>
+                    <button class="w-full bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-button" onclick="this.parentElement.parentElement.remove()">Done</button>
+                </div>
+            `;
+            document.body.appendChild(successMessage);
+        }
+    });
+});
+</script>
+
+<script id="mobileNavigation">
+document.addEventListener('DOMContentLoaded', function() {
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+    const sidebar = document.querySelector('aside');
+    const main = document.querySelector('main');
+    function handleScreenChange(e) {
+        if (e.matches) {
+            sidebar.classList.add('hidden');
+            main.classList.remove('ml-[280px]');
+            if (!document.getElementById('mobileMenuBtn')) {
+                const menuBtn = document.createElement('button');
+                menuBtn.id = 'mobileMenuBtn';
+                menuBtn.className = 'fixed top-4 left-4 z-50 bg-white p-2 rounded-full shadow-md';
+                menuBtn.innerHTML = '<div class="w-6 h-6 flex items-center justify-center"><i class="ri-menu-line"></i></div>';
+                document.body.appendChild(menuBtn);
+                menuBtn.addEventListener('click', function() {
+                    sidebar.classList.toggle('hidden');
+                    sidebar.classList.toggle('z-40');
+                    if (!sidebar.classList.contains('hidden')) {
+                        const overlay = document.createElement('div');
+                        overlay.id = 'sidebarOverlay';
+                        overlay.className = 'fixed inset-0 bg-black bg-opacity-50 z-30';
+                        document.body.appendChild(overlay);
+                        overlay.addEventListener('click', function() {
+                            sidebar.classList.add('hidden');
+                            sidebar.classList.remove('z-40');
+                            overlay.remove();
+                        });
+                    } else {
+                        const overlay = document.getElementById('sidebarOverlay');
+                        if (overlay) overlay.remove();
+                    }
+                });
+            }
+        } else {
+            sidebar.classList.remove('hidden');
+            main.classList.add('ml-[280px]');
+            const menuBtn = document.getElementById('mobileMenuBtn');
+            if (menuBtn) menuBtn.remove();
+            const overlay = document.getElementById('sidebarOverlay');
+            if (overlay) overlay.remove();
+        }
+    }
+    handleScreenChange(mediaQuery);
+    mediaQuery.addEventListener('change', handleScreenChange);
+});
+</script>
+
+<script>
+    !function (t, e) { var o, n, p, r; e.__SV || (window.posthog = e, e._i = [], e.init = function (i, s, a) { function g(t, e) { var o = e.split("."); 2 == o.length && (t = t[o[0]], e = o[1]), t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } } (p = t.createElement("script")).type = "text/javascript", p.crossOrigin = "anonymous", p.async = !0, p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js", (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r); var u = e; for (void 0 !== a ? u = e[a] = [] : a = "posthog", u.people = u.people || [], u.toString = function (t) { var e = "posthog"; return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e }, u.people.toString = function () { return u.toString(1) + ".people (stub)" }, o = "init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "), n = 0; n < o.length; n++)g(u, o[n]); e._i.push([i, s, a]) }, e.__SV = 1) }(document, window.posthog || []);
+    posthog.init('phc_t9tkQZJiyi2ps9zUYm8TDsL6qXo4YmZx0Ot5rBlAlEd', {
+        api_host: 'https://us.i.posthog.com',
+        autocapture: false,
+        capture_pageview: false,
+        capture_pageleave: false,
+        capture_performance: {
+            web_vitals: false,
+        },
+        rageclick: false,
+    })
+    window.shareKey = 'qo5Z9AvJnRuXh9LZI3T-Mw';
+    window.host = 'readdy.ai';
+</script>
+</body>
+</html>

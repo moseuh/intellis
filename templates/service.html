@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Charge Audit & Reconciliation - intelliLease</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#64748b'
+                    },
+                    borderRadius: {
+                        none: '0px',
+                        sm: '4px',
+                        DEFAULT: '8px',
+                        md: '12px',
+                        lg: '16px',
+                        xl: '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        full: '9999px',
+                        button: '8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .sidebar { width: 280px; transition: all 0.3s ease; }
+        .main-content { width: calc(100% - 280px); transition: all 0.3s ease; }
+        .upload-area { border: 2px dashed #e2e8f0; transition: all 0.3s ease; }
+        .upload-area:hover { border-color: #3b82f6; }
+        .blur-section { filter: blur(4px); pointer-events: none; user-select: none; }
+        .progress-bar { height: 4px; background-color: #e2e8f0; border-radius: 2px; overflow: hidden; }
+        .progress-fill { height: 100%; background-color: #3b82f6; border-radius: 2px; transition: width 0.3s ease; }
+        @media (max-width: 1024px) {
+            .sidebar { width: 80px; }
+            .main-content { width: calc(100% - 80px); }
+            .sidebar-text { display: none; }
+            .sidebar-logo span { display: none; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+    <div class="flex h-screen overflow-hidden">
+        <aside class="sidebar bg-white shadow-lg flex flex-col h-full z-10">
+            <div class="p-6 flex items-center sidebar-logo">
+                <span class="font-sans text-primary text-2xl font-bold tracking-tight">IntelliLease</span>
+            </div>
+            <nav class="flex-1 px-4 py-6 overflow-y-auto">
+                <ul class="space-y-6">
+                    <li class="space-y-2">
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="/" class="sidebar-text flex items-center px-4 py-2.5 text-gray-600 hover:bg-gray-100 rounded-lg transition-all">
+                                    <div class="w-5 h-5 flex items-center justify-center"><i class="ri-dashboard-line"></i></div>
+                                    <span class="ml-3 sidebar-text">Dashboard</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="space-y-2">
+                        <div class="flex items-center px-4 py-2 text-xs font-medium text-gray-400 uppercase tracking-wider">
+                            <span class="sidebar-text">Products</span>
+                        </div>
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="/upload" class="flex items-center px-4 py-2.5 text-gray-600 hover:bg-gray-100 rounded-lg transition-all">
+                                    <div class="w-5 h-5 flex items-center justify-center"><i class="ri-file-list-line"></i></div>
+                                    <span class="ml-3 sidebar-text">Analyse Leasehold</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/service" class="flex items-center px-4 py-2.5 text-primary bg-blue-50 rounded-lg transition-all">
+                                    <div class="w-5 h-5 flex items-center justify-center"><i class="ri-file-chart-line"></i></div>
+                                    <span class="ml-3 sidebar-text">Service Charge Audit</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex items-center px-4 py-2.5 text-gray-600 hover:bg-gray-100 rounded-lg transition-all">
+                                    <div class="w-5 h-5 flex items-center justify-center"><i class="ri-building-line"></i></div>
+                                    <span class="ml-3 sidebar-text">RTM Process</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="p-4 border-t border-gray-200">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                        <div class="w-6 h-6 flex items-center justify-center"><i class="ri-user-line text-primary"></i></div>
+                    </div>
+                    <div class="ml-3 sidebar-text">
+                        <p class="text-sm font-medium" id="user-name">Loading...</p>
+                        <p class="text-xs text-gray-500">Property Manager</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <main class="main-content bg-gray-50 overflow-y-auto">
+            <div class="p-8">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold text-gray-900">Service Charge Audit & Reconciliation</h1>
+                    <p class="mt-2 text-gray-600">Comprehensive analysis of your service charge, year-end statements, and actual spend.</p>
+                </div>
+                <div class="mb-10">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-medium">1</div>
+                            <span class="ml-2 text-sm font-medium">Upload</span>
+                        </div>
+                        <div class="w-16 h-1 bg-gray-200">
+                            <div class="h-full bg-primary w-full"></div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-medium">2</div>
+                            <span class="ml-2 text-sm font-medium">Analysis</span>
+                        </div>
+                        <div class="w-16 h-1 bg-gray-200">
+                            <div class="h-full bg-primary w-1/2"></div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-medium">3</div>
+                            <span class="ml-2 text-sm font-medium text-gray-600">Results</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-1 bg-white p-6 rounded-lg shadow-sm">
+                        <h2 class="text-xl font-semibold mb-4">Upload Documents</h2>
+                        <form id="uploadForm" enctype="multipart/form-data" class="space-y-4">
+                            <div class="upload-area p-6 rounded-lg flex flex-col items-center justify-center cursor-pointer mb-4">
+                                <input type="file" name="files" id="fileInput" multiple accept=".pdf,.jpg,.png" class="hidden">
+                                <div class="w-16 h-16 flex items-center justify-center bg-blue-50 rounded-full mb-3">
+                                    <i class="ri-upload-cloud-line text-primary text-2xl"></i>
+                                </div>
+                                <p class="text-sm text-center mb-2">Drag and drop files here or click to browse</p>
+                                <p class="text-xs text-gray-500 text-center">Supported formats: PDF, JPG, PNG (Max 5MB)</p>
+                                <button type="button" id="browseBtn" class="mt-4 bg-primary text-white px-4 py-2 rounded-button whitespace-nowrap">Browse Files</button>
+                            </div>
+                            <div id="fileList" class="space-y-4"></div>
+                            <div class="mt-6">
+                                <h3 class="text-sm font-medium mb-2">Document Type</h3>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer">
+                                        <input type="checkbox" name="document_types" value="Service Charge Budget" class="custom-checkbox" id="checkbox1">
+                                        <span class="ml-2 text-sm">Service Charge Budget</span>
+                                    </div>
+                                    <div class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer">
+                                        <input type="checkbox" name="document_types" value="Service Charge Actual" class="custom-checkbox" id="checkbox2">
+                                        <span class="ml-2 text-sm">Service Charge Actual</span>
+                                    </div>
+                                    <div class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer">
+                                        <input type="checkbox" name="document_types" value="Year End Statement" class="custom-checkbox" id="checkbox3">
+                                        <span class="ml-2 text-sm">Year End Statement</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-6">
+                                <h3 class="text-sm font-medium mb-2">Property Details</h3>
+                                <div class="mb-3">
+                                    <label class="block text-xs text-gray-500 mb-1">Property Address</label>
+                                    <input type="text" name="property_address" class="w-full p-2 border border-gray-200 rounded focus:outline-none focus:border-primary text-sm" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="block text-xs text-gray-500 mb-1">Lease Reference</label>
+                                    <input type="text" name="lease_ref" class="w-full p-2 border border-gray-200 rounded focus:outline-none focus:border-primary text-sm" required>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-gray-500 mb-1">Billing Period</label>
+                                    <input type="text" name="billing_period" class="w-full p-2 border border-gray-200 rounded focus:outline-none focus:border-primary text-sm" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="w-full bg-primary text-white px-4 py-2 rounded-button">Upload and Analyze</button>
+                        </form>
+                    </div>
+                    <div class="lg:col-span-2 space-y-6" id="dataSection" style="display: none;">
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-xl font-semibold">Analysis Summary</h2>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-full">
+                                        <i class="ri-file-text-line text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-y-6" id="analysisSummary"></div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-xl font-semibold">Service Charge Breakdown</h2>
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-full mr-2">
+                                        <i class="ri-information-line text-primary"></i>
+                                    </div>
+                                    <select class="yearSelect" id="yearSelect">
+                                        <option value="2025">2025</option>
+                                        <option value="2024">2024</option>
+                                        <option value="2023">2023</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="h-64" id="serviceChargeChart"></div>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4" id="breakdownStats"></div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-xl font-semibold">Budget Overview</h2>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-full">
+                                        <i class="ri-filter-3-line text-primary"></i>
+                                    </div>
+                                    <select class="periodSelect" id="periodSelect">
+                                        <option value="Annual">Annual</option>
+                                        <option value="Quarterly">Quarterly</option>
+                                        <option value="Monthly">Monthly</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6" id="budgetGrid"></div>
+                            <div class="h-64" id="budgetChart"></div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-xl font-semibold">Year End vs Actual Spend</h2>
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-full">
+                                        <i class="ri-download-line text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-64" id="yearEndChart"></div>
+                            <div class="mt-4" id="discrepancyAlert"></div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2 flex items-center justify-center" id="emptyState">
+                        <div class="p-6 text-center">
+                            <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="ri-upload-cloud-line text-primary text-2xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold">No Data Available</h3>
+                            <p class="text-sm text-gray-500 mt-2">Please upload your documents to view analysis, charts, and statistics.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm relative overflow-hidden" id="complianceSection">
+                    <div class="absolute inset-0 flex items-center justify-center z-10" id="upgradePrompt">
+                        <div class="bg-white/80 p-6 rounded-lg text-center max-w-md">
+                            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="ri-lock-line text-primary text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Unlock Advanced Analysis</h3>
+                            <p class="text-sm text-gray-600 mb-4">Upgrade to Pro to access comprehensive compliance checks, historical comparisons, and detailed analysis.</p>
+                            <div class="grid grid-cols-2 gap-4 mb-6 text-left">
+                                <div class="flex items-center"><i class="ri-check-line text-green-500 mr-2"></i><span class="text-sm">Section 20 compliance</span></div>
+                                <div class="flex items-center"><i class="ri-check-line text-green-500 mr-2"></i><span class="text-sm">Market rate analysis</span></div>
+                                <div class="flex items-center"><i class="ri-check-line text-green-500 mr-2"></i><span class="text-sm">5-year cost trends</span></div>
+                                <div class="flex items-center"><i class="ri-check-line text-green-500 mr-2"></i><span class="text-sm">Expert recommendations</span></div>
+                            </div>
+                            <div class="flex gap-4">
+                                <button class="flex-1 bg-primary text-white px-6 py-2 rounded-button font-medium whitespace-nowrap" onclick="window.location.href='/pricing'">Upgrade to Pro</button>
+                                <button class="flex-1 text-primary bg-blue-50 px-6 py-2 rounded-button font-medium whitespace-nowrap">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blur-section" id="complianceContent">
+                        <h2 class="text-xl font-semibold mb-4">Compliance Checks</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6" id="complianceChecks"></div>
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-4 mt-6">
+                    <button class="flex-1 bg-white border border-gray-200 text-gray-800 px-4 py-3 rounded-button font-medium flex items-center justify-center whitespace-nowrap" id="downloadReportBtn">
+                        <div class="w-5 h-5 flex items-center justify-center mr-2"><i class="ri-download-line"></i></div>
+                        Download Basic Report
+                    </button>
+                    <button class="flex-1 bg-white border border-gray-200 text-gray-800 px-4 py-3 rounded-button font-medium flex items-center justify-center whitespace-nowrap" id="shareReportBtn">
+                        <div class="w-5 h-5 flex items-center justify-center mr-2"><i class="ri-share-line"></i></div>
+                        Share Report
+                    </button>
+                    <button class="flex-1 bg-primary text-white px-4 py-3 rounded-button font-medium flex items-center justify-center whitespace-nowrap group relative" onclick="window.location.href='/pricing'">
+                        <div class="w-5 h-5 flex items-center justify-center mr-2"><i class="ri-shield-check-line"></i></div>
+                        Upgrade to Full Audit
+                        <div class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap w-48 text-center">
+                            Get access to all Pro features including compliance checks and expert recommendations
+                        </div>
+                    </button>
+                </div>
+            </div>
+            <div class="bg-gray-50 border-t border-gray-200 py-6">
+                <div class="container mx-auto px-8">
+                    <div class="text-xs text-gray-500 leading-relaxed">
+                        <h4 class="font-medium mb-2">Disclaimer</h4>
+                        <p class="mb-2">The information provided in this service charge audit report is based on the documents submitted and is intended for general guidance only. While we strive to ensure accuracy, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability, or availability of the information contained in this report.</p>
+                        <p>Any reliance you place on such information is strictly at your own risk. In no event will we be liable for any loss or damage including without limitation, indirect or consequential loss or damage, arising from the use of this report. Please consult with qualified professionals for specific advice related to your property management decisions.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const fileInput = document.getElementById('fileInput');
+            const browseBtn = document.getElementById('browseBtn');
+            const fileList = document.getElementById('fileList');
+            const uploadForm = document.getElementById('uploadForm');
+            const checkboxes = document.querySelectorAll('.custom-checkbox');
+            const yearSelect = document.getElementById('yearSelect');
+            const periodSelect = document.getElementById('periodSelect');
+            const downloadReportBtn = document.getElementById('downloadReportBtn');
+            const shareReportBtn = document.getElementById('shareReportBtn');
+            const userName = document.getElementById('user-name');
+            const complianceSection = document.getElementById('complianceSection');
+            const upgradePrompt = document.getElementById('upgradePrompt');
+            const complianceContent = document.getElementById('complianceContent');
+            const dataSection = document.getElementById('dataSection');
+            const emptyState = document.getElementById('emptyState');
+
+            // Initialize charts
+            const serviceChargeChart = echarts.init(document.getElementById('serviceChargeChart'));
+            const budgetChart = echarts.init(document.getElementById('budgetChart'));
+            const yearEndChart = echarts.init(document.getElementById('yearEndChart'));
+
+            // State to track if data is loaded
+            let isDataLoaded = false;
+
+            // Fetch user data
+            async function fetchUserData() {
+                try {
+                    const response = await fetch('/get_user_data');
+                    if (response.status === 401) {
+                        window.location.href = '/login';
+                        return;
+                    }
+                    const data = await response.json();
+                    if (data.error) throw new Error(data.error);
+                    userName.textContent = data.first_name + ' ' + data.last_name;
+                    if (data.subscription && data.subscription.plan === 'Premium') {
+                        upgradePrompt.style.display = 'none';
+                        complianceContent.classList.remove('blur-section');
+                    }
+                } catch (err) {
+                    console.error('Error fetching user data:', err);
+                    alert('Failed to load user data. Please try again.');
+                }
+            }
+            fetchUserData();
+
+            // File upload handling
+            browseBtn.addEventListener('click', () => fileInput.click());
+
+            fileInput.addEventListener('change', () => {
+                fileList.innerHTML = '';
+                for (let file of fileInput.files) {
+                    if (file.size > 5 * 1024 * 1024) {
+                        alert(`File ${file.name} exceeds 5MB limit.`);
+                        continue;
+                    }
+                    const div = document.createElement('div');
+                    div.className = 'border border-gray-200 rounded-lg p-4 mb-4';
+                    div.innerHTML = `
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-full">
+                                    <i class="ri-file-pdf-line text-primary"></i>
+                                </div>
+                                <span class="ml-2 text-sm">${file.name}</span>
+                            </div>
+                            <div class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-red-500 cursor-pointer delete-btn">
+                                <i class="ri-delete-bin-line"></i>
+                            </div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%;"></div>
+                        </div>
+                    `;
+                    fileList.appendChild(div);
+                    div.querySelector('.delete-btn').addEventListener('click', () => {
+                        div.style.opacity = '0.5';
+                        setTimeout(() => div.remove(), 300);
+                    });
+                }
+            });
+
+            // Checkbox handling
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('click', () => {
+                    checkbox.classList.toggle('checked');
+                    checkbox.checked = checkbox.classList.contains('checked');
+                });
+            });
+
+            // Form submission
+            uploadForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!fileInput.files.length) {
+                    alert('Please select at least one file.');
+                    return;
+                }
+                if (!document.querySelectorAll('.custom-checkbox:checked').length) {
+                    alert('Please select at least one document type.');
+                    return;
+                }
+                const formData = new FormData();
+                for (let file of fileInput.files) {
+                    formData.append('files', file);
+                }
+                const documentTypes = Array.from(document.querySelectorAll('.custom-checkbox:checked')).map(cb => cb.value);
+                documentTypes.forEach(type => formData.append('document_types', type));
+                formData.append('property_address', document.querySelector('input[name="property_address"]').value);
+                formData.append('lease_ref', document.querySelector('input[name="lease_ref"]').value);
+                formData.append('billing_period', document.querySelector('input[name="billing_period"]').value);
+
+                try {
+                    const response = await fetch('/service/upload', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const result = await response.json();
+                    if (response.ok) {
+                        isDataLoaded = true;
+                        emptyState.style.display = 'none';
+                        dataSection.style.display = 'block';
+                        updateUI(result);
+                        alert('Upload and analysis successful!');
+                    } else {
+                        throw new Error(result.error || 'Upload failed.');
+                    }
+                } catch (err) {
+                    console.error('Upload error:', err);
+                    alert(`Upload failed: ${err.message}`);
+                }
+            });
+
+            // Year and period selection
+            yearSelect.addEventListener('change', fetchChartData);
+            periodSelect.addEventListener('change', fetchChartData);
+
+            async function fetchChartData() {
+                if (!isDataLoaded) return;
+                try {
+                    const response = await fetch(`/api/service-data?year=${yearSelect.value}&period=${periodSelect.value}`);
+                    if (!response.ok) throw new Error('Failed to fetch chart data.');
+                    const data = await response.json();
+                    updateUI(data);
+                } catch (err) {
+                    console.error('Error fetching chart data:', err);
+                    alert('Failed to update charts.');
+                }
+            }
+
+            // Download report
+            downloadReportBtn.addEventListener('click', async () => {
+                if (!isDataLoaded) {
+                    alert('Please upload a document to download a report.');
+                    return;
+                }
+                try {
+                    const response = await fetch('/download/report');
+                    if (!response.ok) throw new Error('Failed to download report.');
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `Service_Charge_Report_${new Date().toISOString().split('T')[0]}.pdf`;
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                } catch (err) {
+                    console.error('Download error:', err);
+                    alert('Failed to download report.');
+                }
+            });
+
+            // Share report
+            shareReportBtn.addEventListener('click', async () => {
+                if (!isDataLoaded) {
+                    alert('Please upload a document to share a report.');
+                    return;
+                }
+                try {
+                    const email = prompt('Enter recipient email address:');
+                    if (!email) return;
+                    const response = await fetch('/share/report', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email })
+                    });
+                    if (!response.ok) throw new Error('Failed to share report.');
+                    alert('Report shared successfully!');
+                } catch (err) {
+                    console.error('Share error:', err);
+                    alert('Failed to share report.');
+                }
+            });
+
+            // Update UI
+            function updateUI(data) {
+                const analysisSummary = document.getElementById('analysisSummary');
+                analysisSummary.innerHTML = data.analysis_summary?.map(item => `
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 flex items-center justify-center bg-${item.color}-50 rounded-full mt-1">
+                            <i class="ri-${item.icon} text-${item.color}-600"></i>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-base font-medium">${item.title}</h3>
+                            <p class="text-sm text-gray-600 mt-1">${item.description} <span class="text-primary">[Ref: ${item.reference}]</span></p>
+                        </div>
+                    </div>
+                `).join('') || '<p class="text-sm text-gray-600">No analysis available.</p>';
+
+                const breakdownStats = document.getElementById('breakdownStats');
+                breakdownStats.innerHTML = data.service_charge_breakdown ? `
+                    <div class="p-3 bg-blue-50 rounded-lg">
+                        <p class="text-xs text-gray-500">Total Service Charge</p>
+                        <p class="text-lg font-semibold">£${data.service_charge_breakdown.total.toFixed(2)}</p>
+                    </div>
+                    ${data.service_charge_breakdown.categories.slice(0, 3).map(cat => `
+                        <div class="p-3 bg-${cat.name === 'Maintenance' ? 'green' : cat.name === 'Utilities' ? 'yellow' : 'red'}-50 rounded-lg">
+                            <p class="text-xs text-gray-500">${cat.name}</p>
+                            <p class="text-lg font-semibold">£${cat.amount.toFixed(2)}</p>
+                        </div>
+                    `).join('')}
+                ` : '<p class="text-sm text-gray-600">No breakdown data available.</p>';
+
+                const budgetGrid = document.getElementById('budgetGrid');
+                budgetGrid.innerHTML = data.budget_data ? `
+                    <div class="p-4 bg-blue-50 rounded-lg">
+                        <div class="flex items-center justify-between">
+                            <p class="text-sm text-gray-600">Total Budget</p>
+                            <div class="w-8 h-8 flex items-center justify-center"><i class="ri-wallet-3-line text-primary"></i></div>
+                        </div>
+                        <p class="text-2xl font-semibold mt-2">£${data.budget_data.total_budget.toFixed(2)}</p>
+                        <div class="flex items-center mt-2 text-xs text-green-600">
+                            <i class="ri-arrow-up-line mr-1"></i><span>${data.budget_data.variance || 'N/A'}</span>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-green-50 rounded-lg">
+                        <div class="flex items-center justify-between">
+                            <p class="text-sm text-gray-600">Spent to Date</p>
+                            <div class="w-8 h-8 flex items-center justify-center"><i class="ri-funds-line text-green-600"></i></div>
+                        </div>
+                        <p class="text-2xl font-semibold">£${data.budget_data.spent_to_date.toFixed(2)}</p>
+                        <div class="flex items-center mt-2 text-xs text-gray-600">
+                            <span>${((data.budget_data.spent_to_date / data.budget_data.total_budget) * 100).toFixed(1)}% of budget</span>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-yellow-50 rounded-lg">
+                        <div class="flex items-center justify-between">
+                            <p class="text-sm text-gray-600">Remaining</p>
+                            <div class="w-8 h-8 flex items-center justify-center"><i class="ri-coins-line text-yellow-600"></i></div>
+                        </div>
+                        <p class="text-2xl font-semibold">£${data.budget_data.remaining.toFixed(2)}</p>
+                        <div class="flex items-center mt-2 text-xs text-gray-600">
+                            <span>${((data.budget_data.remaining / data.budget_data.total_budget) * 100).toFixed(1)}% remaining</span>
+                        </div>
+                    </div>
+                ` : '<p class="text-sm text-gray-600">No budget data available.</p>';
+
+                const discrepancyAlert = document.getElementById('discrepancyAlert');
+                discrepancyAlert.innerHTML = data.discrepancies?.map(d => `
+                    <div class="p-4 bg-yellow-50 rounded-lg">
+                        <div class="flex items-start">
+                            <div class="w-6 h-6 flex items-center justify-center bg-yellow-100 rounded-full mt-0.5">
+                                <i class="ri-alert-line text-yellow-600"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm font-medium text-yellow-800">${d.title}</p>
+                                <p class="text-sm text-yellow-700 mt-1">${d.body}</p>
+                            </div>
+                        </div>
+                    </div>
+                `).join('') || '<p class="text-sm text-gray-600">No milestones found.</p>';
+
+                const complianceChecks = document.getElementById('complianceChecks');
+                if (data.compliance_checks?.status === 'unlocked') {
+                    complianceChecks.innerHTML = data.compliance_checks.details.map(check => `
+                        <div class="border border-gray-200 p-4 rounded">
+                        <div class="flex items-center mb-2">
+                            <div class="w-8 h-8 flex items-center justify-center bg-${check.color}-50 rounded-full">
+                                <i class="ri-${item.icon} text-${item.color}-600"></i>
+                            </div>
+                            <h3 class="ml-2 font-medium">${check.name}</h3>
+                        </div>
+                        <p class="text-sm text-gray-600">${check.description}</p>
+                        ${check.sub_details.map(sub => `
+                            <div class="bg-gray-50 p-3 rounded-md mt-3">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-xs">${sub.text}</span>
+                                    <span class="text-xs font-medium text-${sub.status_color}-600">${sub.status}</span>
+                                </div>
+                                <div class="progress-bar mb-3">
+                                    <div class="progress-fill bg-${sub.status_color}-600" style="width: ${sub.progress}%"></div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    `).join('');
+                } else {
+                    complianceChecks.innerHTML = '<p class="text-sm text-gray-600">Compliance checks locked. Upgrade to view.</p>';
+                }
+
+                if (data.service_charge_breakdown) {
+                    serviceChargeChart.setOption({
+                        animation: true,
+                        tooltip: { trigger: 'item', backgroundColor: 'rgba(255,255,255,0.9)', borderColor: '#e2e8f0', textStyle: { color: '#1f2937' } },
+                        legend: { orient: 'horizontal', bottom: 0, textStyle: { color: '#1f2937' } },
+                        series: [{
+                            name: 'Service Charge',
+                            type: 'pie',
+                            radius: ['40%', '70%'],
+                            avoidLabelOverlap: true,
+                            itemStyle: { borderRadius: 8, borderColor: '#fff', borderWidth: 2 },
+                            label: { show: false },
+                            emphasis: { label: { show: true, fontSize: '12', fontWeight: 'bold' } },
+                            labelLine: { show: false },
+                            data: data.service_charge_breakdown.categories.map(cat => ({
+                                value: cat.amount,
+                                name: cat.name,
+                                itemStyle: { color: cat.name === 'Maintenance' ? 'rgba(141,211,199,1)' : 
+                                            cat.name === 'Utilities' ? 'rgba(255,255,64,1)' : 
+                                            cat.name === 'Management Fees' ? 'rgba(255,99,132,1)' : 
+                                            cat.name === 'Insurance' ? 'rgba(54,162,235,1)' : 'rgba(153,102,255,1)' }
+                            }))
+                        }]
+                    });
+                }
+
+                if (data.budget_data?.monthly_data) {
+                    budgetChart.setOption({
+                        animation: true,
+                        tooltip: { trigger: 'axis', backgroundColor: 'rgba(255,255,255,0.9)', borderColor: '#e2e8f0', textStyle: { color: '#1f2937' } },
+                        legend: { data: ['Budget', 'Actual'], top: 0, textStyle: { color: '#1f2937' } },
+                        grid: { left: '3%', right: '4%', bottom: '15%', top: '15%', containLabel: true },
+                        xAxis: { 
+                            type: 'category', 
+                            data: data.budget_data.monthly_data.map(m => m.month), 
+                            axisLine: { lineStyle: { color: '#e2e8f0' } }, 
+                            axisLabel: { color: '#1f2937', rotate: 45, interval: 0 } 
+                        },
+                        yAxis: { 
+                            type: 'value', 
+                            axisLine: { show: false }, 
+                            axisLabel: { color: '#1f2937' }, 
+                            splitLine: { lineStyle: { color: '#e2e8f0' } } 
+                        },
+                        series: [
+                            {
+                                name: 'Budget',
+                                type: 'line',
+                                smooth: true,
+                                symbol: 'none',
+                                itemStyle: { color: 'rgba(54,162,235,1)' },
+                                areaStyle: { 
+                                    color: { 
+                                        type: 'linear', 
+                                        x: 0, y: 0, x2: 0, y2: 1, 
+                                        colorStops: [{ offset: 0, color: 'rgba(54,162,235,0.2)' }, { offset: 1, color: 'rgba(54,162,235,0.01)' }] 
+                                    } 
+                                },
+                                data: data.budget_data.monthly_data.map(m => m.budget)
+                            },
+                            {
+                                name: 'Actual',
+                                type: 'line',
+                                smooth: true,
+                                symbol: 'none',
+                                itemStyle: { color: 'rgba(141,211,199,1)' },
+                                areaStyle: { 
+                                    color: { 
+                                        type: 'linear', 
+                                        x: 0, y: 0, x2: 0, y2: 1, 
+                                        colorStops: [{ offset: 0, color: 'rgba(141,211,199,0.2)' }, { offset: 1, color: 'rgba(141,211,199,0.01)' }] 
+                                    } 
+                                },
+                                data: data.budget_data.monthly_data.map(m => m.actual)
+                            }
+                        ]
+                    });
+                }
+
+                if (data.year_end_vs_actual) {
+                    yearEndChart.setOption({
+                        animation: true,
+                        tooltip: { trigger: 'axis', backgroundColor: 'rgba(255,255,255,0.9)', borderColor: '#e2e8f0', textStyle: { color: '#1f2937' } },
+                        legend: { data: ['Estimated', 'Actual'], textStyle: { color: '#1f2937' }, top: 0 },
+                        grid: { left: '3%', right: '4%', bottom: '15%', top: '15%', containLabel: true },
+                        xAxis: { 
+                            type: 'category', 
+                            data: data.year_end_vs_actual.map(item => item.category), 
+                            axisLine: { lineStyle: { color: '#e2e8f0' } }, 
+                            axisLabel: { color: '#1f2937', rotate: 45, interval: 0 } 
+                        },
+                        yAxis: { 
+                            type: 'value', 
+                            axisLine: { show: false }, 
+                            axisLabel: { color: '#1f2937' }, 
+                            splitLine: { lineStyle: { color: '#e2e8f0' } } 
+                        },
+                        series: [
+                            {
+                                name: 'Estimated',
+                                type: 'bar',
+                                itemStyle: { color: 'rgba(54,162,235,1)', borderRadius: [4,4,0,0] },
+                                data: data.year_end_vs_actual.map(item => item.estimated)
+                            },
+                            {
+                                name: 'Actual',
+                                type: 'bar',
+                                itemStyle: { color: 'rgba(141,211,199,1)', borderRadius: [4,4,0,0] },
+                                data: data.year_end_vs_actual.map(item => item.actual)
+                            }
+                        ]
+                    });
+                }
+
+                window.addEventListener('resize', () => {
+                    serviceChargeChart.resize();
+                    budgetChart.resize();
+                    yearEndChart.resize();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDPR Consent Form - IntelliLease</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-white to-blue-200 min-h-screen flex items-center justify-center">
+    <div class="shadow-2xl rounded-3xl bg-white p-10 max-w-2xl w-full border border-blue-200">
+        <div class="flex items-center mb-6">
+            <span class="text-3xl mr-3">✅</span>
+            <h1 class="text-3xl font-extrabold text-blue-700 drop-shadow">GDPR Consent Form</h1>
+        </div>
+        <div class="mb-6 bg-blue-50 rounded-xl p-5 shadow-inner">
+            <p class="mb-2 text-gray-700 text-lg font-semibold flex items-center">
+                <span class="mr-2 text-xl">🔒</span> Secure Your Lease Audit with Confidence
+            </p>
+            <p class="mb-2 text-gray-600">Before we proceed, please review and consent to how we use your data.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="rounded-2xl bg-white shadow-lg p-5 flex flex-col items-center border border-blue-100">
+                <div class="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-bold mb-2 shadow">1</div>
+                <p class="font-semibold mb-2 text-blue-700">Data We Collect</p>
+                <ul class="text-gray-700 text-sm space-y-1">
+                    <li>✅ Uploaded leases and billing documents</li>
+                    <li>✅ Your name, email, and address</li>
+                    <li>✅ Usage data (to improve services)</li>
+                </ul>
+            </div>
+            <div class="rounded-2xl bg-white shadow-lg p-5 flex flex-col items-center border border-blue-100">
+                <div class="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-bold mb-2 shadow">2</div>
+                <p class="font-semibold mb-2 text-blue-700">How We Use It</p>
+                <ul class="text-gray-700 text-sm space-y-1">
+                    <li>Provide AI-powered analysis and lease comparisons</li>
+                    <li>Generate RTM notices or audit reports</li>
+                    <li>Securely store your reports for future access</li>
+                    <li>Never sell or share your data without consent</li>
+                </ul>
+            </div>
+            <div class="rounded-2xl bg-white shadow-lg p-5 flex flex-col items-center border border-blue-100">
+                <div class="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-bold mb-2 shadow">3</div>
+                <p class="font-semibold mb-2 text-blue-700">Your Rights</p>
+                <ul class="text-gray-700 text-sm space-y-1">
+                    <li>Access, correct, or delete your data at any time</li>
+                    <li>Withdraw consent at any time from your dashboard</li>
+                    <li>Request a full data export</li>
+                </ul>
+            </div>
+        </div>
+        <form action="{{ url_for('accept_terms') }}" method="post" id="gdpr-form" class="mt-6">
+            <div class="bg-blue-50 rounded-xl p-6 shadow-inner mb-6">
+                <p class="font-bold text-blue-700 mb-4 flex items-center"><span class="mr-2 text-xl">📎</span>Consent Checkboxes:</p>
+                <div class="space-y-4">
+                    <label class="flex items-start space-x-3">
+                        <input type="checkbox" name="consent_data_processing" id="consent_data_processing" required class="mt-1 accent-blue-600 w-5 h-5 rounded">
+                        <span class="text-gray-700 text-base">I consent to IntelliLease processing my personal and property data for lease analysis.</span>
+                    </label>
+                    <label class="flex items-start space-x-3">
+                        <input type="checkbox" name="consent_ai_cloud" id="consent_ai_cloud" required class="mt-1 accent-blue-600 w-5 h-5 rounded">
+                        <span class="text-gray-700 text-base">I understand my data may be shared with secure AI and cloud providers for processing.</span>
+                    </label>
+                    <label class="flex items-start space-x-3">
+                        <input type="checkbox" name="consent_privacy_terms" id="consent_privacy_terms" required class="mt-1 accent-blue-600 w-5 h-5 rounded">
+                        <span class="text-gray-700 text-base">
+                            I agree to the 
+                            <a href="{{ url_for('privacy') }}" class="text-blue-600 underline font-semibold" target="_blank">Privacy Policy</a>
+                            and 
+                            <a href="{{ url_for('termz') }}" class="text-blue-600 underline font-semibold" target="_blank">Terms of Use</a>.
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-blue-400 hover:from-blue-700 hover:to-blue-500 text-white font-bold py-3 px-4 rounded-2xl text-lg shadow-lg transition-all duration-200">
+                Start My IntelliLease Journey &rarr;
+            </button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('gdpr-form').onsubmit = function() {
+            const c1 = document.getElementById('consent_data_processing').checked;
+            const c2 = document.getElementById('consent_ai_cloud').checked;
+            const c3 = document.getElementById('consent_privacy_terms').checked;
+            return c1 && c2 && c3;
+        };
+    </script>
+</body>
+</html>

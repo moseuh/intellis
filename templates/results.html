@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results | IntelliLease</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: '#4f46e5', secondary: '#6366f1' },
+                    borderRadius: { 'button': '8px' }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f9fafb; }
+        .analysis-card { transition: all 0.3s ease; }
+        .analysis-card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+    </style>
+</head>
+<body>
+    <header class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-primary">IntelliLease</h1>
+        </div>
+    </header>
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-gray-900">Leasehold Analysis Results</h1>
+        <p class="mt-2 text-gray-600">Below is the comprehensive analysis of your leasehold document.</p>
+        <div class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded shadow-sm p-6 mb-6">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Analysis Categories</h2>
+                    {% for category, items in analysis.items() %}
+                        <div class="border border-{{ 'green' if category == 'positive_elements' else 'red' if category == 'concerning_clauses' else 'orange' if category == 'recommended_removals' else 'yellow' if category == 'lease_extension_opportunities' else 'gray' if category == 'missing_elements' else 'blue' }}-200 rounded-lg mb-4 analysis-card overflow-hidden">
+                            <div class="bg-{{ 'green' if category == 'positive_elements' else 'red' if category == 'concerning_clauses' else 'orange' if category == 'recommended_removals' else 'yellow' if category == 'lease_extension_opportunities' else 'gray' if category == 'missing_elements' else 'blue' }}-50 px-6 py-4 flex justify-between items-center cursor-pointer" onclick="toggleSection('{{ category }}')">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 flex items-center justify-center rounded-full bg-{{ 'green' if category == 'positive_elements' else 'red' if category == 'concerning_clauses' else 'orange' if category == 'recommended_removals' else 'yellow' if category == 'lease_extension_opportunities' else 'gray' if category == 'missing_elements' else 'blue' }}-100 text-{{ 'green' if category == 'positive_elements' else 'red' if category == 'concerning_clauses' else 'orange' if category == 'recommended_removals' else 'yellow' if category == 'lease_extension_opportunities' else 'gray' if category == 'missing_elements' else 'blue' }}-600 mr-3">
+                                        <i class="ri-{{ 'check-line' if category == 'positive_elements' else 'close-line' if category == 'concerning_clauses' else 'delete-bin-line' if category == 'recommended_removals' else 'exchange-line' if category == 'lease_extension_opportunities' else 'file-warning-line' if category == 'missing_elements' else 'shield-star-line' }}"></i>
+                                    </div>
+                                    <h3 class="font-medium text-gray-800">{{ category.replace('_', ' ').title() }}</h3>
+                                </div>
+                                <i class="ri-arrow-down-s-line text-gray-500" id="{{ category }}-icon"></i>
+                            </div>
+                            <div class="px-6 py-4 hidden" id="{{ category }}-content">
+                                <ul class="space-y-3">
+                                    {% for item in items %}
+                                        <li class="flex items-start">
+                                            <div class="w-6 h-6 flex items-center justify-center rounded-full bg-{{ 'green' if category == 'positive_elements' else 'red' if category == 'concerning_clauses' else 'orange' if category == 'recommended_removals' else 'yellow' if category == 'lease_extension_opportunities' else 'gray' if category == 'missing_elements' else 'blue' }}-100 text-{{ 'green' if category == 'positive_elements' else 'red' if category == 'concerning_clauses' else 'orange' if category == 'recommended_removals' else 'yellow' if category == 'lease_extension_opportunities' else 'gray' if category == 'missing_elements' else 'blue' }}-600 mr-3 mt-0.5">
+                                                <i class="ri-{{ 'check-line' if category == 'positive_elements' else 'close-line' if category == 'concerning_clauses' else 'delete-bin-line' if category == 'recommended_removals' else 'exchange-line' if category == 'lease_extension_opportunities' else 'add-line' if category == 'missing_elements' else 'shield-star-line' }} text-sm"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="font-medium text-gray-800">{{ item.title }}</h4>
+                                                <p class="text-sm text-gray-600">{{ item.description }}</p>
+                                                {% if item.reference %}
+                                                    <p class="text-xs text-gray-500 mt-1">{{ item.reference }}</p>
+                                                {% endif %}
+                                                {% if item.clause_text %}
+                                                    <div class="mt-2 p-3 bg-gray-50 border border-gray-100 rounded text-sm">
+                                                        <p class="text-gray-600 italic">"{{ item.clause_text }}"</p>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded shadow-sm p-6 sticky top-6">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Priority Action Items</h2>
+                    <ul class="space-y-3">
+                        {% for category, items in analysis.items() if category in ['concerning_clauses', 'recommended_removals', 'lease_extension_opportunities'] %}
+                            {% for item in items %}
+                                <li class="flex items-start">
+                                    <input type="checkbox" class="mr-3 mt-1" style="width: 1.25rem; height: 1.25rem; border: 2px solid #d1d5db; border-radius: 4px;">
+                                    <label class="text-gray-700">{{ item.title }}</label>
+                                </li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        function toggleSection(sectionId) {
+            const content = document.getElementById(`${sectionId}-content`);
+            const icon = document.getElementById(`${sectionId}-icon`);
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.remove('ri-arrow-down-s-line');
+                icon.classList.add('ri-arrow-up-s-line');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('ri-arrow-up-s-line');
+                icon.classList.add('ri-arrow-down-s-line');
+            }
+        }
+    </script>
+</body>
+</html>

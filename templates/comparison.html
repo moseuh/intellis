@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional lease extension document comparison tool. Compare terms, analyze changes, and get expert insights on ground rent, service charges, and legal compliance.">
+    <meta name="keywords" content="lease extension comparison, leasehold analysis, property lease terms, lease document analysis, lease extension calculator, ground rent comparison, service charge analysis">
+    <meta name="author" content="IntelliLease">
+    <meta property="og:title" content="Lease Extension Document Comparison Tool | IntelliLease">
+    <meta property="og:description" content="Professional lease extension document comparison tool. Compare terms, analyze changes, and get expert insights on ground rent, service charges, and legal compliance.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="IntelliLease">
+    <meta property="og:image" content="https://intellilease.com/images/comparison-tool-preview.jpg">
+    <meta property="og:url" content="https://intellilease.com/compare-lease">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Lease Extension Document Comparison Tool | IntelliLease">
+    <meta name="twitter:description" content="Professional lease extension document comparison tool. Compare terms, analyze changes, and get expert insights on ground rent, service charges, and legal compliance.">
+    <meta name="twitter:image" content="https://intellilease.com/images/comparison-tool-preview.jpg">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta name="google" content="notranslate">
+    <link rel="canonical" href="https://intellilease.com/compare-lease">
+    <title>Lease Extension Document Comparison Tool | IntelliLease</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#64748b'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body { font-family: 'Inter', sans-serif; background-color: #f9fafb; }
+        input[type="file"] { display: none; }
+        .upload-area { border: 2px dashed #e5e7eb; transition: all 0.3s ease; }
+        .upload-area:hover { border-color: #3b82f6; background-color: rgba(59, 130, 246, 0.05); }
+        .progress-bar { height: 4px; background-color: #e5e7eb; border-radius: 2px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background-color: #3b82f6; border-radius: 2px; transition: width 0.3s ease; }
+        .diff-removed { background-color: rgba(239, 68, 68, 0.15); text-decoration: line-through; color: #ef4444; }
+        .diff-added { background-color: rgba(34, 197, 94, 0.15); color: #16a34a; }
+        .diff-modified { background-color: rgba(234, 179, 8, 0.15); color: #ca8a04; }
+        .document-viewer { font-family: 'Courier New', monospace; white-space: pre-wrap; line-height: 1.5; }
+        .risk-low { background-color: rgba(34, 197, 94, 0.15); color: #16a34a; }
+        .risk-medium { background-color: rgba(234, 179, 8, 0.15); color: #ca8a04; }
+        .risk-high { background-color: rgba(239, 68, 68, 0.15); color: #ef4444; }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none; appearance: none; width: 18px; height: 18px;
+            background: #3b82f6; border-radius: 50%; cursor: pointer;
+        }
+        .custom-checkbox {
+            width: 18px; height: 18px; border: 2px solid #d1d5db; border-radius: 4px;
+            position: relative; cursor: pointer; transition: all 0.2s ease;
+        }
+        .custom-checkbox.checked { background-color: #3b82f6; border-color: #3b82f6; }
+        .custom-checkbox.checked::after {
+            content: ''; position: absolute; left: 5px; top: 2px; width: 5px; height: 10px;
+            border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg);
+        }
+        .cta-button {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .cta-primary {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+        .document-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .document-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="w-full bg-white shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <h1 class="text-3xl font-['Outfit'] font-bold text-primary tracking-tight">IntelliLease</h1>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="/" class="text-gray-700 hover:text-primary font-medium">Home</a>
+                <a href="#" class="text-gray-700 hover:text-primary font-medium">Features</a>
+                <a href="/pricing" class="text-gray-700 hover:text-primary font-medium">Pricing</a>
+                <a href="/about" class="text-gray-700 hover:text-primary font-medium">About Us</a>
+                <a href="/contact" class="text-gray-700 hover:text-primary font-medium">Contact</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <a href="/upload" class="text-gray-700 hover:text-primary font-medium">Upload</a>
+                <a href="/profile" class="text-gray-700 hover:text-primary font-medium">Profile</a>
+                <a href="/logout" class="text-gray-700 hover:text-primary font-medium">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content with Sidebar -->
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white shadow-md h-screen fixed">
+            <nav class="mt-10 px-4">
+                <a href="/dashboard" class="flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded-lg mb-2">
+                    <i class="ri-dashboard-line ri-lg mr-2"></i>
+                    Dashboard
+                </a>
+                <a href="/account-settings" class="flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded-lg mb-2">
+                    <i class="ri-settings-3-line ri-lg mr-2"></i>
+                    Account Settings
+                </a>
+                <a href="/properties" class="flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded-lg mb-2">
+                    <i class="ri-home-4-line ri-lg mr-2"></i>
+                    Properties
+                </a>
+                <a href="/upload" class="flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded-lg mb-2">
+                    <i class="ri-file-text-line ri-lg mr-2"></i>
+                    Analyse Leasehold
+                </a>
+                <a href="/compare-leaseholds" class="flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded-lg mb-2">
+                    <i class="ri-file-copy-2-line ri-lg mr-2"></i>
+                    Compare Leaseholds
+                </a>
+                <a href="/analyze-service-charges" class="flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded-lg mb-2">
+                    <i class="ri-money-dollar-circle-line ri-lg mr-2"></i>
+                    Analyse Service Charges
+                </a>
+                <a href="/help" class="flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded-lg mb-2">
+                    <i class="ri-question-line ri-lg mr-2"></i>
+                    Help
+                </a>
+                <a href="/chat" class="flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded-lg mb-2">
+                    <i class="ri-chat-3-line ri-lg mr-2"></i>
+                    Chat
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="ml-64 flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <!-- Document Upload Section -->
+            <div class="mb-8">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Upload Your Lease Documents for Analysis</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Original Lease Document Upload -->
+                    <div class="bg-white rounded shadow-sm p-6">
+                        <h3 class="text-base font-medium text-gray-900 mb-4">Upload Original Lease Agreement</h3>
+                        <div class="upload-area rounded flex flex-col items-center justify-center p-8 cursor-pointer">
+                            <div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-4">
+                                <i class="ri-file-text-line ri-2x text-gray-500"></i>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2">Drag & drop your file here or</p>
+                            <label for="original-lease-upload" class="px-4 py-2 bg-primary text-white rounded-button text-sm font-medium hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary cursor-pointer whitespace-nowrap cta-button cta-primary">
+                                Browse Files
+                            </label>
+                            <input type="file" id="original-lease-upload" accept=".pdf,.doc,.docx">
+                            <p class="text-xs text-gray-500 mt-4">Supported formats: PDF, DOC, DOCX (Max: 10MB)</p>
+                        </div>
+                        <div class="mt-4 hidden" id="original-file-info">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded mr-3">
+                                        <i class="ri-file-pdf-line ri-lg text-gray-700"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-900" id="original-filename">lease_original.pdf</p>
+                                        <p class="text-xs text-gray-500" id="original-filesize">2.4 MB</p>
+                                    </div>
+                                </div>
+                                <button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-red-500 rounded-full hover:bg-gray-100" aria-label="Delete File">
+                                    <i class="ri-delete-bin-line ri-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Proposed Lease Document Upload -->
+                    <div class="bg-white rounded shadow-sm p-6">
+                        <h3 class="text-base font-medium text-gray-900 mb-4">Upload Proposed Lease Extension Agreement</h3>
+                        <div class="upload-area rounded flex flex-col items-center justify-center p-8 cursor-pointer">
+                            <div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-4">
+                                <i class="ri-file-text-line ri-2x text-gray-500"></i>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2">Drag & drop your file here or</p>
+                            <label for="proposed-lease-upload" class="px-4 py-2 bg-primary text-white rounded-button text-sm font-medium hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary cursor-pointer whitespace-nowrap cta-button cta-primary">
+                                Browse Files
+                            </label>
+                            <input type="file" id="proposed-lease-upload" accept=".pdf,.doc,.docx">
+                            <p class="text-xs text-gray-500 mt-4">Supported formats: PDF, DOC, DOCX (Max: 10MB)</p>
+                        </div>
+                        <div class="mt-4 hidden" id="proposed-file-info">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded mr-3">
+                                        <i class="ri-file-pdf-line ri-lg text-gray-700"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-900" id="proposed-filename">lease_proposed.pdf</p>
+                                        <p class="text-xs text-gray-500" id="proposed-filesize">2.6 MB</p>
+                                    </div>
+                                </div>
+                                <button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-red-500 rounded-full hover:bg-gray-100" aria-label="Delete File">
+                                    <i class="ri-delete-bin-line ri-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Document Preview & Comparison Area -->
+            <div class="mb-8">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-semibold text-gray-900">Comprehensive Document Comparison Analysis</h2>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                            <span class="text-xs text-gray-600">Removed</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                            <span class="text-xs text-gray-600">Added</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                            <span class="text-xs text-gray-600">Modified</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded shadow-sm p-6">
+                    <div class="flex space-x-4 mb-4">
+                        <button id="start-comparison" class="px-4 py-2 bg-primary text-white rounded-button text-sm font-medium hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary whitespace-nowrap cta-button cta-primary">
+                            <i class="ri-play-line ri-lg mr-1"></i>
+                            Start Comparison
+                        </button>
+                        <button class="px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-button text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary whitespace-nowrap">
+                            <i class="ri-eye-line ri-lg mr-1"></i>
+                            View Mode
+                        </button>
+                        <button class="px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-button text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary whitespace-nowrap">
+                            <i class="ri-search-line ri-lg mr-1"></i>
+                            Find
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Original Document Preview -->
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="text-sm font-medium text-gray-900">Original Lease</h3>
+                                <div class="flex items-center space-x-2">
+                                    <button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-primary rounded-full hover:bg-gray-100">
+                                        <i class="ri-zoom-in-line ri-lg"></i>
+                                    </button>
+                                    <button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-primary rounded-full hover:bg-gray-100">
+                                        <i class="ri-zoom-out-line ri-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="border border-gray-200 rounded h-96 overflow-y-auto p-4 bg-gray-50">
+                                <div class="document-viewer text-sm text-gray-800" id="original-document-viewer">
+                                    <!-- Populated dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Proposed Document Preview -->
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="text-sm font-medium text-gray-900">Proposed Lease</h3>
+                                <div class="flex items-center space-x-2">
+                                    <button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-primary rounded-full hover:bg-gray-100">
+                                        <i class="ri-zoom-in-line ri-lg"></i>
+                                    </button>
+                                    <button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-primary rounded-full hover:bg-gray-100">
+                                        <i class="ri-zoom-out-line ri-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="border border-gray-200 rounded h-96 overflow-y-auto p-4 bg-gray-50">
+                                <div class="document-viewer text-sm text-gray-800" id="proposed-document-viewer">
+                                    <!-- Populated dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Analysis Dashboard -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Summary Panel -->
+                <div class="bg-white rounded shadow-sm p-6">
+                    <h3 class="text-base font-medium text-gray-900 mb-4">Detailed Comparison Summary & Analysis</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">Total Differences</span>
+                            <span class="text-sm font-medium text-gray-900" id="total-differences">0</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">Added Clauses</span>
+                            <span class="text-sm font-medium text-green-600" id="added-clauses">0</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">Removed Clauses</span>
+                            <span class="text-sm font-medium text-red-600" id="removed-clauses">0</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">Modified Clauses</span>
+                            <span class="text-sm font-medium text-yellow-600" id="modified-clauses">0</span>
+                        </div>
+                        <div class="border-t border-gray-200 pt-4">
+                            <h4 class="text-sm font-medium text-gray-900 mb-2">Risk Assessment</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-600">Overall Risk</span>
+                                    <span class="px-2 py-1 text-xs font-medium rounded" id="overall-risk">N/A</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-600">Financial Impact</span>
+                                    <span class="px-2 py-1 text-xs font-medium rounded" id="financial-impact">N/A</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-600">Legal Compliance</span>
+                                    <span class="px-2 py-1 text-xs font-medium rounded" id="legal-compliance">N/A</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Regulatory Compliance Checker -->
+                <div class="bg-white rounded shadow-sm p-6">
+                    <h3 class="text-base font-medium text-gray-900 mb-4">Legal & Regulatory Compliance Analysis</h3>
+                    <div class="space-y-4" id="compliance-checks">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+                <!-- Market Intelligence Panel -->
+                <div class="bg-white rounded shadow-sm p-6">
+                    <h3 class="text-base font-medium text-gray-900 mb-4">Market Intelligence & Benchmarking Analysis</h3>
+                    <div class="h-48 mb-4" id="chart-container"></div>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">Local Average Premium</span>
+                            <span class="text-sm font-medium text-gray-900" id="local-avg-premium">£0</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">Your Proposed Premium</span>
+                            <span class="text-sm font-medium text-red-600" id="proposed-premium">£0</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">Typical Extension Length</span>
+                            <span class="text-sm font-medium text-gray-900" id="extension-length">0 years</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Key Issues & Recommendations -->
+            <div class="bg-white rounded shadow-sm p-6 mb-8">
+                <h3 class="text-base font-medium text-gray-900 mb-4">Critical Issues & Expert Recommendations</h3>
+                <div class="space-y-4" id="recommendations">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+            <!-- Settings and Preferences -->
+            
+        </main>
+    </div>
+
+    <!-- Legal Disclaimer -->
+    <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8 mx-4 sm:mx-6 lg:mx-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex items-start">
+                <div class="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-full bg-blue-100 mr-4">
+                    <i class="ri-information-line ri-lg text-blue-600"></i>
+                </div>
+                <div>
+                    <h3 class="text-base font-medium text-gray-900 mb-2">Important Legal Disclaimer</h3>
+                    <p class="text-sm text-gray-600 mb-4">This analysis is provided as a guide to help you engage more effectively with legal professionals and your landlord. While we strive to provide accurate and up-to-date information:</p>
+                    <ul class="text-sm text-gray-600 space-y-2 mb-4">
+                        <li class="flex items-start">
+                            <i class="ri-checkbox-circle-line text-blue-600 mt-0.5 mr-2"></i>
+                            <span>This report is not a substitute for professional legal advice</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-checkbox-circle-line text-blue-600 mt-0.5 mr-2"></i>
+                            <span>All final decisions should be made in consultation with your legal advisor</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-checkbox-circle-line text-blue-600 mt-0.5 mr-2"></i>
+                            <span>The information provided is intended to help you have more informed discussions with your lawyer and landlord</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-checkbox-circle-line text-blue-600 mt-0.5 mr-2"></i>
+                            <span>Market conditions and legal requirements may vary by location and circumstances</span>
+                        </li>
+                    </ul>
+                    <p class="text-sm text-gray-600">We recommend using this analysis as a starting point for discussions with your legal advisor to ensure your interests are fully protected.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-2xl font-['Outfit'] font-bold text-white mb-4 tracking-tight">IntelliLease</h3>
+                    <p class="text-gray-400 mb-6">Empowering UK leaseholders with intelligent document analysis and comparison tools.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <span class="w-8 h-8 flex items-center justify-center">
+                                <i class="ri-twitter-x-line ri-lg"></i>
+                            </span>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <span class="w-8 h-8 flex items-center justify-center">
+                                <i class="ri-linkedin-box-line ri-lg"></i>
+                            </span>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <span class="w-8 h-8 flex items-center justify-center">
+                                <i class="ri-facebook-box-line ri-lg"></i>
+                            </span>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <span class="w-8 h-8 flex items-center justify-center">
+                                <i class="ri-instagram-line ri-lg"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Features</a></li>
+                        <li><a href="/pricing" class="text-gray-400 hover:text-white">Pricing</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Leasehold Guide</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Support</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Legal Resources</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact Us</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <span class="w-5 h-5 flex items-center justify-center text-gray-400 mt-0.5 mr-2">
+                                <i class="ri-map-pin-line"></i>
+                            </span>
+                            <span class="text-gray-400">123 Property Lane, London, UK</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-5 h-5 flex items-center justify-center text-gray-400 mt-0.5 mr-2">
+                                <i class="ri-mail-line"></i>
+                            </span>
+                            <span class="text-gray-400">info@intellilease.co.uk</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-5 h-5 flex items-center justify-center text-gray-400 mt-0.5 mr-2">
+                                <i class="ri-phone-line"></i>
+                            </span>
+                            <span class="text-gray-400">+44 20 1234 5678</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2025 IntelliLease. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white text-sm">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm">Terms of Service</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Structured data for SEO
+            const structuredData = {
+                "@context": "https://schema.org",
+                "@type": "SoftwareApplication",
+                "name": "IntelliLease Document Comparison Tool",
+                "applicationCategory": "BusinessApplication",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "GBP"
+                },
+                "description": "Professional lease extension document comparison tool with AI-powered analysis and expert recommendations",
+                "operatingSystem": "Web-based",
+                "aggregateRating": {
+                    "@type": "AggregateRating",
+                    "ratingValue": "4.8",
+                    "ratingCount": "256"
+                }
+            };
+            const script = document.createElement('script');
+            script.type = 'application/ld+json';
+            script.text = JSON.stringify(structuredData);
+            document.head.appendChild(script);
+
+            // Source info popup functionality
+            window.toggleSourceInfo = function(id) {
+                const sourceElement = document.getElementById(`source-${id}`);
+                if (sourceElement.classList.contains('translate-x-full')) {
+                    sourceElement.classList.remove('translate-x-full');
+                    sourceElement.classList.remove('hidden');
+                } else {
+                    sourceElement.classList.add('translate-x-full');
+                    setTimeout(() => {
+                        sourceElement.classList.add('hidden');
+                    }, 300);
+                }
+            };
+
+            // Close source info when clicking outside
+            document.addEventListener('click', function(event) {
+                const sourceInfos = document.querySelectorAll('[id^="source-"]');
+                sourceInfos.forEach(sourceInfo => {
+                    const isClickInside = sourceInfo.contains(event.target);
+                    const isClickOnButton = event.target.closest('button[onclick^="toggleSourceInfo"]');
+                    if (!isClickInside && !isClickOnButton && !sourceInfo.classList.contains('hidden')) {
+                        toggleSourceInfo(sourceInfo.id.replace('source-', ''));
+                    }
+                });
+            });
+
+            // Initialize chart
+            const chartDom = document.getElementById('chart-container');
+            const myChart = echarts.init(chartDom);
+            const option = {
+                animation: false,
+                tooltip: {
+                    trigger: 'axis',
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    borderColor: '#e5e7eb',
+                    borderWidth: 1,
+                    textStyle: { color: '#1f2937' }
+                },
+                legend: { data: ['Local Average', 'Your Proposal'], bottom: 0 },
+                grid: { left: '3%', right: '4%', bottom: '15%', top: '10%', containLabel: true },
+                xAxis: {
+                    type: 'category',
+                    data: ['Premium', 'Extension', 'Ground Rent'],
+                    axisLine: { lineStyle: { color: '#e5e7eb' } },
+                    axisLabel: { color: '#6b7280' }
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine: { show: false },
+                    axisLabel: { color: '#6b7280' },
+                    splitLine: { lineStyle: { color: '#e5e7eb' } }
+                },
+                series: [
+                    { name: 'Local Average', type: 'bar', data: [100, 100, 100], itemStyle: { color: 'rgba(87, 181, 231, 1)', borderRadius: 4 } },
+                    { name: 'Your Proposal', type: 'bar', data: [123, 78, 140], itemStyle: { color: 'rgba(252, 141, 98, 1)', borderRadius: 4 } }
+                ]
+            };
+            myChart.setOption(option);
+
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                myChart.resize();
+            });
+
+            // Custom checkbox functionality
+            const checkboxes = document.querySelectorAll('[data-checkbox]');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('click', function() {
+                    const isChecked = this.getAttribute('data-checkbox') === 'true';
+                    if (isChecked) {
+                        this.classList.remove('checked');
+                        this.setAttribute('data-checkbox', 'false');
+                    } else {
+                        this.classList.add('checked');
+                        this.setAttribute('data-checkbox', 'true');
+                    }
+                });
+            });
+
+            // File upload handling
+            const originalInput = document.getElementById('original-lease-upload');
+            const proposedInput = document.getElementById('proposed-lease-upload');
+            const startComparisonBtn = document.getElementById('start-comparison');
+
+            originalInput.addEventListener('change', handleFileSelect('original'));
+            proposedInput.addEventListener('change', handleFileSelect('proposed'));
+
+            function handleFileSelect(type) {
+                return function(event) {
+                    const file = event.target.files[0];
+                    if (!file) return;
+                    const fileInfo = document.getElementById(`${type}-file-info`);
+                    const filename = document.getElementById(`${type}-filename`);
+                    const filesize = document.getElementById(`${type}-filesize`);
+                    filename.textContent = file.name;
+                    filesize.textContent = `${(file.size / 1024 / 1024).toFixed(2)} MB`;
+                    fileInfo.classList.remove('hidden');
+                    document.querySelector(`#${type}-lease-upload`).parentElement.classList.add('hidden');
+                };
+            }
+
+            startComparisonBtn.addEventListener('click', async () => {
+                const originalFile = originalInput.files[0];
+                const proposedFile = proposedInput.files[0];
+                if (!originalFile || !proposedFile) {
+                    alert('Please upload both documents');
+                    return;
+                }
+
+                const formData = new FormData();
+                formData.append('original_lease', originalFile);
+                formData.append('proposed_lease', proposedFile);
+
+                try {
+                    const response = await fetch('/compare', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const result = await response.json();
+                    if (response.ok) {
+                        updateComparisonUI(result);
+                    } else {
+                        alert(result.error || 'Comparison failed');
+                    }
+                } catch (error) {
+                    console.error('Comparison error:', error);
+                    alert('An error occurred during comparison');
+                }
+            });
+
+            function updateComparisonUI(result) {
+                // Update summary panel
+                document.getElementById('total-differences').textContent = result.total_differences;
+                document.getElementById('added-clauses').textContent = result.added_clauses;
+                document.getElementById('removed-clauses').textContent = result.removed_clauses;
+                document.getElementById('modified-clauses').textContent = result.modified_clauses;
+
+                // Update risk assessment
+                document.getElementById('overall-risk').textContent = result.risk_assessment.overall_risk;
+                document.getElementById('overall-risk').className = `px-2 py-1 text-xs font-medium rounded risk-${result.risk_assessment.overall_risk.toLowerCase()}`;
+                document.getElementById('financial-impact').textContent = result.risk_assessment.financial_impact;
+                document.getElementById('financial-impact').className = `px-2 py-1 text-xs font-medium rounded risk-${result.risk_assessment.financial_impact.toLowerCase()}`;
+                document.getElementById('legal-compliance').textContent = result.risk_assessment.legal_compliance;
+                document.getElementById('legal-compliance').className = `px-2 py-1 text-xs font-medium rounded risk-${result.risk_assessment.legal_compliance.toLowerCase()}`;
+
+                // Update document previews
+                const originalViewer = document.getElementById('original-document-viewer');
+                const proposedViewer = document.getElementById('proposed-document-viewer');
+                originalViewer.innerHTML = result.clause_changes.unchanged.concat(result.clause_changes.removed).map(line => 
+                    `<p class="mb-3 ${result.clause_changes.removed.includes(line) ? 'diff-removed' : ''}">${line}</p>`
+                ).join('\n');
+                proposedViewer.innerHTML = result.clause_changes.unchanged.concat(result.clause_changes.added, result.clause_changes.modified).map(line => 
+                    `<p class="mb-3 ${result.clause_changes.added.includes(line) ? 'diff-added' : result.clause_changes.modified.includes(line) ? 'diff-modified' : ''}">${line}</p>`
+                ).join('\n');
+
+                // Update compliance checks
+                const complianceChecks = document.getElementById('compliance-checks');
+                complianceChecks.innerHTML = result.compliance_checks.map(check => 
+                    `<div class="flex items-center justify-between">
+                        <div class="text-sm flex items-center">
+                            <div class="w-8 h-8 flex items-center justify-center rounded-full bg-${check.status === 'Compliant' ? 'green' : check.status === 'Warning' ? 'yellow' : 'red'}-100 mr-3">
+                                <i class="${check.icon} ri-lg text-${check.status === 'Compliant' ? 'green' : check.status === 'Warning' ? 'yellow' : 'red'}-600"></i>
+                            </div>
+                            <span>${check.name}</span>
+                        </div>
+                        <button class="toggle-source-info w-8 h-8 flex items-center justify-center text-gray-500 rounded-full hover:bg-gray-100" onclick="toggleSourceInfo('${check.name.replace(/\s+/g, '-')}')">
+                            <i class="ri-information-line ri-lg"></i>
+                        </button>
+                    </div>
+                    <div id="source-${check.name.replace(/\s+/g, '-')}" class="hidden fixed right-0 top-0 h-full bg-white shadow-lg p-6 transform translate-x-full transition-transform">
+                        <h4 class="text-sm font-medium text-gray-900 mb-2">${check.name}</h4>
+                        <p class="text-sm text-gray-600">Status: ${check.status}</p>
+                    </div>`
+                ).join('');
+
+                // Update recommendations
+                const recommendations = document.getElementById('recommendations');
+                recommendations.innerHTML = `
+                    <div class="space-y-4">
+                        <h4 class="text-sm font-medium text-gray-900">Missing Modern Leasehold Provisions</h4>
+                        ${result.missing_provisions.map(rec => `
+                            <div class="p-4 border border-blue-200 rounded bg-blue-50">
+                                <div class="flex items-start">
+                                    <div class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 mr-3 mt-0.5 flex-shrink-0">
+                                        <i class="ri-lightbulb-line ri-lg text-blue-600"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="text-sm font-medium text-gray-900" role="heading" aria-level="5">${rec.title}</h5>
+                                        <p class="text-sm text-gray-600">${rec.description}</p>
+                                        <p class="text-sm text-gray-600 mt-1"><strong>Recommendation:</strong> ${rec.recommendation}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                        <h4 class="text-sm font-medium text-gray-900 mt-6">Positive Improvements in New Lease</h4>
+                        ${result.positive_improvements.map(rec => `
+                            <div class="p-4 border border-green-200 rounded bg-green-50">
+                                <div class="flex items-start">
+                                    <div class="w-8 h-8 flex items-center justify-center rounded-full bg-green-100 mr-3 mt-0.5 flex-shrink-0">
+                                        <i class="ri-checkbox-circle-line ri-lg text-green-600"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="text-sm font-medium text-gray-900" role="heading" aria-level="5">${rec.title}</h5>
+                                        <p class="text-sm text-gray-600">${rec.description}</p>
+                                        <p class="text-sm text-gray-600 mt-1"><strong>Value Added:</strong> ${rec.value_added}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                        <h4 class="text-sm font-medium text-gray-900 mt-6">Areas for Negotiation</h4>
+                        ${result.negotiation_areas.map(rec => `
+                            <div class="p-4 border border-yellow-200 rounded bg-yellow-50">
+                                <div class="flex items-start">
+                                    <div class="w-8 h-8 flex items-center justify-center rounded-full bg-yellow-100 mr-3 mt-0.5 flex-shrink-0">
+                                        <i class="ri-alert-line ri-lg text-yellow-600"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="text-sm font-medium text-gray-900" role="heading" aria-level="5">${rec.title}</h5>
+                                        <p class="text-sm text-gray-600">${rec.description}</p>
+                                        <p class="text-sm text-gray-600 mt-1"><strong>${rec.recommendation ? 'Recommendation' : 'Benefit'}:</strong> ${rec.recommendation || rec.benefit}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+
+                // Update market intelligence
+                document.getElementById('local-avg-premium').textContent = result.market_benchmarks.local_avg_premium;
+                document.getElementById('proposed-premium').textContent = result.market_benchmarks.proposed_premium;
+                document.getElementById('extension-length').textContent = result.market_benchmarks.extension_length;
+
+                // Update chart
+                myChart.setOption({
+                    series: [
+                        {
+                            name: 'Local Average',
+                            data: [
+                                parseFloat(result.market_benchmarks.local_avg_premium.replace('£', '').replace(',', '')) / 1000,
+                                100,
+                                100
+                            ]
+                        },
+                        {
+                            name: 'Your Proposal',
+                            data: [
+                                parseFloat(result.market_benchmarks.proposed_premium.replace('£', '').replace(',', '')) / 1000,
+                                parseInt(result.market_benchmarks.extension_length),
+                                140
+                            ]
+                        }
+                    ]
+                });
+            }
+        });
+    </script>

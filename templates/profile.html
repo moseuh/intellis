@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - IntelliLease</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#9333ea',
+                        secondary: '#64748b'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .cta-button {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .cta-primary {
+            background: linear-gradient(135deg, #9333ea, #6b21a8);
+        }
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.3);
+        }
+        .document-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .document-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar {
+            background-color: #f9fafb;
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar h2 {
+            color: #9333ea;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+        .sidebar ul li a {
+            display: flex;
+            align-items: center;
+            color: #374151;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: background-color 0.3s;
+        }
+        .sidebar ul li a:hover {
+            background-color: #e5e7eb;
+            color: #9333ea;
+        }
+        .sidebar ul li a i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h2>IntelliLease</h2>
+        <ul>
+            <li><a href="/dashboard"><i class="ri-dashboard-line"></i> Dashboard</a></li>
+            <li><a href="/account-settings"><i class="ri-settings-2-line"></i> Account Settings</a></li>
+            <li><a href="/properties"><i class="ri-home-2-line"></i> Properties</a></li>
+            <li><a href="/analyse-leasehold"><i class="ri-file-text-line"></i> Analyse Leasehold</a></li>
+            <li><a href="/compare-leaseholds"><i class="ri-file-copy-line"></i> Compare Leaseholds</a></li>
+            <li><a href="/analyse-service-charges"><i class="ri-money-pound-circle-line"></i> Analyse Service Charges</a></li>
+            <li><a href="/help"><i class="ri-question-line"></i> Help</a></li>
+            <li><a href="/chat"><i class="ri-chat-1-line"></i> Chat</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content with Adjusted Margin -->
+    <div class="ml-64">
+        <!-- Header -->
+        <header class="w-full bg-white shadow-sm">
+            <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+                <div class="flex items-center">
+                    <h1 class="text-3xl font-['Outfit'] font-bold text-primary tracking-tight">IntelliLease</h1>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="/" class="text-gray-700 hover:text-primary font-medium">Home</a>
+                    <a href="#" class="text-gray-700 hover:text-primary font-medium">Features</a>
+                    <a href="/pricing" class="text-gray-700 hover:text-primary font-medium">Pricing</a>
+                    <a href="/about" class="text-gray-700 hover:text-primary font-medium">About Us</a>
+                    <a href="/contact" class="text-gray-700 hover:text-primary font-medium">Contact</a>
+                </nav>
+                <div class="flex items-center space-x-4">
+                    <a href="{{ url_for('upload_page') }}" class="text-gray-700 hover:text-primary font-medium">Upload</a>
+                    <a href="{{ url_for('profile') }}" class="text-gray-700 hover:text-primary font-medium">Profile</a>
+                    <a href="{{ url_for('logout') }}" class="text-gray-700 hover:text-primary font-medium">Logout</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Profile Section with Sidebar -->
+        <section class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Sidebar: Uploaded Documents -->
+                    <div class="lg:col-span-1">
+                        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+                            <h3 class="text-xl font-bold text-gray-900 mb-4">Uploaded Documents</h3>
+                            {% if documents %}
+                                <div class="space-y-4">
+                                    {% for doc in documents %}
+                                        <div class="document-card bg-white p-4 rounded-lg border border-gray-200 hover:border-primary">
+                                            <div class="flex items-center space-x-3">
+                                                <span class="w-8 h-8 flex items-center justify-center text-gray-400">
+                                                    <i class="ri-file-text-line ri-lg"></i>
+                                                </span>
+                                                <div>
+                                                    <p class="text-gray-700 font-medium">{{ doc.filename }}</p>
+                                                    <p class="text-sm text-gray-500">Uploaded: {{ doc.upload_date }}</p>
+                                                    <p class="text-sm text-gray-500">Type: {{ 'Scanned' if doc.is_scanned else 'Text-based' }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <p class="text-gray-600 text-center">No documents uploaded yet.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Main Content: User Profile -->
+                    <div class="lg:col-span-2">
+                        <div class="bg-white p-8 rounded-lg shadow-md border border-gray-100">
+                            <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">{{ user.username }}'s Profile</h2>
+                            {% with messages = get_flashed_messages(with_categories=true) %}
+                                {% if messages %}
+                                    {% for category, message in messages %}
+                                        <div class="mb-4 p-4 rounded-lg {% if category == 'error' %}bg-red-100 text-red-700{% else %}bg-green-100 text-green-700{% endif %}">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endwith %}
+                            <div class="mb-6">
+                                <p class="text-lg text-gray-700 mb-2"><strong>Email:</strong> {{ user.email }}</p>
+                                <p class="text-lg text-gray-700 mb-2"><strong>Username:</strong> {{ user.username }}</p>
+                                <p class="text-lg text-gray-700 mb-2"><strong>Phone:</strong> {{ user.phone }}</p>
+                            </div>
+                            <!-- Subscription Section -->
+                            <div class="mt-8">
+                                <h3 class="text-xl font-bold text-gray-900 mb-4">Subscription Details</h3>
+                                {% if user.subscription.plan %}
+                                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                        <p class="text-lg text-gray-700 mb-2"><strong>Plan:</strong> {{ user.subscription.plan }}</p>
+                                        <p class="text-lg text-gray-700 mb-2"><strong>Status:</strong> {{ user.subscription.status | capitalize }}</p>
+                                        <p class="text-lg text-gray-700 mb-2"><strong>Start Date:</strong> {{ user.subscription.start_date or 'N/A' }}</p>
+                                        <p class="text-lg text-gray-700 mb-2"><strong>Expiry Date:</strong> {{ user.subscription.expiry_date or 'N/A' }}</p>
+                                        <a href="{{ url_for('pricing') }}" class="mt-4 inline-block bg-primary text-white px-4 py-2 !rounded-button cta-button cta-primary font-medium">Manage Subscription</a>
+                                    </div>
+                                {% else %}
+                                    <p class="text-gray-600 mb-4">No active subscription.</p>
+                                    <a href="{{ url_for('pricing') }}" class="inline-block bg-primary text-white px-4 py-2 !rounded-button cta-button cta-primary font-medium">Choose a Plan</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white py-12">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div>
+                        <h3 class="text-2xl font-['Outfit'] font-bold text-white mb-4 tracking-tight">IntelliLease</h3>
+                        <p class="text-gray-400 mb-6">Empowering UK leaseholders with intelligent document analysis and comparison tools.</p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-gray-400 hover:text-white">
+                                <span class="w-8 h-8 flex items-center justify-center">
+                                    <i class="ri-twitter-x-line ri-lg"></i>
+                                </span>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-white">
+                                <span class="w-8 h-8 flex items-center justify-center">
+                                    <i class="ri-linkedin-box-line ri-lg"></i>
+                                </span>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-white">
+                                <span class="w-8 h-8 flex items-center justify-center">
+                                    <i class="ri-facebook-box-line ri-lg"></i>
+                                </span>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-white">
+                                <span class="w-8 h-8 flex items-center justify-center">
+                                    <i class="ri-instagram-line ri-lg"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                        <ul class="space-y-2">
+                            <li><a href="/" class="text-gray-400 hover:text-white">Home</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">Features</a></li>
+                            <li><a href="/pricing" class="text-gray-400 hover:text-white">Pricing</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Resources</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-white">Leasehold Guide</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">Support</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">Legal Resources</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Contact Us</h4>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <span class="w-5 h-5 flex items-center justify-center text-gray-400 mt-0.5 mr-2">
+                                    <i class="ri-map-pin-line"></i>
+                                </span>
+                                <span class="text-gray-400">123 Property Lane, London, UK</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-5 h-5 flex items-center justify-center text-gray-400 mt-0.5 mr-2">
+                                    <i class="ri-mail-line"></i>
+                                </span>
+                                <span class="text-gray-400">info@intellilease.co.uk</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-5 h-5 flex items-center justify-center text-gray-400 mt-0.5 mr-2">
+                                    <i class="ri-phone-line"></i>
+                                </span>
+                                <span class="text-gray-400">+44 20 1234 5678</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2025 IntelliLease. All rights reserved.</p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-white text-sm">Privacy Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-white text-sm">Terms of Service</a>
+                        <a href="#" class="text-gray-400 hover:text-white text-sm">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

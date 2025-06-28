@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About IntelliLease - Bringing Transparency to Leasehold Management</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e40af',
+                        secondary: '#64748b'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -25px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #1e40af;
+            border: 3px solid white;
+            box-shadow: 0 0 0 1px #1e40af;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -18px;
+            top: 16px;
+            bottom: -16px;
+            width: 2px;
+            background-color: #e2e8f0;
+        }
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        .sidebar {
+            background-color: #f9fafb;
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar h2 {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+        .sidebar ul li a {
+            display: flex;
+            align-items: center;
+            color: #374151;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: background-color 0.3s;
+        }
+        .sidebar ul li a:hover {
+            background-color: #e5e7eb;
+            color: #1e40af;
+        }
+        .sidebar ul li a i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h2>IntelliLease</h2>
+        <ul>
+            <li><a href="/dashboard"><i class="ri-dashboard-line"></i> Dashboard</a></li>
+            <li><a href="/account-settings"><i class="ri-settings-2-line"></i> Account Settings</a></li>
+            <li><a href="/properties"><i class="ri-home-2-line"></i> Properties</a></li>
+            <li><a href="/analyse-leasehold"><i class="ri-file-text-line"></i> Analyse Leasehold</a></li>
+            <li><a href="/compare"><i class="ri-file-copy-line"></i> Compare Leaseholds</a></li>
+            <li><a href="/analyse-service-charges"><i class="ri-money-pound-circle-line"></i> Analyse Service Charges</a></li>
+            <li><a href="/help"><i class="ri-question-line"></i> Help</a></li>
+            <li><a href="/chat"><i class="ri-chat-1-line"></i> Chat</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content with Adjusted Margin -->
+    <div class="ml-64">
+        <!-- Navigation -->
+        <nav class="bg-white shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex items-center">
+                        <a href="#" class="font-['Outfit'] font-bold text-primary text-2xl tracking-tight">IntelliLease</a>
+                    </div>
+                    <nav class="hidden md:flex space-x-8">
+                        <a href="/" class="text-gray-700 hover:text-primary font-medium">Home</a>
+                        <a href="#" class="text-gray-700 hover:text-primary font-medium">Features</a>
+                        <a href="/pricing" class="text-gray-700 hover:text-primary font-medium">Pricing</a>
+                        <a href="/about" class="text-gray-700 hover:text-primary font-medium">About Us</a>
+                        <a href="/contact" class="text-gray-700 hover:text-primary font-medium">Contact</a>
+                    </nav>
+                    <div class="flex items-center md:hidden">
+                        <button class="w-10 h-10 flex items-center justify-center text-gray-500">
+                            <i class="ri-menu-line ri-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- Hero Section -->
+        <section class="relative">
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://readdy.ai/api/search-image?query=Modern%20UK%20residential%20apartment%20buildings%20with%20glass%20facades%2C%20clean%20architectural%20lines%2C%20bright%20and%20airy%20atmosphere%2C%20subtle%20transparency%20concept%20visualization%2C%20professional%20real%20estate%20photography%20style%2C%20soft%20morning%20light%2C%20minimal%20people%2C%20blue%20sky%20with%20light%20clouds%2C%20high-end%20property%20development&width=1920&height=600&seq=hero1&orientation=landscape'); opacity: 0.15;"></div>
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+                <div class="max-w-3xl">
+                    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Bringing Transparency to Leasehold Management</h1>
+                    <p class="text-xl text-gray-700 mb-8">We're on a mission to empower UK leaseholders through technology, making lease management transparent and fair for every homeowner.</p>
+                    <a href="#mission" class="inline-flex items-center px-6 py-3 bg-primary text-white font-medium shadow-sm hover:bg-primary/90 transition-colors !rounded-button whitespace-nowrap">
+                        Our Mission
+                        <i class="ri-arrow-right-line ri-lg ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- Mission Statement Section -->
+        <section id="mission" class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Mission</h2>
+                    <p class="max-w-3xl mx-auto text-lg text-gray-600">IntelliLease was created by leaseholders, for leaseholders. We understand the challenges you face because we've faced them too. Our platform gives you the knowledge, tools, and support needed to protect your property rights and make informed decisions about your leasehold home.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-sm">
+                        <div class="w-16 h-16 flex items-center justify-center bg-blue-100 text-primary rounded-full mb-6">
+                            <i class="ri-shield-check-line ri-2x"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Your Rights First</h3>
+                        <p class="text-gray-600">We demystify complex leasehold laws and regulations, ensuring you fully understand your rights. Our platform alerts you to changes in legislation that could affect your property value and ownership rights.</p>
+                    </div>
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-sm">
+                        <div class="w-16 h-16 flex items-center justify-center bg-blue-100 text-primary rounded-full mb-6">
+                            <i class="ri-funds-line ri-2x"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Cost Control</h3>
+                        <p class="text-gray-600">Our advanced calculators help you challenge unfair charges, understand true lease extension costs, and plan for future expenses. We put the power back in your hands to manage and question your leasehold costs.</p>
+                    </div>
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-sm">
+                        <div class="w-16 h-16 flex items-center justify-center bg-blue-100 text-primary rounded-full mb-6">
+                            <i class="ri-team-line ri-2x"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Leaseholder Network</h3>
+                        <p class="text-gray-600">Join our community of leaseholders to share experiences, get advice, and unite for better rights. Together, we're stronger in challenging unfair practices and securing better terms for our homes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Problem & Solution Section -->
+        <section class="py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">The Leasehold Challenge</h2>
+                        <div class="space-y-6">
+                            <div class="flex">
+                                <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-red-100 text-red-500 rounded-full">
+                                    <i class="ri-error-warning-line ri-lg"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-medium text-gray-900">Lack of Transparency</h3>
+                                    <p class="mt-1 text-gray-600">4.5 million UK households struggle with opaque leasehold terms and hidden costs.</p>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-red-100 text-red-500 rounded-full">
+                                    <i class="ri-file-list-3-line ri-lg"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-medium text-gray-900">Complex Documentation</h3>
+                                    <p class="mt-1 text-gray-600">68% of leaseholders report difficulty understanding their lease obligations and rights.</p>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-red-100 text-red-500 rounded-full">
+                                    <i class="ri-money-pound-circle-line ri-lg"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-medium text-gray-900">Unexpected Costs</h3>
+                                    <p class="mt-1 text-gray-600">The average leaseholder faces £1,100 in surprise charges annually due to poor communication.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">The IntelliLease Solution</h2>
+                        <div class="space-y-6">
+                            <div class="flex">
+                                <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-green-100 text-green-500 rounded-full">
+                                    <i class="ri-check-line ri-lg"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-medium text-gray-900">Digital Transparency</h3>
+                                    <p class="mt-1 text-gray-600">Our platform provides clear visibility into all leasehold transactions and communications between parties.</p>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-green-100 text-green-500 rounded-full">
+                                    <i class="ri-check-line ri-lg"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-medium text-gray-900">Simplified Management</h3>
+                                    <p class="mt-1 text-gray-600">Intuitive tools that make complex leasehold management accessible to all stakeholders.</p>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-green-100 text-green-500 rounded-full">
+                                    <i class="ri-check-line ri-lg"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-medium text-gray-900">Cost Forecasting</h3>
+                                    <p class="mt-1 text-gray-600">Advanced tools to predict and plan for future leasehold costs, eliminating surprises.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Founder's Story Section -->
+        <section class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Founder's Journey</h2>
+                    <p class="max-w-3xl mx-auto text-lg text-gray-600">The story behind IntelliLease is deeply personal, rooted in real experiences navigating the UK leasehold system.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
+                    <div class="md:col-span-1">
+                        <div class="rounded-lg overflow-hidden shadow-sm">
+                            <img src="/static/images/founders.png" alt="Founder of IntelliLease" class="w-full h-auto object-cover">
+                        </div>
+                    </div>
+                    <div class="md:col-span-2">
+                        <div class="space-y-8 pl-8 relative">
+                            <div class="relative timeline-item">
+                                <h3 class="text-xl font-semibold text-gray-900 mb-2">1997: First Leasehold Purchase</h3>
+                                <p class="text-gray-600">Like many Londoners, I purchased my first leasehold flat with excitement, only to discover the complexities and hidden costs that came with it. Service charge increases of 15% year-on-year with little explanation left me frustrated and searching for answers.</p>
+                            </div>
+                            <div class="relative timeline-item">
+                                <h3 class="text-xl font-semibold text-gray-900 mb-2">2007: Second Leasehold Purchase</h3>
+                                <p class="text-gray-600">My second leasehold purchase brought new challenges. When the building faced significant structural repairs, leaseholders were presented with an unexpected £12,000 bill each. The lack of prior communication and transparency in how these costs were calculated created tension and distrust between residents and management.</p>
+                            </div>
+                            <div class="relative timeline-item">
+                                <h3 class="text-xl font-semibold text-gray-900 mb-2">2018: Joining the RTM Board</h3>
+                                <p class="text-gray-600">Determined to improve the situation, I joined our building's Right to Manage board. Over the past five years, I gained insider knowledge of property management challenges, including the disconnect between stakeholders and the inefficiencies in traditional management systems.</p>
+                            </div>
+                            <div class="relative timeline-item">
+                                <h3 class="text-xl font-semibold text-gray-900 mb-2">2025: The Birth of IntelliLease</h3>
+                                <p class="text-gray-600">Drawing on my experiences as both a leaseholder and RTM board member, I founded IntelliLease with a clear mission: to create technology that brings transparency, efficiency, and trust to the leasehold sector. What started as a personal frustration has evolved into a solution that benefits all stakeholders.</p>
+                            </div>
+                        </div>
+                        <div class="mt-10 p-6 bg-blue-50 rounded-lg border-l-4 border-primary">
+                            <p class="text-lg italic text-gray-700">"After experiencing the frustrations of leasehold ownership firsthand, I became convinced that technology could bridge the information gap and create a more transparent system for everyone involved. IntelliLease isn't just a business—it's a solution to a problem I've lived with for decades."</p>
+                            <p class="mt-4 font-medium text-gray-900">IntelliLease Team</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Vision & Future Section -->
+        <section class="py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Vision for the Future</h2>
+                    <p class="max-w-3xl mx-auto text-lg text-gray-600">IntelliLease is just beginning its journey to transform the UK leasehold sector. Our roadmap includes innovative solutions to address every aspect of leasehold management.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+                        <div class="w-12 h-12 flex items-center justify-center bg-blue-100 text-primary rounded-full mb-6">
+                            <i class="ri-check-double-line ri-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Current Solutions</h3>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="ri-arrow-right-s-line ri-lg text-primary mt-0.5 mr-2"></i>
+                                <span>Leasehold Extension Calculator & Guide</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ri-arrow-right-s-line ri-lg text-primary mt-0.5 mr-2"></i>
+                                <span>Regulatory Updates Dashboard</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ri-arrow-right-s-line ri-lg text-primary mt-0.5 mr-2"></i>
+                                <span>Legal Rights Transparency Tools</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ri-arrow-right-s-line ri-lg text-primary mt-0.5 mr-2"></i>
+                                <span>Market Value Assessment Tools</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ri-arrow-right-s-line ri-lg text-primary mt-0.5 mr-2"></i>
+                                <span>Negotiation Progress Tracker</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+                        <div class="w-12 h-12 flex items-center justify-center bg-blue-100 text-primary rounded-full mb-6">
+                            <i class="ri-rocket-line ri-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Coming Soon</h3>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="ri-arrow-right-s-line ri-lg text-primary mt-0.5 mr-2"></i>
+                                <span>AI-Powered Legal Term Analysis</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ri-arrow-right-s-line ri-lg text-primary mt-0.5 mr-2"></i>
+                                <span>Automated Valuation Models</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ri-arrow-right-s-line ri-lg text-primary mt-0.5 mr-2"></i>
+                                <span>Reform Impact Calculator</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ri-arrow-right-s-line ri-lg text-primary mt-0.5 mr-2"></i>
+                                <span>Legal Precedent Database</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ri-arrow-right-s-line ri-lg text-primary mt-0.5 mr-2"></i>
+                                <span>Solicitor Performance Metrics</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+                        <div class="w-12 h-12 flex items-center justify-center bg-blue-100 text-primary rounded-full mb-6">
+                            <i class="ri-eye-line ri-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Future Vision</h3>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="ri-arrow-right-s-line ri-lg text-primary mt-0.5 mr-2"></i>
+                                <span>Predictive Reform Analysis</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ri-arrow-right-s-line ri-lg text-primary mt-0.5 mr-2"></i>
+                                <span>Automated Negotiation Platform</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ri-arrow-right-s-line ri-lg text-primary mt-0.5 mr-2"></i>
+                                <span>Real-time Legislative Updates</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ri-arrow-right-s-line ri-lg text-primary mt-0.5 mr-2"></i>
+                                <span>Community Legal Knowledge Base</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ri-arrow-right-s-line ri-lg text-primary mt-0.5 mr-2"></i>
+                                <span>Reform Advocacy Network</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Trust Indicators Section -->
+        <section class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Trusted by Leaseholders Across the UK</h2>
+                    <p class="max-w-3xl mx-auto text-lg text-gray-600">Our solutions are making a real difference in the leasehold sector, bringing clarity and efficiency to all parties involved.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-gray-50 p-8 rounded-lg">
+                        <div class="flex items-center mb-6">
+                            <div class="flex text-yellow-400">
+                                <i class="ri-star-fill ri-lg"></i>
+                                <i class="ri-star-fill ri-lg"></i>
+                                <i class="ri-star-fill ri-lg"></i>
+                                <i class="ri-star-fill ri-lg"></i>
+                                <i class="ri-star-fill ri-lg"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 italic mb-6">"Thanks to IntelliLease, I successfully challenged an unfair service charge increase and saved £3,000. The platform gave me the knowledge and confidence to stand up for my rights as a leaseholder. Their lease extension calculator also helped me understand the true cost of extending my lease."</p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-white">
+                                <i class="ri-user-line ri-lg"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-medium text-gray-900">Sarah Mitchell</h4>
+                                <p class="text-sm text-gray-600">Leaseholder, Canary Wharf</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-8 rounded-lg">
+                        <div class="flex items-center mb-6">
+                            <div class="flex text-yellow-400">
+                                <i class="ri-star-fill ri-lg"></i>
+                                <i class="ri-star-fill ri-lg"></i>
+                                <i class="ri-star-fill ri-lg"></i>
+                                <i class="ri-star-fill ri-lg"></i>
+                                <i class="ri-star-fill ri-lg"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 italic mb-6">"When our building faced major repairs, IntelliLease helped us form a successful Right to Manage company. Their step-by-step guidance and community support made a complex process manageable. We're now in control of our building's future."</p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-white">
+                                <i class="ri-user-line ri-lg"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-medium text-gray-900">James Chen</h4>
+                                <p class="text-sm text-gray-600">Leaseholder & RTM Director</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-16">
+                    <h3 class="text-xl font-semibold text-gray-900 text-center mb-8">Industry Affiliations</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        <div class="flex flex-col items-center">
+                            <div class="w-16 h-16 flex items-center justify-center">
+                                <i class="ri-building-4-line ri-2x text-gray-400"></i>
+                            </div>
+                            <p class="mt-2 text-sm text-gray-600 text-center">Royal Institution of Chartered Surveyors</p>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="w-16 h-16 flex items-center justify-center">
+                                <i class="ri-home-gear-line ri-2x text-gray-400"></i>
+                            </div>
+                            <p class="mt-2 text-sm text-gray-600 text-center">Association of Residential Managing Agents</p>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="w-16 h-16 flex items-center justify-center">
+                                <i class="ri-shield-check-line ri-2x text-gray-400"></i>
+                            </div>
+                            <p class="mt-2 text-sm text-gray-600 text-center">Leasehold Knowledge Partnership</p>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="w-16 h-16 flex items-center justify-center">
+                                <i class="ri-government-line ri-2x text-gray-400"></i>
+                            </div>
+                            <p class="mt-2 text-sm text-gray-600 text-center">UK Proptech Association</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Call-to-Action Section -->
+        <section class="py-16 bg-primary bg-opacity-5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-900 mb-4">Take Control of Your Leasehold Property</h2>
+                        <p class="text-lg text-gray-600 mb-8">Join thousands of empowered leaseholders who are using IntelliLease to protect their rights, manage costs, and make informed decisions about their homes. Your property journey starts here.</p>
+                        <div class="space-y-4">
+                            <a href="#" class="inline-block px-6 py-3 bg-primary text-white font-medium shadow-sm hover:bg-primary/90 transition-colors !rounded-button whitespace-nowrap">
+                                Explore Our Solutions
+                            </a>
+                            <a href="#" class="inline-block px-6 py-3 bg-white text-primary font-medium shadow-sm border border-primary hover:bg-gray-50 transition-colors ml-4 !rounded-button whitespace-nowrap">
+                                Contact Us
+                            </a>
+                        </div>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Stay Updated</h3>
+                        <p class="text-gray-600 mb-6">Subscribe to our newsletter for the latest updates on leasehold legislation, our product developments, and industry insights.</p>
+                        <form class="space-y-4">
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                                <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="your@email.com">
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                    <div class="relative inline-block w-10 h-6 cursor-pointer">
+                                        <input type="checkbox" id="consent" class="sr-only">
+                                        <div class="block bg-gray-300 w-10 h-6 rounded-full"></div>
+                                        <div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition"></div>
+                                    </div>
+                                </div>
+                                <div class="ml-3">
+                                    <label for="consent" class="text-sm text-gray-600">I agree to receive email updates from IntelliLease</label>
+                                </div>
+                            </div>
+                            <button type="submit" class="w-full px-6 py-3 bg-primary text-white font-medium shadow-sm hover:bg-primary/90 transition-colors !rounded-button whitespace-nowrap">
+                                Subscribe
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div class="col-span-1 md:col-span-1">
+                        <a href="#" class="font-['Outfit'] font-bold text-white text-2xl tracking-tight">IntelliLease</a>
+                        <p class="mt-4 text-gray-400">Bringing transparency to leasehold management across the UK.</p>
+                        <div class="mt-6 flex space-x-4">
+                            <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-800 hover:bg-primary transition-colors">
+                                <i class="ri-linkedin-fill ri-sm"></i>
+                            </a>
+                            <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-800 hover:bg-primary transition-colors">
+                                <i class="ri-twitter-x-fill ri-sm"></i>
+                            </a>
+                            <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-800 hover:bg-primary transition-colors">
+                                <i class="ri-facebook-fill ri-sm"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-medium mb-4">Solutions</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Lease Extension Guide</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Cost Calculator</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Rights & Regulations</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Community Forum</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-medium mb-4">Company</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Careers</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-medium mb-4">Contact</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <i class="ri-map-pin-line ri-lg mt-1 mr-2 text-gray-400"></i>
+                                <span class="text-gray-400">123 Canary Wharf, London, E14 5AB</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ri-mail-line ri-lg mt-1 mr-2 text-gray-400"></i>
+                                <span class="text-gray-400">info@intellilease.co.uk</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ri-phone-line ri-lg mt-1 mr-2 text-gray-400"></i>
+                                <span class="text-gray-400">+44 20 7123 4567</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-12 pt-8 border-t border-gray-800">
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <p class="text-gray-400 text-sm">© 2025 IntelliLease - A Product by The GoodTechCo Ltd. All rights reserved.</p>
+                        <div class="mt-4 md:mt-0 flex space-x-6">
+                            <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
+                            <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</a>
+                            <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Cookie Policy</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script id="toggle-switch">
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleSwitch = document.getElementById('consent');
+            const dot = document.querySelector('.dot');
+            toggleSwitch.addEventListener('change', function() {
+                if (this.checked) {
+                    dot.classList.add('translate-x-4', 'bg-white');
+                    dot.parentElement.querySelector('.block').classList.remove('bg-gray-300');
+                    dot.parentElement.querySelector('.block').classList.add('bg-primary');
+                } else {
+                    dot.classList.remove('translate-x-4');
+                    dot.parentElement.querySelector('.block').classList.add('bg-gray-300');
+                    dot.parentElement.querySelector('.block').classList.remove('bg-primary');
+                }
+            });
+        });
+    </script>
+    <script>
+        !function (t, e) { var o, n, p, r; e.__SV || (window.posthog = e, e._i = [], e.init = function (i, s, a) { function g(t, e) { var o = e.split("."); 2 == o.length && (t = t[o[0]], e = o[1]), t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } } (p = t.createElement("script")).type = "text/javascript", p.crossOrigin = "anonymous", p.async = !0, p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js", (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r); var u = e; for (void 0 !== a ? u = e[a] = [] : a = "posthog", u.people = u.people || [], u.toString = function (t) { var e = "posthog"; return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e }, u.people.toString = function () { return u.toString(1) + ".people (stub)" }, o = "init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "), n = 0; n < o.length; n++)g(u, o[n]); e._i.push([i, s, a]) }, e.__SV = 1) }(document, window.posthog || []);
+        posthog.init('phc_t9tkQZJiyi2ps9zUYm8TDsL6qXo4YmZx0Ot5rBlAlEd', {
+            api_host: 'https://us.i.posthog.com',
+            autocapture: false,
+            capture_pageview: false,
+            capture_pageleave: false,
+            capture_performance: {
+                web_vitals: false,
+            },
+            rageclick: false,
+        })
+        window.shareKey = 'qo5Z9AvJnRuXh9LZI3T-Mw';
+        window.host = 'readdy.ai';
+    </script>
+</body>
+</html>

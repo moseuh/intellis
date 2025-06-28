@@ -1,0 +1,23 @@
+Flask
+Flask-Session
+Werkzeug
+stripe
+pandas
+PyMuPDF
+python-dotenv
+openai
+tiktoken
+pytesseract
+Pillow
+email-validator
+gunicorn
+# For OCR if using Tesseract
+pytesseract
+# For PDF text extraction
+PyPDF2
+# For sending emails
+smtplib
+# For HTML email composition
+email
+# For phone input validation (frontend only, not needed in requirements.txt)
+# intl-tel-input (JS/CSS library, not Python)

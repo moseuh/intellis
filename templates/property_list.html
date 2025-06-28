@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Properties</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-5xl mx-auto p-6">
+        <h1 class="text-3xl font-bold mb-6">Your Properties</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="mb-4 p-4 rounded-lg {% if category == 'success' %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %}">
+                        <div class="flex items-center">
+                            <i class="{% if category == 'success' %}ri-checkbox-circle-line{% else %}ri-error-warning-line{% endif %} mr-2"></i>
+                            <span>{{ message }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% if properties %}
+            <div class="space-y-4">
+                {% for prop in properties %}
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <h2 class="text-xl font-semibold">{{ prop.address1 }}, {{ prop.postcode }}</h2>
+                        <p class="text-gray-600">Property Type: {{ prop['property-type'] or 'N/A' }}</p>
+                        <p class="text-gray-600">Bedrooms: {{ prop.bedrooms or 'N/A' }}</p>
+                        <p class="text-gray-600">Purchase Price: £{{ prop['purchase-price'] or 'N/A' }}</p>
+                        {% if prop.issues %}
+                            <h3 class="text-lg font-medium mt-4">Issues</h3>
+                            <ul class="list-disc pl-5">
+                                {% for issue in prop.issues %}
+                                    <li>{{ issue.description }} (Status: {{ issue.status }})</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        {% if prop.repairs %}
+                            <h3 class="text-lg font-medium mt-4">Repairs</h3>
+                            <ul class="list-disc pl-5">
+                                {% for repair in prop.repairs %}
+                                    <li>{{ repair.description }} (Cost: {{ repair.cost }})</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        {% if prop.documents %}
+                            <h3 class="text-lg font-medium mt-4">Documents</h3>
+                            <ul class="list-disc pl-5">
+                                {% for doc in prop.documents %}
+                                    <li>{{ doc.document_type }} (Reference: {{ doc.reference }})</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-gray-600">No properties found.</p>
+        {% endif %}
+        <a href="{{ url_for('properties_page') }}" class="mt-6 inline-block px-6 py-3 bg-blue-600 text-white rounded-lg">Add New Property</a>
+    </div>
+</body>
+</html>
